@@ -4,7 +4,8 @@ import {USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAILED,
   USER_REGISTER_REQUEST,USER_REGISTER_SUCCESS,USER_REGISTER_FAILED,
   PROFILE_USER_SUCCESS,PROFILE_USER_REQUEST,PROFILE_USER_FAILED,
   USER_LOGOUT,ORDER_DELETE_REQUEST, ORDER_DELETE_FAILED, ORDER_DELETE_SUCCESS,
-  EDIT_PROFILE_REQUEST,EDIT_PROFILE_SUCCESS,EDIT_PROFILE_FAILED} from '../constants/userConstants';
+  EDIT_PROFILE_REQUEST,EDIT_PROFILE_SUCCESS,EDIT_PROFILE_FAILED,
+  CHANGE_PASSWORD_REQUEST,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILED} from '../constants/userConstants';
 
 const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
@@ -64,6 +65,22 @@ const editProfile = ({userId ,name , phoneNumber ,country}) => async (dispatch,g
   }
 }
 
+const changePassword = (password) => async (dispatch,getState) => {
+  try{
+    const { userSignin: {userInfo}} = getState();
+    dispatch({ type: CHANGE_PASSWORD_REQUEST, payload:password});
+    const {data} = await axios.put("/api/users", {password},{
+      headers:{
+        Authorization: 'Bearer ' + userInfo.token
+      }
+    })
+    dispatch({type:CHANGE_PASSWORD_SUCCESS, payload: data});
+  }catch(error){
+    dispatch({type:CHANGE_PASSWORD_FAILED, payload:error.message})
+  }
+}
+
+
 const deleteOrder = (productId) => async (dispatch, getState) => {
   try {
     const { userSignin: { userInfo } } = getState();
@@ -81,4 +98,5 @@ const deleteOrder = (productId) => async (dispatch, getState) => {
 }
 
 
-export { signin, register,logout,deleteOrder, myProfile,editProfile}
+
+export { signin, register,logout,deleteOrder, myProfile,editProfile, changePassword}

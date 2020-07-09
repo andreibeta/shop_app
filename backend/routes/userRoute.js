@@ -24,6 +24,21 @@ router.get("/",isAuth, async(req,res)=> {
   res.send(userProfile);
 });
 
+router.put("/", isAuth, async(req,res) => {
+  const userId = req.user._id;
+  const changePass = await User.findById(userId);
+  if(changePass){
+    changePass.password = req.body.password || changePass.password;
+
+    const updatedUser = await changePass.save();
+    res.send({
+      password: updatedUser.password
+    });
+  }else{
+    res.status(404).send({ message: 'User Not Found' });
+  }
+})
+
 router.put("/:id", isAuth, async(req,res)=>{
   const userId = req.params.id;
   const userProfile = await User.findById(userId);
