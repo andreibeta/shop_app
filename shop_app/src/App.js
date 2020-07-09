@@ -15,7 +15,7 @@ import MyOrdersScreen from './Screens/MyOrdersScreen';
 import {logout} from './actions/userActionsCreator';
 import { useDispatch } from 'react-redux';
 import MyProfileScreen from './Screens/MyProfileScreen';
-
+import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 
 function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
@@ -85,6 +85,7 @@ function App(props) {
         </aside>
         <main className="main">
             <div className="content">
+                <Route path="/changepassword" component={ChangePasswordScreen}/>
                 <Route path="/myprofile" component={MyProfileScreen} />
                 <Route path="/myorders" component={MyOrdersScreen} />
                 <Route path="/createproduct" component={CreateProductScreen} />
