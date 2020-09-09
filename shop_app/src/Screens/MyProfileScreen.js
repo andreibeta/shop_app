@@ -10,7 +10,7 @@ function MyProfileScreen(props) {
     const { userInfo } = userSignin;
 
     const userDetails = useSelector(state => state.myProfile);
-    const {users, loading, error} = userDetails;
+    const {user, loading, error} = userDetails;
 
     const editDetails = useSelector(state => state.editProfile);
     const {loading: loadingEdit, save, error: errorEdit} = editDetails;
@@ -23,7 +23,7 @@ function MyProfileScreen(props) {
 
     useEffect(()=>{
         return () => {
-            dispatch(myProfile(name, phoneNumber, country));
+            dispatch(myProfile({userId:userInfo._id,name, phoneNumber, country}));
             if (userInfo) {
             updateName(userInfo.name);
             updatePhoneNumber(userInfo.phoneNumber);
@@ -69,9 +69,8 @@ function MyProfileScreen(props) {
               <button type="submit" className="button primary">Update</button>
             </li> */}
                   
-        { users.map(user =>
         
-        <li key={user._id}>
+        <li>
                 <div >
                     <h2>Edit User Information</h2>
                     <li>
@@ -110,8 +109,6 @@ function MyProfileScreen(props) {
                         </li>
                   </div>
              </li>
-            )
-         } 
        </ul>
        </form>
        </div> 

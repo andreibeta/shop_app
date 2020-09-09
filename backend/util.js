@@ -31,18 +31,24 @@ const isAuth = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-  
-  //if(req.user === true && req.user.isAdmin === true){
-    //accept the request
-   if(req.user.isAdmin === true){ 
+  console.log(req.user);
+  if (req.user && req.user.isAdmin) {
     return next();
+  }
+  return res.status(401).send({ message: 'Admin Token is not valid.' });
+};
+
+const Admin = (req, res) => {
+  if(req.user && req.user.isAdmin) {
+    return true;
   }else{
-    return res.status(401).send({msg:'Admin token is not valid'});
+    return false;
   }
 }
 
 export {
   getToken,
   isAuth,
-  isAdmin
+  isAdmin,
+  Admin,
 } 

@@ -1,5 +1,5 @@
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAILED,PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILED,PRODUCT_SAVE_REQUEST,PRODUCT_SAVE_SUCCESS,PRODUCT_SAVE_FAILED
-,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED } from "../constants/productConstants";
+,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED,PRODUCT_REVIEW_SUBMIT_REQUEST,PRODUCT_REVIEW_SUBMIT_SUCCESS,PRODUCT_REVIEW_SUBMIT_FAILED } from "../constants/productConstants";
 import axios from 'axios';
 import Axios from "axios";
 import { get } from "js-cookie";
@@ -68,4 +68,24 @@ const saveProduct = (product) => async (dispatch, getState) => {
     }
   }
 
-export {productActionsCreator, detailsProduct, saveProduct, deleteProduct}
+const saveProductReview = (productId, review) => async (dispatch,getState) =>{
+  try{
+    const { userSignin: {userInfo} } = getState();
+    dispatch({type: PRODUCT_REVIEW_SUBMIT_REQUEST, payload: review});
+    const { data } = await Axios.post(
+                `/api/products/${productId}/reviews`,
+                review,
+                {
+                  headers: {
+                    Authorization: 'Bearer ' + userInfo.token
+                  }
+                });
+    dispatch({type:PRODUCT_REVIEW_SUBMIT_SUCCESS, payload: data});
+    alert("Review has been submited!");      
+  }catch(error){
+    dispatch({type: PRODUCT_REVIEW_SUBMIT_FAILED, payload: error.message});
+    alert("Something went wrong!");
+  }
+}
+
+export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview}
