@@ -16,6 +16,8 @@ import {logout} from './actions/userActionsCreator';
 import { useDispatch } from 'react-redux';
 import MyProfileScreen from './Screens/MyProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
+import MyUsersScreen from './Screens/MyUsersScreen';
+
 
 function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
@@ -64,6 +66,15 @@ function App(props) {
                     ? <Link to="/changepassword">Change password</Link>
                     : null
                 }
+                {
+                    userInfo
+                    ? userInfo.isAdmin 
+                        ? <Link to="/mylistofusers">Admin Panel</Link>
+                        : null
+                    : null
+                }
+                
+
                 {/* {
                     userInfo.isAdmin
                     ? <Link>Administration Panel</Link>
@@ -85,6 +96,7 @@ function App(props) {
         </aside>
         <main className="main">
             <div className="content">
+                <Route path ="/mylistofusers" component={MyUsersScreen} />
                 <Route path="/changepassword" component={ChangePasswordScreen}/>
                 <Route path="/myprofile" component={MyProfileScreen} />
                 <Route path="/myorders" component={MyOrdersScreen} />

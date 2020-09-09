@@ -1,6 +1,6 @@
 import express from 'express';
 import User from '../models/userModel';
-import { getToken } from '../util';
+import { getToken, isAdmin } from '../util';
 import Order from '../models/orderModel';
 import { isAuth } from '../util';
 
@@ -18,11 +18,16 @@ const router = express.Router();
 // });
 
 
-router.get("/",isAuth, async(req,res)=> {
-  const userId = req.user._id;
-  const userProfile = await User.find({_id:userId});
+router.get("/:id",isAuth, async(req,res)=> {
+  const userId = req.params.id;
+  const userProfile = await User.findOne({_id:userId});
   res.send(userProfile);
 });
+
+router.get("/",isAuth,isAdmin, async(req,res)=> {
+  const usersProfile = await User.find();
+  res.send(usersProfile);
+})
 
 router.put("/", isAuth, async(req,res) => {
   const userId = req.user._id;
@@ -31,9 +36,14 @@ router.put("/", isAuth, async(req,res) => {
     changePass.password = req.body.password || changePass.password;
 
     const updatedUser = await changePass.save();
-    res.send({
-      password: updatedUser.password
-    });
+    // res.send({
+    //   password: updatedUser.password
+    // });
+    if(updatedUser){
+      return res.status(201).send({message:'Password changed successfully', password: updatedUser.password});
+    }else{
+      return res.status(500).send({message:"Something went wrong"});
+    }
   }else{
     res.status(404).send({ message: 'User Not Found' });
   }

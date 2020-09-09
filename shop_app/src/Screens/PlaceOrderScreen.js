@@ -9,9 +9,11 @@ function PlaceOrderScreen(props) {
     console.log(cart);
     const { cartItems, shipping, payment } = cart;
     const userSignin = useSelector(state=> state.userSignin);
-    const {userInfo} = userSignin;
-    console.log("id user"+userInfo._id);
-
+    const {userInfo} = userSignin;  
+    //console.log("id user"+userInfo._id);
+    if(!userInfo){
+        props.history.push("/signin?redirect=shipping");
+    }
     // if(!shipping.address){
     //     props.history.push("/shipping");
     // }

@@ -20,6 +20,9 @@ import orderDeleteReducer from './reducers/orderDeleteReducer';
 import myProfileReducer from './reducers/myProfileReducer';
 import editProfileReducer from './reducers/editProfileReducer';
 import changePasswordReducer from './reducers/changePasswordReducer';
+import myListOfUsersReducer from './reducers/myListOfUsersReducer';
+import productReviewReducer from './reducers/productReviewReducer'
+
 
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
@@ -39,6 +42,8 @@ const rootReducer = combineReducers({
   myProfile: myProfileReducer,
   editProfile:editProfileReducer,
   changedPassword:changePasswordReducer,
+  userList: myListOfUsersReducer,
+  productReview: productReviewReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

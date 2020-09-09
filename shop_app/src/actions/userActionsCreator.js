@@ -5,7 +5,8 @@ import {USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAILED,
   PROFILE_USER_SUCCESS,PROFILE_USER_REQUEST,PROFILE_USER_FAILED,
   USER_LOGOUT,ORDER_DELETE_REQUEST, ORDER_DELETE_FAILED, ORDER_DELETE_SUCCESS,
   EDIT_PROFILE_REQUEST,EDIT_PROFILE_SUCCESS,EDIT_PROFILE_FAILED,
-  CHANGE_PASSWORD_REQUEST,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILED} from '../constants/userConstants';
+  CHANGE_PASSWORD_REQUEST,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILED,
+  USERS_LIST_REQUEST,USERS_LIST_SUCCESS,USERS_LIST_FAILED} from '../constants/userConstants';
 
 const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
@@ -33,11 +34,11 @@ const register = (name, email, password, phoneNumber, country) => async (dispatc
     dispatch({ type: USER_LOGOUT })
   }
 
-const myProfile = () => async (dispatch, getState) => {
+const myProfile = ({userId}) => async (dispatch, getState) => {
   try{
-  dispatch({type:PROFILE_USER_REQUEST});
+  dispatch({type:PROFILE_USER_REQUEST, payload:{userId}});
   const { userSignin: { userInfo } } = getState();
-  const { data } = await axios.get("/api/users",{
+  const { data } = await axios.get("/api/users/"+userId,{
     headers:{
       Authorization: 'Bearer ' + userInfo.token
     }
@@ -75,8 +76,10 @@ const changePassword = (password) => async (dispatch,getState) => {
       }
     })
     dispatch({type:CHANGE_PASSWORD_SUCCESS, payload: data});
+    alert("The password has been changed");
   }catch(error){
-    dispatch({type:CHANGE_PASSWORD_FAILED, payload:error.message})
+    dispatch({type:CHANGE_PASSWORD_FAILED, payload:error.message});
+    alert("Something went wrong");
   }
 }
 
@@ -97,6 +100,20 @@ const deleteOrder = (productId) => async (dispatch, getState) => {
   }
 }
 
+const myListOfUsers = () => async (dispatch, getState) => {
+  try{
+  dispatch({type: USERS_LIST_REQUEST});
+  const { userSignin : {userInfo} } = getState();
+  const { data } = await axios.get("/api/users",{
+    headers:
+      { Authorization: 'Bearer ' + userInfo.token }
+    });
+  dispatch({type: USERS_LIST_SUCCESS, payload: data});
+  }catch(error){
+    dispatch({type: USERS_LIST_FAILED, payload: error.message})
+  }
+}
 
 
-export { signin, register,logout,deleteOrder, myProfile,editProfile, changePassword}
+
+export { signin, register,logout,deleteOrder, myProfile,editProfile, changePassword, myListOfUsers}
