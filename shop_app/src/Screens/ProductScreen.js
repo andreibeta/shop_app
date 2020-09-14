@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { detailsProduct, saveProductReview } from '../actions/productActionsCreator';
+import { detailsProduct, saveProductReview, deleteReview } from '../actions/productActionsCreator';
 import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
 
@@ -15,6 +15,8 @@ function ProductScreen (props) {
     const { product, loading, error} =   productDetails;
     const productReview = useSelector((state) => state.productReview);
     const { success: productSaveSuccess } = productReview;
+    const reviewDelete = useSelector(state => state.reviewDelete);
+    const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,6 +36,11 @@ function ProductScreen (props) {
 
     const handleAddToCart = () => {
         props.history.push("/cart/" + props.match.params.id + "?qty=" +qty);
+    }
+    const deleteHandler = (reviewId) => {
+      dispatch(deleteReview(product._id, reviewId));
+      console.log("Product id:",product._id);
+      console.log("Review id:",reviewId);
     }
     const submitHandler = (e) => {
         e.preventDefault();
@@ -114,6 +121,10 @@ function ProductScreen (props) {
                   </div>
                   <div>{review.createdAt.substring(0, 10)}</div>
                   <div>{review.comment}</div>
+                  { userInfo.isAdmin ?
+                  <button className="button" onClick={() => deleteHandler(review._id)}>Delete</button>
+                  :<div></div>
+                  }
                 </li>
               ))}
               <li>

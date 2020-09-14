@@ -96,4 +96,17 @@ router.post('/:id/reviews', isAuth, async (req, res) => {
   }
 });
 
+//delete reviews
+router.delete('/reviews/:id',isAuth,isAdmin,async(req,res)=>{
+  const reviewId = req.params.id;
+  console.log(reviewId);
+  const deleteReview = await Product.reviews.findById(reviewId);
+  if(deleteReview){
+    await deleteReview.remove();
+    res.send({message:"Review deleted"});
+  }else{
+    res.send({message:"Error in deletion"})
+  }
+})
+
 export default router;

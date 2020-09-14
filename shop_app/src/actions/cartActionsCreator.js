@@ -35,10 +35,10 @@ const saveShipping = (data) => (dispatch) => {
 const savePayment = (data) => (dispatch) => {
     dispatch({type:cartTypes.CART_SAVE_PAYMENT, payload:data});
 }
-const placeOrder = (addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email,quantity) => async(dispatch) => {
-    dispatch({type:cartTypes.CART_PLACE_ORDER_REQUEST, payload:{ addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email,quantity}});
+const placeOrder = (addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email,id,quantity) => async(dispatch) => {
+    dispatch({type:cartTypes.CART_PLACE_ORDER_REQUEST, payload:{ addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email,id,quantity}});
     try {
-        const { data } = await Axios.post("/api/orders", {addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email});
+        const { data } = await Axios.post("/api/orders", {addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,email,id});
         dispatch({ type: cartTypes.CART_PLACE_ORDER_SUCCESS, payload: data });
         Cookie.set('userInfo', JSON.stringify(data));
         alert("The order has been successfully made");

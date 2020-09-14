@@ -19,7 +19,7 @@ function MyOrdersScreen(props) {
     //this stuff will run only when the componentDidMount
     useEffect(() => {
             //this will list the products
-            dispatch(myOrders(userInfo.email));
+            dispatch(myOrders());
             return () => {
                 // console.log(userInfo.email)
             };

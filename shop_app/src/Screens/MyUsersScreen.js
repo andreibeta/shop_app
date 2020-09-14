@@ -11,17 +11,11 @@ function MyUsersScreen(props) {
 
     const userList = useSelector(state => state.userList);
     const {users, loading, error} = userList;
-
-    const [email,setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [country, setCountry] = useState('');
-
     const dispatch = useDispatch();
 
     useEffect(()=>{
         return () => {
-            dispatch(myListOfUsers(email,name, phoneNumber, country));
+            dispatch(myListOfUsers());
         };
     },[])
 
@@ -34,13 +28,16 @@ function MyUsersScreen(props) {
       : <ul>
        { users.map(user =>
          <li key={user._id}>
-             <div >
+          { user.isAdmin === false
+          ? <div >
                   <div>Email: {user.email}</div>
                   <div>Name: {user.name}</div>
                   <div>Country: {user.country}</div>
                   <div>Phone Number: {user.phoneNumber}</div>
                   <button className="button">Delete</button> 
-               </div>
+           </div>
+           :  <div></div>
+          }
           </li>
          )
       } 
