@@ -33,7 +33,7 @@ function PlaceOrderScreen(props) {
     const paymentMethodOrder = cart.payment; 
     console.log(cart.qty);
     const placeOrderHandler = () => {
-        dispatch(placeOrder(addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,userInfo._id,0));
+        dispatch(placeOrder(addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,userInfo.email,userInfo._id,0));
     }
 
     const checkoutHandler = () => {

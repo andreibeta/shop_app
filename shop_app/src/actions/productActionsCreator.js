@@ -1,5 +1,6 @@
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAILED,PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILED,PRODUCT_SAVE_REQUEST,PRODUCT_SAVE_SUCCESS,PRODUCT_SAVE_FAILED
-,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED,PRODUCT_REVIEW_SUBMIT_REQUEST,PRODUCT_REVIEW_SUBMIT_SUCCESS,PRODUCT_REVIEW_SUBMIT_FAILED } from "../constants/productConstants";
+,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED,PRODUCT_REVIEW_SUBMIT_REQUEST,PRODUCT_REVIEW_SUBMIT_SUCCESS,PRODUCT_REVIEW_SUBMIT_FAILED,
+REVIEW_DELETE_REQUEST,REVIEW_DELETE_SUCCESS,REVIEW_DELETE_FAILED } from "../constants/productConstants";
 import axios from 'axios';
 import Axios from "axios";
 import { get } from "js-cookie";
@@ -45,6 +46,8 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
   }
 }
 
+
+
 const saveProduct = (product) => async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
@@ -88,4 +91,23 @@ const saveProductReview = (productId, review) => async (dispatch,getState) =>{
   }
 }
 
-export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview}
+const deleteReview = (productId,reviewId) => async(dispatch,getState) => {
+  try{
+    const {userSignin: {userInfo} } = getState();
+    dispatch({ type: REVIEW_DELETE_REQUEST, payload: reviewId});
+    const { data } = await axios.delete(`/api/products/${productId}/reviews/` + reviewId,
+    {
+      headers: {
+        Authorization: 'Bearer ' + userInfo.token
+      }
+    })
+    dispatch({ type: REVIEW_DELETE_SUCCESS, payload: data});
+    alert("Review has been deleted");
+    }
+  catch(error){
+    dispatch({type: REVIEW_DELETE_FAILED, payload: error.message});
+    alert("Something went wrong");
+  }
+}
+
+export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview, deleteReview}

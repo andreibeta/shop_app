@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.get("/",isAuth, async(req,res)=> {
   const userId = req.user._id;
-  const orders = await Order.find({ email: userId });
+  const orders = await Order.find({ _id: userId });
   res.send(orders);
 });
 

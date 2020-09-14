@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
   paymentMethodOrder: { type: String, required: true },
   totalPrice: { type: Number,default:0, required: true },
   email: {type: String, required: true},
+  id:{type: String, required:true},
   quantity:{type: Number, default:0, required:true},
 });
 
