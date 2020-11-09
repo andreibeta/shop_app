@@ -20,7 +20,7 @@ const router = express.Router();
 
 router.get("/:id",isAuth, async(req,res)=> {
   const userId = req.params.id;
-  const userProfile = await User.findOne({_id:userId});
+  const userProfile = await User.findOne({email:userId});
   res.send(userProfile);
 });
 

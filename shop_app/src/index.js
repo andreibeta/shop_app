@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './sass/main.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers, applyMiddleware, compose} from 'redux';   
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
   placeOrder: placeOrderReducer,
   orderDetails: myOrdersReducer,
   orderDelete: orderDeleteReducer,
-  myProfile: myProfileReducer,
+  userDetails: myProfileReducer,
   editProfile:editProfileReducer,
   changedPassword:changePasswordReducer,
   userList: myListOfUsersReducer,

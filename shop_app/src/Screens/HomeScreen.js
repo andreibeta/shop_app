@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { productActionsCreator } from '../actions/productActionsCreator';
-
+import WelcomeHome from '../components/WelcomeHome';
+import {TiShoppingCart} from 'react-icons/ti';
 
 function HomeScreen (props) {
     //here we want to define a hook
@@ -23,24 +24,27 @@ function HomeScreen (props) {
 
     return (
     loading ? <div> Loading...</div>: error ? <div>{error}</div> : 
-    <ul className="products">
+    <div className="products">
     {
       products.map(product =>
-        <li key={product._id}>
+        <div key={product._id}>
           <div className="product">
-              <img src={product.image} className="product-image"/>
-              <div className="product-name">
+              <img src={product.image} className="product__image"/>
+              <div className="product__name">
                   <Link to={'/product/'+product._id}>{product.name}</Link>
               </div>
-              <div className="product-brand">{product.brand}</div>
-              <div className="product-price">{product.price} $</div>
-              <div className="product-rating">{product.rating} Stars ({product.numReviews} reviews)</div>
+              <div className="product__brand">{product.brand}</div>
+              <div className="product__price">{product.price} $</div>
+              <div className="product__rating">{product.rating} Stars ({product.numReviews} reviews)</div>
+              <div className="product__redirect">
+                <Link to={'/product/'+product._id}>See more <TiShoppingCart className="iconShop"/></Link>
+              </div>
           </div>
-      </li> 
+      </div> 
       )
     }
       
-  </ul>
+  </div>
     )
 }
 

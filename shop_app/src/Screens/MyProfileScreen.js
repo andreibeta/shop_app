@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { myProfile, editProfile } from '../actions/userActionsCreator';
 import {useSelector, useDispatch} from 'react-redux';
-
-
+import {FaUserCircle} from 'react-icons/fa';
+import {AiOutlineUser,AiTwotonePhone} from 'react-icons/ai';
+import {MdLocationOn,MdEmail} from 'react-icons/md';
 
 function MyProfileScreen(props) {
    
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin;
 
-    const userDetails = useSelector(state => state.myProfile);
+    const userDetails = useSelector(state => state.userDetails);
     const {user, loading, error} = userDetails;
 
     const editDetails = useSelector(state => state.editProfile);
@@ -23,11 +24,14 @@ function MyProfileScreen(props) {
 
     useEffect(()=>{
         return () => {
-            dispatch(myProfile({userId:userInfo._id,name, phoneNumber, country}));
+
+        dispatch(myProfile());
             if (userInfo) {
             updateName(userInfo.name);
             updatePhoneNumber(userInfo.phoneNumber);
             updateCountry(userInfo.country);
+            }else{
+              props.history.push('/signin');
             }
         };
     },[userInfo])
@@ -38,80 +42,34 @@ function MyProfileScreen(props) {
     }
 
     return (
-        loading 
-        ? <div> Loading...</div>
-        : error ? <div>{error}</div> 
-        :<div className="form">
-        <form onSubmit={editHandler}>
-        <ul className="form-container">
-        {/* <li>
-              <label htmlFor="name">
-                Name
-          </label>
-              <input value={name} type="name" name="name" id="name" onChange={(e) => updateName(e.target.value)}>
-              </input>
-            </li>
-            <li>
-              <label htmlFor="phoneNumber">
-                PhoneNumber
-          </label>
-              <input value={phoneNumber} type="tel" name="phoneNumber" id="phoneNumber" 
-                                onChange={(e) => updatePhoneNumber(e.target.value)}>
-              </input>
-            </li>
-            <li>
-              <label htmlFor="country">Country</label>
-              <input value={country} type="country" id="country" name="country" onChange={(e) => updateCountry(e.target.value)}>
-              </input>
-            </li>
-
-            <li>
-              <button type="submit" className="button primary">Update</button>
-            </li> */}
-                  
-        
-        <li>
-                <div >
-                    <h2>Edit User Information</h2>
-                    <li>
-                    <label htmlFor="email">
-                         Email:
-                    </label>
+            <form id="myprofile" className="myprofile" onSubmit={editHandler}>
+            <div className="myprofile__content">                   
+                <FaUserCircle className="myprofile__content__icon"/>
+                 <h2>Edit User Information</h2>
+                    
+                    <p><MdEmail className="labelIcon"/>Email</p>
                     <input type="name" name="email" id="email" placeholder={userInfo.email} disabled>
                     </input>
-                    </li>
-                    <li>
-                    <label htmlFor="name">
-                         Name:
-                    </label>
+                    
+                    <p><AiOutlineUser className="labelIcon"/>Name</p>
                     <input type="name" name="name" value={name} id="name" placeholder={user.name}
                                         onChange={(event)=>updateName(event.target.value)}>
                     </input>
-                    </li>
-                    <li>
-                    <label htmlFor="phoneNumber">
-                         Phone Number:
-                    </label>
+                    
+                    <p><AiTwotonePhone className="labelIcon"/>Number</p>
                     <input type="tel" name="phoneNumber" value={phoneNumber} id="phoneNumber" placeholder={user.phoneNumber}
                                         onChange={(event)=>updatePhoneNumber(event.target.value)}>
                     </input>
-                    </li>
-                    <li>
-                    <label htmlFor="country">
-                         Country:
-                    </label>
+
+                    <p><MdLocationOn className="labelIcon" />Country</p>
                     <input type="text" name="country" id="country" value={country} placeholder={user.country}   
                                         onChange={(event)=>updateCountry(event.target.value)} >
                     </input>
-                    </li>
-                        <li>
-                        <button type="submit" className="button primary">Submit Modified Information</button>
-                        </li>
-                  </div>
-             </li>
-       </ul>
+                   
+                        <button type="submit" className="myprofile__content__button">Submit</button>
+                        <a href="#" class="myprofile__content__close">&times;</a>
+                </div>
        </form>
-       </div> 
          ) 
 }
 

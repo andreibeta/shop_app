@@ -16,8 +16,8 @@ const router = express.Router();
 //   });
 
 router.get("/",isAuth, async(req,res)=> {
-  const userId = req.user._id;
-  const orders = await Order.find({ _id: userId });
+  const userId = req.user.email;
+  const orders = await Order.find({ email: userId });
   res.send(orders);
 });
 
@@ -30,7 +30,7 @@ router.post("/", async(req, res) => {
       paymentMethodOrder:req.body.paymentMethodOrder,
       totalPrice: req.body.totalPrice,
       email: req.body.email,
-      quantity:req.body.quantity,
+      name:req.body.name,
     });
     const newOrder = await product.save();
     if(newOrder){

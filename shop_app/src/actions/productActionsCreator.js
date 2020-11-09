@@ -95,12 +95,12 @@ const deleteReview = (productId,reviewId) => async(dispatch,getState) => {
   try{
     const {userSignin: {userInfo} } = getState();
     dispatch({ type: REVIEW_DELETE_REQUEST, payload: reviewId});
-    const { data } = await axios.delete(`/api/products/${productId}/reviews/` + reviewId,
+    const { data } = await axios.delete(`/api/products/${productId}/reviews/${reviewId}`,
     {
       headers: {
         Authorization: 'Bearer ' + userInfo.token
       }
-    })
+    });
     dispatch({ type: REVIEW_DELETE_SUCCESS, payload: data});
     alert("Review has been deleted");
     }

@@ -24,7 +24,8 @@ function CartScreen(props) {
     },[]);//[] means that the command will run after the rendering has been done in the CartScreen
 
     return( 
-    <div className="cart">
+       
+        <div className="cart">
         <div className="cart-list">
             <ul className="cart-list-container">
                 <li>
@@ -60,7 +61,7 @@ function CartScreen(props) {
                                             <option key={x+1} value={x+1}>{x+1}</option>
                                         )}
                                     </select>
-                                    <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
+                                    <button type="button" className="cart-name__delete" onClick={() => removeFromCartHandler(item.product)} >
                                         Delete
                                     </button>
                                 </div>
@@ -79,13 +80,15 @@ function CartScreen(props) {
                 :
                 $ {cartItems.reduce((acumulator, currentItem)=> acumulator + currentItem.price * currentItem.qty, 0 )}
             </h3>
-            <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0} >
+            <button onClick={checkoutHandler} className="cart-action__checkout" disabled={cartItems.length === 0} >
                 Proceed to Checkout
             </button>
            
         </div>
     </div>
     )
+    
+    
 }
 
 export default CartScreen;
