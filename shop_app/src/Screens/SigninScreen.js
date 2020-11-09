@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/userActionsCreator';
+import signinPhoto from '../images/signin.png';
+
 
 function SigninScreen(props) {
 
@@ -26,39 +28,28 @@ function SigninScreen(props) {
     dispatch(signin(email, password));
 
   }
-  return <div className="form">
-    <form onSubmit={submitHandler} >
-      <ul className="form-container">
-        <li>
-          <h2>Sign-In</h2>
-        </li>
-        <li>
-          {loading && <div>Loading...</div>}
-          {error && <div>{error}</div>}
-        </li>
-        <li>
-          <label htmlFor="email">
-            Email
-          </label>
-          <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)}>
-          </input>
-        </li>
-        <li>
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}>
-          </input>
-        </li>
-        <li>
-          <button type="submit" className="button primary">Signin</button>
-        </li>
-        <li>
-          New to amazona?
-        </li>
-        <li>
-          <Link to={redirect === '/' ? "register" : "register?redirect="+redirect} className="button secondary text-center" >Create your amazona account</Link>
-        </li>
-      </ul>
-    </form>
-  </div>
+  return(
+  <form className="signin" onSubmit={submitHandler}>
+       <h2 className="signin__header">Sign in</h2>
+        {loading && <div>Loading...</div>}
+        {error && <div>{error}</div>}
+        <p className="signin__labelEmail">Email</p>
+        <input className="signin__email" type="email" name="email" placeholder="email"id="email" onChange={(e) => setEmail(e.target.value)}>
+        </input>
+        <p className="signin__labelPassword">Password</p>
+        <input className="signin__password" type="password" id="password" placeholder="password" name="password" onChange={(e) => setPassword(e.target.value)}>
+        </input>
+        <button type="submit" className="signin__submit">Signin</button>
+        <div class="signin__item signin__item--1">
+                <img src={signinPhoto} alt="Gallery image 1" class="signin__image"></img>
+        </div>
+        <div className="signin__background"></div>
+         <p className="signin__question">Don't have an account?</p>
+        <Link className="signin__registerPath" to={redirect === '/' ? "register" : "register?redirect="+redirect}>
+            Register here
+        </Link>
+        
+  </form>
+  )
 }
 export default SigninScreen;

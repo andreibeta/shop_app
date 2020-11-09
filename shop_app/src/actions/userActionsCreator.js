@@ -34,11 +34,11 @@ const register = (name, email, password, phoneNumber, country) => async (dispatc
     dispatch({ type: USER_LOGOUT })
   }
 
-const myProfile = ({userId}) => async (dispatch, getState) => {
+const myProfile = () => async (dispatch, getState) => {
   try{
-  dispatch({type:PROFILE_USER_REQUEST, payload:{userId}});
   const { userSignin: { userInfo } } = getState();
-  const { data } = await axios.get("/api/users/"+userId,{
+  dispatch({type:PROFILE_USER_REQUEST, payload:userInfo.email});
+  const { data } = await axios.get("/api/users/"+userInfo.email,{
     headers:{
       Authorization: 'Bearer ' + userInfo.token
     }

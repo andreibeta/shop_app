@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { detailsProduct, saveProductReview, deleteReview } from '../actions/productActionsCreator';
 import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
+import profile_1 from '../images/profile-1.png';
 
 function ProductScreen (props) {
     const [qty, setQty] = useState(1);
@@ -55,36 +56,29 @@ function ProductScreen (props) {
       };
 
     return (
-        <div>
+        <div className="product-screen">
             <div className="back-to-results">
                 <Link to="/">Back to results</Link>
             </div>
             {loading ? <div>Loading..</div>:
             error ? <div>{error}</div> :
             <div className="details">
-            <div className="details-image">
-                <img src ={product.image} alt="product"/>
+            <figure className="details__item">
+                <img src ={product.image} alt="product" className="details__image"/>
+            </figure>
+            <div className="details__info">
+                <h4 className="details__info__name">{product.name}</h4>
+                <h5 className="details__info__description-title"></h5>
+                <p className="details__info__description">
+                <h3>Description</h3>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In pellentesque massa placerat duis ultricies. 
+                Nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit.
+            
+                  {product.description}
+                  
+                </p>
             </div>
-            <div className="details-info">
-                <ul>
-                    <li>
-                        <h4>{product.name}</h4>
-                    </li>
-                    <li>
-                        {product.rating} Stars ({product.numReviews} Reviews)
-                    </li>
-                    <li>
-                        Price: <b>${product.price}</b>
-                    </li>
-                    <li>
-                        Descripton:
-                        <div>
-                            {product.description}
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div className="details-action">
+            <div className="details__action">
                 <ul>
                     <li>
                         Price: {product.price} $
@@ -109,32 +103,40 @@ function ProductScreen (props) {
                 </ul>
             </div>
             <div className="content-margined">
-            <h2>Reviews</h2>
             {!product.reviews && <div>There is no review</div>}
-            <ul className="review" id="reviews">
-                    
+            <ul className="content-margined__reviews" id="reviews">
+              <h2 className="content-margined__reviews__header">Reviews</h2>
+              <div className="content-margined__reviews__descriptions">
               {product.reviews.map((review) => (
+            
                 <li key={review._id}>
-                  <div>{review.name}</div>
+                  <div className="review">
+                  <img className="review__image" src={profile_1}></img>
+                  <div className="review__name">{review.name}</div>
                   <div>
                     <Rating value={review.rating}></Rating>
                   </div>
-                  <div>{review.createdAt.substring(0, 10)}</div>
-                  <div>{review.comment}</div>
+                  <div className="review__date">{review.createdAt.substring(0, 10)}</div>
+                  <div className="review__comment">{review.comment}</div>
+                  </div>
                   { userInfo.isAdmin ?
                   <button className="button" onClick={() => deleteHandler(review._id)}>Delete</button>
                   :<div></div>
                   }
                 </li>
               ))}
-              <li>
-                <h3>Write a customer review</h3>
+              </div>
+              </ul>
+              {/* <li> */}
+                <div className="submit">
+                <h2 className="submit__header">Write a customer review</h2>
                 {userInfo ? (
-                  <form onSubmit={submitHandler}>
-                    <ul className="form-container">
-                      <li>
-                        <label htmlFor="rating">Rating</label>
+                  <form className="form" onSubmit={submitHandler}>
+                    {/* <ul className="form-container">
+                      <li> */}
+                        <p className="form__rating" htmlFor="rating">Rating</p>
                         <select
+                          className="form__selector"
                           name="rating"
                           id="rating"
                           value={rating}
@@ -146,29 +148,31 @@ function ProductScreen (props) {
                           <option value="4">4- Very Good</option>
                           <option value="5">5- Excelent</option>
                         </select>
-                      </li>
-                      <li>
-                        <label htmlFor="comment">Comment</label>
+                      {/* </li>
+                      <li> */}
+                        <p className="form__comment" htmlFor="comment">Comment</p>
                         <textarea
+                          className="form__input"
                           name="comment"
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></textarea>
-                      </li>
-                      <li>
-                        <button type="submit" className="button primary">
+                      {/* </li>
+                      <li> */}
+                        <button type="submit" className="form__button">
                           Submit
                         </button>
-                      </li>
-                    </ul>
+                      {/* </li>
+                    </ul> */}
                   </form>
                 ) : (
                   <div>
                     Please <Link to="/signin">Sign-in</Link> to write a review.
                   </div>
                 )}
-              </li>
-            </ul>
+              {/* </li> */}
+              </div>
+            
           </div>             
             
         </div>

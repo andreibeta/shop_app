@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {changePassword} from '../actions/userActionsCreator';
-
-
+import {MdSecurity} from 'react-icons/md';
+import {RiLockPasswordFill} from 'react-icons/ri';
 function ChangePassword(props) {
     const [password,setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
@@ -21,23 +21,27 @@ function ChangePassword(props) {
     }
 
     return (
-        <div className="form">
-            <form onSubmit={changePasswordHandler}>
-                <ul className="form-container">
-                    <li>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}>
+        
+            <form id="changepassword" className="changepassword" onSubmit={changePasswordHandler}>
+                <div className="changepassword__content">
+                        <MdSecurity className="icon" />
+                        <h3 className="changepassword__content__header">Change password section</h3>
+                        <div>
+                        <p><RiLockPasswordFill className="iconPassword"/>Password</p>
+                        <input type="password" id="password" placeholder="password" name="password" onChange={(e) => setPassword(e.target.value)}>
                         </input>
-                        </li>
-                        <li>
-                        <label htmlFor="rePassword">Repeat Password</label>
-                        <input type="password" id="rePassword" name="rePassword" onChange={(e) => setRePassword(e.target.value)}>
-                        </input>
-                        </li>
-                        <button type="submit" className="button primary">SUBMIT</button>
-                </ul>
+                        </div>
+                        <div>
+                            <p><RiLockPasswordFill className="iconPassword"/>Repeat Password</p>
+                        <input type="password" id="rePassword" name="rePassword" placeholder="repeat password" onChange={(e) => setRePassword(e.target.value)}>
+                        </input> 
+                        </div> 
+                        <button type="submit" className="changepassword__content__button">SUBMIT</button>
+                        <a href="#" class="changepassword__close">&times;</a>
+                       </div>
+
             </form>
-        </div>
+            
     )
 }
 

@@ -18,48 +18,31 @@ function ShippingScreen(props) {
     props.history.push('/payment');
 
   }
-  return <div>
+  return (
+    <form className="shipping" onSubmit={submitHandler} >
       <CheckoutSteps step1 step2></CheckoutSteps>
-  <div className="form">
-    <form onSubmit={submitHandler} >
-      <ul className="form-container">
-        <li>
-          <h2>Shipping</h2>
-        </li>
-        <li>
-          <label htmlFor="address">
-            Address
-          </label>
-          <input type="text" name="address" id="address" onChange={(e) => setAddress(e.target.value)}>
+      <h2 className="shipping__header">Shipping</h2>
+      <div className="shipping__address">
+      <p>Address</p>
+      <input type="text" name="address" id="address" placeholder="Your address" onChange={(e) => setAddress(e.target.value)}></input>
+      </div>
+      <div className="shipping__city">
+        <p>City</p>
+        <input type="text" name="city" id="city" placeholder="City" onChange={(e) => setCity(e.target.value)}></input>
+      </div>
+      <div className="shipping__postal">
+        <p>Postal Code</p>
+        <input type="text" name="postalCode" id="postalCode" placeholder="postalCode" onChange={(e) => setPostalCode(e.target.value)}>
           </input>
-        </li>
-        <li>
-          <label htmlFor="city">
-            City
-          </label>
-          <input type="text" name="city" id="city" onChange={(e) => setCity(e.target.value)}>
+      </div>
+      <div className="shipping__country">
+        <p>Country</p>
+        <input type="text" name="country" placeholder="Country" id="country" onChange={(e) => setCountry(e.target.value)}>
           </input>
-        </li>
-        <li>
-          <label htmlFor="postalCode">
-            Postal Code
-          </label>
-          <input type="text" name="postalCode" id="postalCode" onChange={(e) => setPostalCode(e.target.value)}>
-          </input>
-        </li>
-        <li>
-          <label htmlFor="country">
-            Country
-          </label>
-          <input type="text" name="country" id="country" onChange={(e) => setCountry(e.target.value)}>
-          </input>
-        </li>
-        <li>
-          <button type="submit" className="button primary">Continue</button>
-        </li>
-      </ul>
+      </div>
+      <button type="submit" className="shipping__submit">Continue</button>
+      
     </form>
-  </div>
-  </div>
+  )
 }
 export default ShippingScreen;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route,Redirect, Link } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
 import ProductScreen from './Screens/ProductScreen';
 import CartScreen from './Screens/CartScreen';
@@ -17,6 +17,9 @@ import { useDispatch } from 'react-redux';
 import MyProfileScreen from './Screens/MyProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 import MyUsersScreen from './Screens/MyUsersScreen';
+import WelcomeHome from './components/WelcomeHome';
+import { Router, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import NotFound from './Screens/NotFound';
 
 
 function App(props) {
@@ -46,9 +49,16 @@ function App(props) {
             </div>
             <div className="header-links">
                 {
-                    userInfo
-                    ? <Link to="/myorders">My orders</Link>
-                    : null
+                    userInfo 
+                    ?   <div class="dropdown">
+                            <a class="dropbtn">{userInfo.name}</a>
+                            <div class="dropdown-content">
+                                <a href="#myprofile">My Profile</a>
+                                <a href="#changepassword">Change Password</a> 
+                                <a href="/myorders">My orders</a>  
+                            </div>
+                        </div> 
+                    : <Link to="/signin">Sign in</Link>
                 }
                 {
                     userInfo
@@ -56,16 +66,7 @@ function App(props) {
                     // ? <button type="button" onClick={handleLogout}Log out></button>
                     : null
                 }
-                {
-                    userInfo 
-                    ?  <Link to="/myprofile">{userInfo.name}</Link>
-                    : <Link to="/signin">Sign in</Link>
-                }
-                {
-                    userInfo
-                    ? <Link to="/changepassword">Change password</Link>
-                    : null
-                }
+                
                 {
                     userInfo
                     ? userInfo.isAdmin 
@@ -82,6 +83,7 @@ function App(props) {
                 } */}
             </div>
         </header>
+        <Route path="/" exact={true} component={WelcomeHome} />   
         <aside className="sidebar">
             <h3>Shopping Categories</h3>
             <button className="sidebar-close-button" onClick={closeMenu}>x</button>
@@ -94,12 +96,13 @@ function App(props) {
                 </li>
             </ul>
         </aside>
-        <main className="main">
-            <div className="content">
+            {/*////popup///// */}
+            {userInfo ? <ChangePasswordScreen></ChangePasswordScreen> : null }
+            {userInfo ? <MyProfileScreen></MyProfileScreen> : null}
+            <Switch>
                 <Route path ="/mylistofusers" component={MyUsersScreen} />
-                <Route path="/changepassword" component={ChangePasswordScreen}/>
                 <Route path="/myprofile" component={MyProfileScreen} />
-                <Route path="/myorders" component={MyOrdersScreen} />
+                <Route path="/myorders" component={MyOrdersScreen}/> 
                 <Route path="/createproduct" component={CreateProductScreen} />
                 <Route path="/shipping" component={ShippingScreen} />
                 <Route path="/payment" component={PaymentScreen} />
@@ -107,11 +110,10 @@ function App(props) {
                 <Route path="/signin" component={SigninScreen} />
                 <Route path="/register" component={RegisterScreen} />
                 <Route path="/product/:id" component={ProductScreen} />
-                <Route path="/cart/:id?" component={CartScreen}/>
-                <Route path="/" exact={true} component={HomeScreen} />               
-            </div>
-            
-        </main>
+                <Route path="/cart/:id?" exact={true} component={CartScreen}/>  
+                <Route path="/" exact={true} component={HomeScreen} />  
+                <Route component={NotFound} />             
+            </Switch> 
         <footer className="footer">
             All rights reserved!
         </footer>
