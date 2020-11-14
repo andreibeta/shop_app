@@ -5,6 +5,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { placeOrder } from '../actions/cartActionsCreator';
 
 function PlaceOrderScreen(props) {
+
     const cart = useSelector(state => state.cart);
     console.log(cart);
     const { cartItems, shipping, payment } = cart;
@@ -31,7 +32,9 @@ function PlaceOrderScreen(props) {
     const postalCodeOrder = cart.shipping.postalCode;
     const countryOrder = cart.shipping.country;
     const paymentMethodOrder = cart.payment; 
-    console.log(cart.qty);
+   
+
+    
     const placeOrderHandler = () => {
         dispatch(placeOrder(addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,userInfo.email,userInfo._id,userInfo.name));
         setTimeout(function() {
@@ -43,8 +46,10 @@ function PlaceOrderScreen(props) {
     const checkoutHandler = () => {
         //props.history.push("/signin?redirect=shipping");
     }
+    var getObject= JSON.parse(localStorage.getItem('placeOrderValues'));
+    console.log("The object"+getObject);
     useEffect(() => {
-       
+       localStorage.setItem('placeOrderValues',JSON.stringify(cart));
     },[]);//[] means that the command will run after the rendering has been done in the CartScreen
 
     return( 
@@ -52,14 +57,14 @@ function PlaceOrderScreen(props) {
             <CheckoutSteps className="placeOrder__checkout" step1 step2 step3 step4></CheckoutSteps>
             <div className="placeOrder__info">
                 <h3>Shipping</h3>
-                <p>Address: {cart.shipping.address}</p>
-                <p>City:  {cart.shipping.city}</p>
-                <p>Postal Code: {cart.shipping.postalCode}</p>   
-                <p>Country: {cart.shipping.country}</p>   
+                <p>Address: {addressOrder}</p>
+                <p>City:  {cityOrder}</p>
+                <p>Postal Code: {postalCodeOrder}</p>   
+                <p>Country: {countryOrder}</p>   
             </div>
             <div className="placeOrder__payment">
                 <h3>Payment</h3>
-                <p>Payment Method: {cart.payment}</p>
+                <p>Payment Method: {paymentMethodOrder}</p>
             </div>
             <ul className="placeOrder__cartList">
                 <li>

@@ -9,7 +9,8 @@ function CartScreen(props) {
     const { cartItems } = cart;
 
     const productId = props.match.params.id;
-    const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
+    //const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
+    const qty = props.qty;
     const dispatch = useDispatch();
 
     const removeFromCartHandler = (productId) => {
@@ -19,8 +20,9 @@ function CartScreen(props) {
         props.history.push("/shipping");
     }
     useEffect(() => {
-        if(productId)
+        if(productId){
             dispatch(addToCart(productId, qty));
+        }
     },[]);//[] means that the command will run after the rendering has been done in the CartScreen
 
     return( 
@@ -55,12 +57,13 @@ function CartScreen(props) {
                                     </Link> 
                                 </div>
                                 <div>
-                                    Qty:
-                                    <select value={item.qty} onChange={(event)=>dispatch(addToCart(item.product, event.target.value))}>
+                                  
+                                    {/* <select value={item.qty} onChange={(event)=>dispatch(addToCart(item.product, event.target.value))}>
                                         {[...Array(item.countInStock).keys()].map(x =>
                                             <option key={x+1} value={x+1}>{x+1}</option>
                                         )}
-                                    </select>
+                                    </select> */}
+                                    <a>Qty: {qty}</a>
                                     <button type="button" className="cart-name__delete" onClick={() => removeFromCartHandler(item.product)} >
                                         Delete
                                     </button>
