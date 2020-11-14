@@ -14,6 +14,7 @@ function MyUsersScreen(props) {
     const dispatch = useDispatch();
 
     useEffect(()=>{
+      dispatch(myListOfUsers());
         return () => {
             dispatch(myListOfUsers());
         };

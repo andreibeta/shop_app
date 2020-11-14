@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route,Redirect, Link } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
@@ -26,6 +26,12 @@ function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
   const {userInfo} = userSignin;
   const dispatch = useDispatch();
+  const [qty,setQty] = useState(localStorage.getItem('myvalue') || '');
+
+  useEffect(() => {
+    localStorage.setItem('myvalue', qty);
+  }, [qty]);
+
   const openMenu = () =>{
     document.querySelector(".sidebar").classList.add("open");
   }
@@ -58,7 +64,7 @@ function App(props) {
                                 <a href="/myorders">My orders</a>  
                             </div>
                         </div> 
-                    : <Link to="/signin">Sign in</Link>
+                    : <a href="#signin">Sign in</a>
                 }
                 {
                     userInfo
@@ -99,6 +105,7 @@ function App(props) {
             {/*////popup///// */}
             {userInfo ? <ChangePasswordScreen></ChangePasswordScreen> : null }
             {userInfo ? <MyProfileScreen></MyProfileScreen> : null}
+            {userInfo ? null : <SigninScreen></SigninScreen>} 
             <Switch>
                 <Route path ="/mylistofusers" component={MyUsersScreen} />
                 <Route path="/myprofile" component={MyProfileScreen} />
@@ -107,10 +114,10 @@ function App(props) {
                 <Route path="/shipping" component={ShippingScreen} />
                 <Route path="/payment" component={PaymentScreen} />
                 <Route path="/placeorder" component={PlaceOrderScreen} />
-                <Route path="/signin" component={SigninScreen} />
+                {/* <Route path="/signin" component={SigninScreen} /> */}
                 <Route path="/register" component={RegisterScreen} />
-                <Route path="/product/:id" component={ProductScreen} />
-                <Route path="/cart/:id?" exact={true} component={CartScreen}/>  
+                <Route path="/product/:id" render={(props) => <ProductScreen qty={qty} setQty={setQty} {...props}/>} />
+                <Route path="/cart/:id?" exact={true} render={(props) => <CartScreen qty={qty} {...props}/>}/>  
                 <Route path="/" exact={true} component={HomeScreen} />  
                 <Route component={NotFound} />             
             </Switch> 

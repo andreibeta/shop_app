@@ -5,9 +5,14 @@ import { detailsProduct, saveProductReview, deleteReview } from '../actions/prod
 import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
 import profile_1 from '../images/profile-1.png';
+import Gallery from './Gallery';
+import {AiOutlinePlusSquare,AiOutlineMinusSquare} from 'react-icons/ai';
+
 
 function ProductScreen (props) {
-    const [qty, setQty] = useState(1);
+    const qty = props.qty;
+    const setQty = props.setQty;
+   
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const userSignin = useSelector((state) => state.userSignin);
@@ -19,7 +24,7 @@ function ProductScreen (props) {
     const reviewDelete = useSelector(state => state.reviewDelete);
     const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         if (productSaveSuccess) {
           alert('Review submitted successfully.');
@@ -36,7 +41,8 @@ function ProductScreen (props) {
     //const product = data.products.find(product => product.id === props.match.params.id);
 
     const handleAddToCart = () => {
-        props.history.push("/cart/" + props.match.params.id + "?qty=" +qty);
+        //props.history.push("/cart/" + props.match.params.id + "?qty=" +qty);
+        props.history.push("/cart/" + props.match.params.id);
     }
     const deleteHandler = (reviewId) => {
       dispatch(deleteReview(product._id, reviewId));
@@ -54,7 +60,21 @@ function ProductScreen (props) {
           })
         );
       };
-
+      
+    const handleIncrement = (qty) =>{
+      if(qty >= 9){
+        setQty(9);
+      }else{
+        setQty(prevCount => prevCount + 1);
+      }
+    }
+    const handleDecrement = (qty) => {
+        if(qty < 1){
+          setQty(0);
+        }else{
+        setQty(prevCount => prevCount - 1);
+        }
+    }
     return (
         <div className="product-screen">
             <div className="back-to-results">
@@ -63,9 +83,12 @@ function ProductScreen (props) {
             {loading ? <div>Loading..</div>:
             error ? <div>{error}</div> :
             <div className="details">
-            <figure className="details__item">
+            {/* <figure className="details__item">
                 <img src ={product.image} alt="product" className="details__image"/>
-            </figure>
+            </figure> */}
+            <div className="details__gallery">
+            <Gallery/>
+            </div>
             <div className="details__info">
                 <h4 className="details__info__name">{product.name}</h4>
                 <h5 className="details__info__description-title"></h5>
@@ -74,8 +97,7 @@ function ProductScreen (props) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In pellentesque massa placerat duis ultricies. 
                 Nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit.
             
-                  {product.description}
-                  
+                  {product.description}   
                 </p>
             </div>
             <div className="details__action">
@@ -88,11 +110,15 @@ function ProductScreen (props) {
                     </li>
                     <li>
                         Quantity: 
-                            <select value={qty} onChange={(event)=>{setQty(event.target.value)}}>
+                            {/* <select value={qty} onChange={(event)=>{setQty(event.target.value)}}>
                                 {[...Array(product.countInStock).keys()].map(x=>
                                     <option key={x+1} value={x+1}>{x+1}</option>
                                 )}
-                            </select>
+                            </select> */}
+                            <AiOutlineMinusSquare onClick={()=>handleDecrement(qty)}/>
+                            <a>{qty}</a>
+                            <AiOutlinePlusSquare onClick={()=>handleIncrement(qty)}/>
+                                 
                     </li>
                     <li>
                         {product.countInStock > 0 ?
@@ -104,8 +130,8 @@ function ProductScreen (props) {
             </div>
             <div className="content-margined">
             {!product.reviews && <div>There is no review</div>}
+            <h2 className="content-margined__reviews__header">Reviews</h2>
             <ul className="content-margined__reviews" id="reviews">
-              <h2 className="content-margined__reviews__header">Reviews</h2>
               <div className="content-margined__reviews__descriptions">
               {product.reviews.map((review) => (
             

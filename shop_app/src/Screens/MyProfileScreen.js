@@ -52,17 +52,17 @@ function MyProfileScreen(props) {
                     </input>
                     
                     <p><AiOutlineUser className="labelIcon"/>Name</p>
-                    <input type="name" name="name" value={name} id="name" placeholder={user.name}
+                    <input type="name" name="name" value={name} id="name" 
                                         onChange={(event)=>updateName(event.target.value)}>
                     </input>
                     
                     <p><AiTwotonePhone className="labelIcon"/>Number</p>
-                    <input type="tel" name="phoneNumber" value={phoneNumber} id="phoneNumber" placeholder={user.phoneNumber}
+                    <input type="tel" name="phoneNumber" value={phoneNumber} id="phoneNumber" 
                                         onChange={(event)=>updatePhoneNumber(event.target.value)}>
                     </input>
 
                     <p><MdLocationOn className="labelIcon" />Country</p>
-                    <input type="text" name="country" id="country" value={country} placeholder={user.country}   
+                    <input type="text" name="country" id="country" value={country}  
                                         onChange={(event)=>updateCountry(event.target.value)} >
                     </input>
                    
