@@ -23,6 +23,8 @@ function ChangePassword(props) {
     return (
         
             <form id="changepassword" className="changepassword" onSubmit={changePasswordHandler}>
+                {loading && <div>Loading...</div>}
+                {error && <div>{error}</div>}
                 <div className="changepassword__content">
                         <MdSecurity className="icon" />
                         <h3 className="changepassword__content__header">Change password section</h3>

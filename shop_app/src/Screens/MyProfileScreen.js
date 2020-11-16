@@ -23,9 +23,9 @@ function MyProfileScreen(props) {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        return () => {
+        dispatch(myProfile(userInfo.email));
 
-        dispatch(myProfile());
+        return () => {
             if (userInfo) {
             updateName(userInfo.name);
             updatePhoneNumber(userInfo.phoneNumber);
@@ -53,7 +53,7 @@ function MyProfileScreen(props) {
                     
                     <p><AiOutlineUser className="labelIcon"/>Name</p>
                     <input type="name" name="name" value={name} id="name" 
-                                        onChange={(event)=>updateName(event.target.value)}>
+                                     placeholder={userSignin.name}   onChange={(event)=>updateName(event.target.value)}>
                     </input>
                     
                     <p><AiTwotonePhone className="labelIcon"/>Number</p>

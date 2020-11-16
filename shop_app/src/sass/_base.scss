@@ -90,7 +90,7 @@ html{
   .header-links a{
     color:#fff;
     text-decoration: none;
-    padding: 0.5rem;
+    padding: .5rem 1.5rem;
   }
   .header-links a:hover{
     color:#ff8000;
@@ -657,7 +657,7 @@ html{
       left:50%;
       transform: translate(-50%,-50%);
       width: 45%;
-      height: 70%;
+      height: 60%;
       background-color: white;
       box-shadow: 0 2rem 4rem rgba(black, .2);
       border-radius: .5rem;
@@ -667,9 +667,10 @@ html{
       transition: all .5s .2s;//.4s=the running time .2s=the delay time
 
       &__header{
-        grid-row: 1 / 2;
-        grid-column: 2 / 4;
+        grid-row: 1 / 3;
+        grid-column: 1 / 3;
         text-align: center;
+        align-self: center;
         color:$color-primary;
         text-transform: uppercase;
         z-index:1;
@@ -764,14 +765,17 @@ html{
       }
       
   }
-  &:target{
+  &:target,
+  &:active{
     opacity: 1;
     visibility: visible;
   }
-  &:target &__content{
+  &:target &__content,
+  &:active &__content{
     opacity: 1;
     transform: translate(-50%,-50%) scale(1);
   }
+  
   
   &__background{
     background-color: white;
@@ -795,6 +799,24 @@ html{
       background-color: $color-primary-dark;
     }
   }
+  &__close{
+    &:link,
+    &:visited{
+        display: none;
+        color:black;
+        position: absolute;
+        top:1rem;
+        right:1.5rem;
+        font-size: 3rem;
+        text-decoration: none;
+        display: inline-block;
+        transition: all .2s;
+        line-height: 1;
+    }
+    &:hover{
+        color:$color-primary;
+    }
+}
  
 }
 
@@ -1181,7 +1203,13 @@ html{
   z-index: 1;
   background-color: #203040;
   margin: 0;
-  margin-top: 0.4rem;
+  ul{
+    margin:0;
+    padding: 1rem 0;
+  }
+  li{
+    list-style: none;
+  }
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -1397,8 +1425,179 @@ html{
      
 }
 
-// .sliderimg{
-//   width: 50%;
-//   max-height: 25%;
-//   object-fit: cover
-// }
+//myusers screen
+.usersContainer{
+  grid-row: 2/4;
+  margin:5rem;
+  height: 75vh;
+  overflow-y: scroll;//vertical 
+  overflow-x: hidden;//horizontal
+  box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+  &__header{
+    display: grid;
+    grid-template-columns:repeat(5,minmax(10rem,1fr));
+    text-align: center;
+    padding: 1rem 2rem;
+    background-color: $color-primary;
+    color: white;
+  }
+}
+.usersContent{
+  display: grid;
+  grid-template-columns: repeat(5,minmax(10rem,1fr));
+  padding: 1rem 2rem;
+  border-bottom: 1px solid $color-grey-light;
+  word-wrap: break-word;
+  text-align: center;
+  font-size: 1.7rem;
+  margin-top:2rem;
+  &__email{
+    color: $color-primary;
+  }
+  &__delete{
+    justify-self: center;
+    padding: .5rem 2rem;
+    background-color: $color-primary;
+    color:white;
+  }
+}
+
+//create product admin
+.createproduct{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index:100;
+  background-color: rgba(black,.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+  &__content{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 25%;
+    height: 70%;
+    background-color: white;
+    box-shadow: 0 2rem 4rem rgba(black, .2);
+    border-radius: .5rem;
+    padding: 3rem 1rem;
+    border: 1px solid $color-grey-light;
+    opacity: 0;
+    transform:translate(-50%, -50%) scale(.2);
+    transition: all .5s .2s;//.4s=the running time .2s=the delay time
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    .close{
+          color:black;
+          position: absolute;
+          top:1rem;
+          right:2rem;
+          font-size: 3rem;
+          cursor: pointer;
+      &:link,
+      &:visited{
+          display: none;
+          text-decoration: none;
+          display: inline-block;
+          transition: all .2s;
+          line-height: 1;
+      }
+      &:hover{
+          color:$color-primary;
+      }
+    }
+    input,textarea{
+      border:1px solid $color-grey-light;
+      min-width: 70%;
+      max-width: 70%;
+      height: 2rem;
+      align-self: center;
+      text-align: center;
+    }
+    textarea{
+      min-height: 5rem;
+      max-height:5rem;
+    }
+    p,h2{
+      text-align: center;
+      align-content: center;
+      margin:.5rem 0;
+    }
+    &__button{
+      background-color: $color-primary;
+      color:white;
+      width: 50%;
+      align-self: center;
+      padding: 1rem;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      border-radius: 1rem;
+      &:hover{
+        background-color: $color-primary-dark;
+        cursor: pointer;
+      }
+    }
+  }
+  &:target{
+    opacity: 1;
+    visibility: visible;
+  }
+  &:target &__content{
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(1);
+  }
+
+}
+
+//list of the products
+.productHeader{
+  text-align: center;
+  font-size: 1.7rem;
+}
+.productList{
+  margin:2.5rem;
+  border-radius: 1rem;
+  //padding:3rem;
+  text-align: center;
+  font-size: 1.7rem;
+  height: 60vh;
+  overflow-y: scroll;//vertical 
+  overflow-x: hidden;//horizontal
+  box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+  &__header{
+    display: grid;
+    grid-template-columns: repeat(6,minmax(10rem,1fr));
+    background-color: $color-primary;
+    color: white;
+  }
+}
+.productContent{
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  word-wrap: break-word;
+  padding: 2rem 0;
+  border-bottom: 1px solid $color-grey-light;
+  &__id{
+    color: $color-primary;
+    word-break: break-all;
+    cursor: pointer;
+  }
+  &__button{
+    background-color: $color-primary;
+    color:white;
+    padding: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    &:hover{
+      background-color: $color-primary-dark;
+
+    }
+  }
+}

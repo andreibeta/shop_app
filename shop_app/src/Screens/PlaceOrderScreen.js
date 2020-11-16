@@ -12,9 +12,7 @@ function PlaceOrderScreen(props) {
     const userSignin = useSelector(state=> state.userSignin);
     const {userInfo} = userSignin;  
     //console.log("id user"+userInfo._id);
-    if(!userInfo){
-        props.history.push("/signin");
-    }
+   
     // if(!shipping.address){
     //     props.history.push("/shipping");
     // }
@@ -36,11 +34,14 @@ function PlaceOrderScreen(props) {
 
     
     const placeOrderHandler = () => {
+        if(userInfo){
         dispatch(placeOrder(addressOrder, cityOrder,postalCodeOrder,countryOrder,paymentMethodOrder,totalPrice,userInfo.email,userInfo._id,userInfo.name));
         setTimeout(function() {
             props.history.push('/');
         }, 2500);
-        
+    }else{
+        alert("Sign in first");
+    }
     }
 
     const checkoutHandler = () => {
@@ -50,7 +51,10 @@ function PlaceOrderScreen(props) {
     console.log("The object"+getObject);
     useEffect(() => {
        localStorage.setItem('placeOrderValues',JSON.stringify(cart));
-    },[]);//[] means that the command will run after the rendering has been done in the CartScreen
+       
+
+
+    },[userInfo]);//[] means that the command will run after the rendering has been done in the CartScreen
 
     return( 
         <div className="placeOrder">

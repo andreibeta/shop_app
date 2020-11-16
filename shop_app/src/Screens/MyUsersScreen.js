@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { myListOfUsers } from '../actions/userActionsCreator';
+import { deleteUser, myListOfUsers } from '../actions/userActionsCreator';
 import {useSelector, useDispatch} from 'react-redux';
 
 
@@ -13,36 +13,43 @@ function MyUsersScreen(props) {
     const {users, loading, error} = userList;
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-      dispatch(myListOfUsers());
-        return () => {
-            dispatch(myListOfUsers());
-        };
-    },[])
+    const userDelete = useSelector(state => state.userDelete);
+    const { loading: loadingDelete, success: successDelete, error: errorDelete } = userDelete;
 
-   
+    useEffect(()=>{
+      if(userInfo.isAdmin){
+      dispatch(myListOfUsers());
+      }
+    },[successDelete,userInfo]);
+
+    const deleteHandler = (user) =>{
+    dispatch(deleteUser(user._id));
+    }
 
     return (
       loading 
       ? <div> Loading...</div>
       : error ? <div>{error}</div> 
-      : <ul>
-       { users.map(user =>
-         <li key={user._id}>
-          { user.isAdmin === false
-          ? <div >
-                  <div>Email: {user.email}</div>
-                  <div>Name: {user.name}</div>
-                  <div>Country: {user.country}</div>
-                  <div>Phone Number: {user.phoneNumber}</div>
-                  <button className="button">Delete</button> 
-           </div>
-           :  <div></div>
-          }
-          </li>
+      : <div className="usersContainer">
+          <div className="usersContainer__header">
+          <h4>Email</h4>
+          <h4>Name</h4>
+          <h4>Country</h4>
+          <h4>Phone</h4>
+          <h4>Action</h4>
+          </div>
+        { users.map(user =>
+         <div className="usersContent" key={user._id}>
+        
+                  <div className="usersContent__email"> {user.email}</div>
+                  <div className="usersContent__name"> {user.name}</div>
+                  <div className="usersContent__country"> {user.country}</div>
+                  <div className="usersContent__phone"> {user.phoneNumber}</div>
+                  <button className="usersContent__delete" onClick={() => deleteHandler(user)}>Delete</button> 
+          </div>
          )
-      } 
-    </ul>
+      }
+      </div> 
          ) 
 }
 

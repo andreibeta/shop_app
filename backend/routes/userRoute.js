@@ -25,10 +25,21 @@ router.get("/:id",isAuth, async(req,res)=> {
 });
 
 router.get("/",isAuth,isAdmin, async(req,res)=> {
-  const usersProfile = await User.find();
+  const usersProfile = await User.find({isAdmin:false});
   res.send(usersProfile);
 })
 
+router.delete("/:id",isAuth,isAdmin,async(req,res) => {
+  const userId = req.params.id;
+  const deleteUser = await User.findById(userId);
+  //if the user it is found then start the deletion process
+  if(deleteUser){
+    await deleteUser.remove();
+    res.send({message:"User deleted"});
+  }else{
+    res.send("Error in deletion");
+  }
+});
 router.put("/", isAuth, async(req,res) => {
   const userId = req.user._id;
   const changePass = await User.findById(userId);
