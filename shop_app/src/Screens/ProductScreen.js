@@ -145,7 +145,8 @@ function ProductScreen (props) {
                   <div className="review__date">{review.createdAt.substring(0, 10)}</div>
                   <div className="review__comment">{review.comment}</div>
                   </div>
-                  { userInfo.isAdmin ?
+                  
+                  { userInfo ?
                   <button className="button" onClick={() => deleteHandler(review._id)}>Delete</button>
                   :<div></div>
                   }
@@ -193,7 +194,7 @@ function ProductScreen (props) {
                   </form>
                 ) : (
                   <div>
-                    Please <Link to="/signin">Sign-in</Link> to write a review.
+                    Please <a href="#signin">Sign-in</a> to write a review.
                   </div>
                 )}
               {/* </li> */}

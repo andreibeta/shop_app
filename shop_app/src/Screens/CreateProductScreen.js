@@ -38,7 +38,7 @@ function CreateProductScreen(props) {
     };
   }, [successSave, successDelete]);
 
-  const openModal = (product) => {
+  const openModal = (product,e) => {
     setModalVisible(true);
     setId(product._id);
     setName(product.name);
@@ -56,119 +56,103 @@ function CreateProductScreen(props) {
       name, price, image, brand, category,
       countInStock, description
     }));
+    setModalVisible(false);
   }
   const deleteHandler = (product) =>{
     dispatch(deleteProduct(product._id));
   }
   if(userInfo.isAdmin){
   return (
-  <div className="content content-margined">
+  <div>
 
-    <div className="product-header">
+    <div className="productHeader">
       <h3>Products</h3>
-      <button className="button primary" onClick={() => openModal({})}>Create Product</button>
+      <a href="#createproduct" className="productContent__button" onClick={() => openModal({})}>Create New Product</a>
     </div>
     {modalVisible &&
-      <div className="form">
-        <form onSubmit={submitHandler} >
-          <ul className="form-container">
-            <li>
+        <form id="createproduct" className="createproduct" onSubmit={submitHandler} >
+          
+          <div className="createproduct__content">
+            <a onClick={() => setModalVisible(false)} className="close">&times;</a>
               <h2>Create Product</h2>
-            </li>
-            <li>
               {loadingSave && <div>Loading...</div>}
               {errorSave && <div>{errorSave}</div>}
-            </li>
-
-            <li>
-              <label htmlFor="name">
+              
+              <p>
                 Name
-          </label>
+              </p>
               <input type="text" name="name" value={name} id="name" onChange={(e) => setName(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="price">
+              
+              <p>
                 Price
-          </label>
+              </p>
               <input type="text" name="price" value={price} id="price" onChange={(e) => setPrice(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="image">
+             
+          <p>
                 Image
-          </label>
+          </p>
+               <input type="file" id="img" name="img" accept="image/*"/>
               <input type="text" name="image" value={image} id="image" onChange={(e) => setImage(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="brand">
+         
+          <p>
                 Brand
-          </label>
+          </p>
               <input type="text" name="brand" value={brand} id="brand" onChange={(e) => setBrand(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="countInStock">
+            
+          <p>
                 CountInStock
-          </label>
+          </p>
               <input type="text" name="countInStock" value={countInStock} id="countInStock" onChange={(e) => setCountInStock(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="name">
+            
+              <p>
                 Category
-          </label>
+              </p>
               <input type="text" name="category" value={category} id="category" onChange={(e) => setCategory(e.target.value)}>
               </input>
-            </li>
-            <li>
-              <label htmlFor="description">
+            
+            <p>
                 Description
-          </label>
+            </p>
               <textarea name="description" value={description} id="description" onChange={(e) => setDescription(e.target.value)}></textarea>
-            </li>
-            <li>
-              <button type="submit" className="button primary">{id ? "Update" : "Create"}</button>
-            </li>
-            <li>
-              <button type="button" onClick={() => setModalVisible(false)} className="button secondary">Back</button>
-            </li>
-          </ul>
+              
+          
+            
+            <button className="createproduct__content__button" type="submit">{id ? "Update" : "Create"}</button>     
+          </div>
         </form>
-      </div>
+      
     }
 
 
-    <div className="product-list">
+    <div className="productList">
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Brand</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (<tr key={product._id}>
-            <td>{product._id}</td>
-            <td>{product.name}</td>
-            <td>{product.price}</td>
-            <td>{product.category}</td>
-            <td>{product.brand}</td>
-            <td>
-              <button className="button" onClick={() => openModal(product)} >Edit</button>
+        <div className="productList__header">
+            <h3>ID</h3>
+            <h3>Name</h3>
+            <h3>Price</h3>
+            <h3>Category</h3>
+            <h3>Brand</h3>
+            <h3>Action</h3>
+        </div>
+       
+          {products.map(product => (
+          <div className="productContent" key={product._id}>
+            <div className="productContent__id">{product._id}</div>
+            <div>{product.name}</div>
+            <div>{product.price}</div>
+            <div>{product.category}</div>
+            <div>{product.brand}</div>
+            <div>
+              <a href="#createproduct" className="productContent__button" onClick={() => openModal(product)} >Edit</a>
               {' '}
-              <button className="button" onClick={() => deleteHandler(product)}>Delete</button>
-            </td>
-          </tr>))}
-        </tbody>
-      </table>
-
+              <a className="productContent__button" onClick={() => deleteHandler(product)}>Delete</a>
+            </div>
+          </div>))}
     </div>
   </div>
   )

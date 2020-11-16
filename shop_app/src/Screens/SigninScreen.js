@@ -46,7 +46,7 @@ function SigninScreen(props) {
         </div>
         <div className="signin__content__background"></div>
          <p className="signin__content__question">Don't have an account?</p>
-         <a href="#" class="changepassword__close">&times;</a>
+         <a href="#" class="signin__close">&times;</a>
         {/* <Link className="signin__registerPath" to={redirect === '/' ? "register" : "register?redirect="+redirect}>
             Register here
         </Link> */}

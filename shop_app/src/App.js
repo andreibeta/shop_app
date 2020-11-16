@@ -30,7 +30,7 @@ function App(props) {
 
   useEffect(() => {
     localStorage.setItem('myvalue', qty);
-  }, [qty]);
+  }, [userInfo,qty]);
 
   const openMenu = () =>{
     document.querySelector(".sidebar").classList.add("open");
@@ -59,9 +59,11 @@ function App(props) {
                     ?   <div class="dropdown">
                             <a class="dropbtn">{userInfo.name}</a>
                             <div class="dropdown-content">
-                                <a href="#myprofile">My Profile</a>
-                                <a href="#changepassword">Change Password</a> 
-                                <a href="/myorders">My orders</a>  
+                            <ul>
+                               <li> <a href="#myprofile">My Profile</a> </li>
+                               <li> <a href="#changepassword">Change Password</a> </li>
+                               <li> <a href="/myorders">My orders</a> </li>
+                            </ul> 
                             </div>
                         </div> 
                     : <a href="#signin">Sign in</a>
@@ -75,8 +77,16 @@ function App(props) {
                 
                 {
                     userInfo
-                    ? userInfo.isAdmin 
-                        ? <Link to="/mylistofusers">Admin Panel</Link>
+                    ? userInfo.isAdmin
+                      ?  <div class="dropdown">
+                            <a class="dropbtn">Admin Panel</a>
+                            <div class="dropdown-content">
+                        <ul>
+                            <li> <a href="/mylistofusers">My Users</a> </li>
+                            <li> <a href="/createProduct">Create Product</a></li>
+                        </ul>
+                            </div>
+                         </div> 
                         : null
                     : null
                 }
