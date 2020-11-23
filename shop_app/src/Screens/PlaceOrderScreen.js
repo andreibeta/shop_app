@@ -14,10 +14,10 @@ function PlaceOrderScreen(props) {
     //console.log("id user"+userInfo._id);
    
     // if(!shipping.address){
-    //     props.history.push("/shipping");
+    //     props.history.push("/cart");
     // }
     // if(!payment.paymentMethod){
-    //     props.history.push("/payment");
+    //     props.history.push("/cart");
     // }
     const itemsPrice = cartItems.reduce((acumulator, currentItem) => acumulator+currentItem.price*currentItem.qty, 0);
     const shippingPrice = itemsPrice > 100 ? 0 : 10;
@@ -58,7 +58,7 @@ function PlaceOrderScreen(props) {
 
     return( 
         <div className="placeOrder">
-            <CheckoutSteps className="placeOrder__checkout" step1 step2 step3 step4></CheckoutSteps>
+            
             <div className="placeOrder__info">
                 <h3>Shipping</h3>
                 <p>Address: {addressOrder}</p>
@@ -66,9 +66,11 @@ function PlaceOrderScreen(props) {
                 <p>Postal Code: {postalCodeOrder}</p>   
                 <p>Country: {countryOrder}</p>   
             </div>
+            
             <div className="placeOrder__payment">
                 <h3>Payment</h3>
-                <p>Payment Method: {paymentMethodOrder}</p>
+                {/* <p>Payment Method: {paymentMethodOrder}</p> */}
+                <p>Payment Method: paypal</p>
             </div>
             <ul className="placeOrder__cartList">
                 <li>

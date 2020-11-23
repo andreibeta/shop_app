@@ -94,8 +94,7 @@ function ProductScreen (props) {
                 <h5 className="details__info__description-title"></h5>
                 <p className="details__info__description">
                 <h3>Description</h3>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In pellentesque massa placerat duis ultricies. 
-                Nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a tempor enim. Ut auctor eget nisl vitae dignissim. In ac molestie nulla, non placerat orci. Fusce sed libero ut lorem eleifend maximus. Ut placerat eleifend sem non porttitor. Suspendisse aliquam mauris massa. Sed egestas, nisl nec vulputate blandit, magna dui mattis justo, et vestibulum mauris libero id odio. Duis interdum rhoncus turpis. Proin quis vehicula mauris, nec tincidunt enim. Fusce faucibus leo sed lectus venenatis varius vitae eget nunc. Nunc vitae dolor ullamcorper, dignissim massa in, aliquam neque. Morbi placerat leo ac quam eleifend sollicitudin. Cras laoreet porttitor ex, porta mollis lacus fermentum in. Quisque vel velit ac lorem molestie cursus sed ac sem.
             
                   {product.description}   
                 </p>
@@ -107,6 +106,14 @@ function ProductScreen (props) {
                     </li>
                     <li>
                         Status: {product.countInStock > 0 ? "In Stock" : "Out of stock"}
+                    </li>
+                    <li>
+                      Size:
+                      <select>
+                        <option>37</option>
+                        <option>40</option>
+                        <option>42</option>
+                      </select>
                     </li>
                     <li>
                         Quantity: 
@@ -128,6 +135,7 @@ function ProductScreen (props) {
                     </li>
                 </ul>
             </div>
+           <div className="bottom-content">
             <div className="content-margined">
             {!product.reviews && <div>There is no review</div>}
             <h2 className="content-margined__reviews__header">Reviews</h2>
@@ -147,23 +155,27 @@ function ProductScreen (props) {
                   </div>
                   
                   { userInfo ?
+                  userInfo.isAdmin ?
                   <button className="button" onClick={() => deleteHandler(review._id)}>Delete</button>
                   :<div></div>
+                  :null
                   }
                 </li>
               ))}
               </div>
               </ul>
               {/* <li> */}
-                <div className="submit">
+          </div>             
+          <div className="submit">
                 <h2 className="submit__header">Write a customer review</h2>
                 {userInfo ? (
-                  <form className="form" onSubmit={submitHandler}>
+                  <form className="submit__form" onSubmit={submitHandler}>
                     {/* <ul className="form-container">
                       <li> */}
-                        <p className="form__rating" htmlFor="rating">Rating</p>
+                      <div>
+                        <p className="submit__form__rating" htmlFor="rating">Rating</p>
                         <select
-                          className="form__selector"
+                          className="submit__form__selector"
                           name="rating"
                           id="rating"
                           value={rating}
@@ -175,18 +187,21 @@ function ProductScreen (props) {
                           <option value="4">4- Very Good</option>
                           <option value="5">5- Excelent</option>
                         </select>
+                      </div>
                       {/* </li>
                       <li> */}
-                        <p className="form__comment" htmlFor="comment">Comment</p>
+                      <div>
+                        <p className="submit__form__comment" htmlFor="comment">Comment</p>
                         <textarea
-                          className="form__input"
+                          className="submit__form__input"
                           name="comment"
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></textarea>
+                      </div>
                       {/* </li>
                       <li> */}
-                        <button type="submit" className="form__button">
+                        <button type="submit" className="submit__form__button">
                           Submit
                         </button>
                       {/* </li>
@@ -199,9 +214,7 @@ function ProductScreen (props) {
                 )}
               {/* </li> */}
               </div>
-            
-          </div>             
-            
+            </div>
         </div>
             
             } 

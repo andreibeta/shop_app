@@ -88,13 +88,7 @@ function MyOrdersScreen(props) {
               <div className="content__email">{order.email}</div>
               <div>{order.totalPrice}</div>
               <button onClick={() => deleteHandler(order)}>Delete</button>
-        </div>,
-               {/* <div>Address: {order.addressOrder}</div>
-                <div>City: {order.cityOrder}</div>
-                <div>Country: {order.countryOrder}</div>
-              <div>Total Price: {order.totalPrice}</div>
-                <div>Email: {order.email}</div>
-                <button className="button" onClick={() => deleteHandler(order)}>Delete</button>  */}
+        </div>
        )
     }
      </div>

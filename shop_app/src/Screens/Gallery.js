@@ -9,7 +9,7 @@ const Gallery = () => {
   return (
     <Carousel loop>
       <Carousel.Item>
-        <img src={image1} />
+        <img src={image2} />
       </Carousel.Item>
       <Carousel.Item>
         <img  src={image2} />

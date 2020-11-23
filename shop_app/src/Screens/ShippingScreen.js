@@ -12,15 +12,15 @@ function ShippingScreen(props) {
   const dispatch = useDispatch();
 
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(saveShipping({address,city, postalCode,country}));
-    props.history.push('/payment');
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   dispatch(saveShipping({address,city, postalCode,country}));
+  //   props.history.push('/payment');
 
-  }
+  // }
   return (
-    <form className="shipping" onSubmit={submitHandler} >
-      <CheckoutSteps step1 step2></CheckoutSteps>
+    <form className="shipping" >
+      {/* <CheckoutSteps step1 step2></CheckoutSteps> */}
       <h2 className="shipping__header">Shipping</h2>
       <div className="shipping__address">
       <p>Address</p>
@@ -40,7 +40,7 @@ function ShippingScreen(props) {
         <input type="text" name="country" placeholder="Country" id="country" onChange={(e) => setCountry(e.target.value)}>
           </input>
       </div>
-      <button type="submit" className="shipping__submit">Continue</button>
+      {/* <button type="submit" className="shipping__submit">Continue</button> */}
       
     </form>
   )
