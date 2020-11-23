@@ -20,7 +20,7 @@ import MyUsersScreen from './Screens/MyUsersScreen';
 import WelcomeHome from './components/WelcomeHome';
 import { Router, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './Screens/NotFound';
-
+import profile_2 from './images/profile-2.png';
 
 function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
@@ -57,10 +57,14 @@ function App(props) {
                 {
                     userInfo 
                     ?   <div class="dropdown">
+                            <div className="userNav">
+                            <img src={profile_2} className="image"></img>
                             <a class="dropbtn">{userInfo.name}</a>
+                            </div>
                             <div class="dropdown-content">
                             <ul>
-                               <li> <a href="#myprofile">My Profile</a> </li>
+                               <li>
+                                   <a href="#myprofile">My Profile</a> </li>
                                <li> <a href="#changepassword">Change Password</a> </li>
                                <li> <a href="/myorders">My orders</a> </li>
                             </ul> 

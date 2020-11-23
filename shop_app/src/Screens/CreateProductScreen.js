@@ -148,9 +148,9 @@ function CreateProductScreen(props) {
             <div>{product.category}</div>
             <div>{product.brand}</div>
             <div>
-              <a href="#createproduct" className="productContent__button" onClick={() => openModal(product)} >Edit</a>
+              <a href="#createproduct" className="productContent__button--edit" onClick={() => openModal(product)} >Edit</a>
               {' '}
-              <a className="productContent__button" onClick={() => deleteHandler(product)}>Delete</a>
+              <a className="productContent__button--delete" onClick={() => deleteHandler(product)}>Delete</a>
             </div>
           </div>))}
     </div>

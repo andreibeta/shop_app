@@ -1,6 +1,6 @@
 import * as cartTypes from "../constants/cartConstants";
 
-const reducer = (state = {cartItems:[],shipping:{}, payment:{}},action) => {
+const reducer = (state = {cartItems:[],shipping:[], payment:[]},action) => {
     switch(action.type){
         case cartTypes.ADD_TO_CART:
             const item = action.payload;
