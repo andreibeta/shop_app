@@ -648,7 +648,12 @@ html{
         .inputs{
           display: flex;
           flex:1;
+          flex-wrap: wrap;
           justify-content: space-around;
+          &__error{
+            flex:1 100%;
+            text-align: center;
+          }
         }
       }
     }   
@@ -1103,21 +1108,21 @@ html{
   display: grid;
   grid-template-rows: 1fr repeat(8,minmax(2.5rem,1fr)) 1fr;
   grid-template-columns: repeat(3,1fr) repeat(4,minmax(15rem,1fr)) repeat(3,1fr);
-  //grid-gap: 1rem;
-  background-image: linear-gradient(rgba($color-grey-light,.7),rgba($color-grey-light,.7));
+  //background-image: linear-gradient(rgba($color-grey-light,.7),rgba($color-grey-light,.7));
   input{
     margin:2rem 2rem;
     padding: .5rem 0;
     align-self: end;
     grid-column: 4 / 6;
     border:1px solid $color-primary-light;
+    text-align: center;
     &::placeholder{
       text-align: center;
     }
     z-index: 1;
   }
   label{
-    text-align: start;
+    text-align: center;
     margin-left: 2.5rem;
     grid-column: 4 / 6;
     z-index: 1;
@@ -1131,7 +1136,6 @@ html{
   }
   &__nameLabel{
     grid-row: 3 / 4;
-    
   }
   &__name{
     grid-row: 3 / 4;   
@@ -1188,6 +1192,8 @@ html{
   &__background{
     border-radius: .5rem;
     background-color: white;
+    border:1px solid $color-grey-light;
+    box-shadow: 5px 7px 24px -4px rgba(0,0,0,0.75);
     grid-row: 2 / 10;
     grid-column: 4 / 8;
   }

@@ -74,6 +74,11 @@ function App(props) {
                 }
                 {
                     userInfo
+                    ? null
+                    : <Link to = "/register">Register</Link>
+                }
+                {
+                    userInfo
                     ? <Link to="/" onClick={handleLogout}>Log out</Link>
                     // ? <button type="button" onClick={handleLogout}Log out></button>
                     : null
@@ -96,11 +101,7 @@ function App(props) {
                 }
                 
 
-                {/* {
-                    userInfo.isAdmin
-                    ? <Link>Administration Panel</Link>
-                    : userInfo.isAdmin = false
-                } */}
+               
             </div>
         </header>
         <Route path="/" exact={true} component={WelcomeHome} />   

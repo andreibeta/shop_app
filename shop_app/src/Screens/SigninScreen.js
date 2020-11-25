@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/userActionsCreator';
 import signinPhoto from '../images/signin.png';
-
+import { useForm } from "react-hook-form";
 
 function SigninScreen(props) {
+  const { register, handleSubmit, errors, formState } = useForm({
+    mode: "onBlur",
+  });
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,9 +37,29 @@ function SigninScreen(props) {
        <h2 className="signin__content__header">Sign in</h2>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        <p className="signin__content__labelEmail">Email</p>
-        <input className="signin__content__email" type="email" name="email" placeholder="email"id="email" onChange={(e) => setEmail(e.target.value)}>
-        </input>
+
+        {errors.email && errors.email.type === "required" && <p className="signin__content__labelEmail" style={{color:"red"}}>Email is required</p>}
+        {errors.email && errors.email.type === "maxLength" && <p className="signin_content__labelEmail" style={{color:"red"}}>Max length exceeded</p> }
+        {!errors.email && <p className="signin__content__labelEmail">Email</p>}
+        <input 
+            className="signin__content__email" 
+            type="email" 
+            name="email" 
+            placeholder="email"
+            id="email" 
+            onChange={(e) => setEmail(e.target.value)}
+            ref={register({
+                required: true,
+                minLength:10,
+                maxLength:30, 
+                pattern: {
+                  value:/^\S+@\S+$/i,
+                  message:"Invalid Format",
+                },
+            })}
+            style={{borderColor:errors.name && "red"}}
+        />
+
         <p className="signin__content__labelPassword">Password</p>
         <input className="signin__content__password" type="password" id="password" placeholder="password" name="password" onChange={(e) => setPassword(e.target.value)}>
         </input>
