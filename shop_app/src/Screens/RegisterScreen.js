@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../actions/userActionsCreator';
 import registerPhoto from '../images/register.png';
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 
 
 function RegisterScreen(props) {

@@ -1,5 +1,6 @@
 import express from 'express';
 import Product from '../models/productModel';
+import Review from '../models/reviewModel';
 import { getToken, isAuth, isAdmin } from '../util';
 
 const router = express.Router();
@@ -73,40 +74,45 @@ router.delete("/:id",isAuth, isAdmin,async(req,res) =>{
   }
 })
 
-//post reviews
-router.post('/:id/reviews', isAuth, async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  if(product){
-    const review = {
-      name: req.body.name,
-      rating: Number(req.body.rating),
-      comment:req.body.comment,
-    };
-    product.reviews.push(review);
-    product.numReviews = product.reviews.length;
-    product.rating = 
-      product.reviews.reduce((a,c) => c.rating + a, 0)/ product.reviews.length;
-    const updatedProduct = await product.save();
-    res.status(201).send({
-      data: updatedProduct.reviews[updatedProduct.reviews.length - 1],
-      message:'Review saved successfully',
-    });
-  }else{
-    res.status(404).send({message:'Product not found'});
-  }
-});
 
-//delete reviews
-router.delete('/reviews/:id',isAuth,isAdmin,async(req,res)=>{
-  const reviewId = req.params.id;
-  console.log(reviewId);
-  const deleteReview = await Product.reviews.findById(reviewId);
-  if(deleteReview){
-    await deleteReview.remove();
-    res.send({message:"Review deleted"});
-  }else{
-    res.send({message:"Error in deletion"})
-  }
-})
+
+// //post reviews
+// router.post('/:id/reviews', isAuth, async (req, res) => {
+//   const product = await Product.findById(req.params.id);
+//   if(product){
+//     const review = {
+//       name: req.body.name,
+//       rating: Number(req.body.rating),
+//       comment:req.body.comment,
+//     };
+//     product.reviews.push(review);
+//     product.numReviews = product.reviews.length;
+//     product.rating = 
+//       product.reviews.reduce((a,c) => c.rating + a, 0)/ product.reviews.length;
+//     const updatedProduct = await product.save();
+//     res.status(201).send({
+//       data: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+//       message:'Review saved successfully',
+//     });
+//   }else{
+//     res.status(404).send({message:'Product not found'});
+//   }
+// });
+
+// //delete reviews
+// router.delete('/:product/reviews/:id',isAuth,isAdmin,async(req,res)=>{
+//   const productId= req.params.product;
+//   const reviewId = req.params.id;
+//   console.log(reviewId);
+//   // const productSearch = await Product.findById(productId);
+//   // const deleteReview = await productSearch.reviews.findById(reviewId);
+//   const deleteReview = await Product.findById(productId).reviews.findById(reviewId);
+//   if(deleteReview){
+//     await deleteReview.remove();
+//     res.send({message:"Review deleted"});
+//   }else{
+//     res.send({message:"Error in deletion"})
+//   }
+// })
 
 export default router;

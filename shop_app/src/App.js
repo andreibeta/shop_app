@@ -27,7 +27,7 @@ function App(props) {
   const {userInfo} = userSignin;
   const dispatch = useDispatch();
   const [qty,setQty] = useState(localStorage.getItem('myvalue') || '');
-
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     localStorage.setItem('myvalue', qty);
   }, [userInfo,qty]);
@@ -40,9 +40,7 @@ function App(props) {
   }
   const handleLogout = () => {
     dispatch(logout());
-  }
-
-  
+  }  
   return (
     <BrowserRouter>
     <div className="grid-container">
@@ -65,7 +63,12 @@ function App(props) {
                             <ul>
                                <li>
                                    <a href="#myprofile">My Profile</a> </li>
-                               <li> <a href="#changepassword">Change Password</a> </li>
+                               {
+                               userInfo.isAdmin ?
+                               null
+                               :<li> <a href="#changepassword">Change Password</a></li>
+                               
+                                }
                                <li> <a href="/myorders">My orders</a> </li>
                             </ul> 
                             </div>

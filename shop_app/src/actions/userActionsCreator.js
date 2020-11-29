@@ -62,7 +62,7 @@ const editProfile = ({userId ,name , phoneNumber ,country}) => async (dispatch,g
       }
     });
     dispatch({type:EDIT_PROFILE_SUCCESS, payload: data});
-    Cookie.set('userInfo', JSON.stringify(data));
+    alert("Success");
   }catch(error){
     dispatch({type:EDIT_PROFILE_FAILED, payload: error.message})
   }
