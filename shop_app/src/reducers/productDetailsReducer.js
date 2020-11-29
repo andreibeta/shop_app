@@ -1,6 +1,6 @@
 import {PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_FAILED, PRODUCT_DETAILS_SUCCESS} from '../constants/productConstants';
 
-const reducer = (state = {product: { reviews: [] } },action) => {
+const reducer = (state = {product: {} },action) => {
     switch(action.type){
         case PRODUCT_DETAILS_REQUEST:
             return {loading: true};

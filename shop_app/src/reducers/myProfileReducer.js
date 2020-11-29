@@ -1,7 +1,7 @@
 import {PROFILE_USER_REQUEST,PROFILE_USER_SUCCESS,PROFILE_USER_FAILED} from '../constants/userConstants';
 
 
-const reducer = (state = { user: { }},action) => {
+const reducer = (state = { user: {} },action) => {
     switch(action.type){
         case PROFILE_USER_REQUEST:
             return {loading: true};

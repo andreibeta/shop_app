@@ -1,6 +1,6 @@
 import {REVIEW_DELETE_REQUEST, REVIEW_DELETE_SUCCESS, REVIEW_DELETE_FAILED} from '../constants/productConstants';
 
-const reducer = (state = {},action) => {
+const reducer = (state = {review:{}},action) => {
     switch(action.type){
         case REVIEW_DELETE_REQUEST:
             return {loading: true};

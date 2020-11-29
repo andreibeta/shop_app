@@ -867,9 +867,23 @@ html{
       color: $color-grey-light;
     }
     &__comment{
-      flex:1 80%;
+      flex:1 50%;
       margin-left:5rem;
       margin-bottom: 1rem;
+    }
+    &__button{
+      display: flex;
+      flex:0 30%;
+      justify-content: center;
+      justify-self: center;
+      align-self: center;
+      padding: .5rem;
+      background-color: $color-primary;
+      color:white;
+      border-color: $color-primary;
+      border-radius: 1rem;
+      max-width: 12%;
+      margin:2rem .5rem .5rem 2rem;
     }
   }
 
@@ -1562,6 +1576,7 @@ html{
           padding: 0 1rem;
           width: 70%;
           align-self: center;
+          text-align: center;
           &::placeholder{
             text-align: center;
           }
@@ -1653,6 +1668,7 @@ html{
           width: 70%;
           height: 3rem;
           align-self: center;
+          text-align: center;
         }
         &__icon{
           align-self: center;
@@ -1669,14 +1685,15 @@ html{
           }
         }
         &__button{
-          min-height: 4rem;
-          min-width: 50%;
-          align-self: center;
-          margin-top:1.5rem;
           background-color: $color-primary;
+          margin-top: 1.5rem;
+          padding: 1.5rem;
+          width: 30%;
           color: white;
           border-radius: .5rem;
           text-transform: uppercase;
+          align-self: center;
+          text-align: center;
           &:active{
             border:1px solid red;
           }
@@ -1829,7 +1846,6 @@ html{
       padding: 1rem;
       text-transform: uppercase;
       margin-top: 1rem;
-      border-radius: 1rem;
       &:hover{
         background-color: $color-primary-dark;
         cursor: pointer;
@@ -1883,9 +1899,10 @@ html{
   &__button--edit{
     background-color: $color-primary;
     color:white;
-    padding: .5rem;
+    padding: 1rem;
     font-size: 1.5rem;
     cursor: pointer;
+    border-radius: 1rem;
     &:hover{
       background-color: $color-primary-dark;
       transform: translateY(-5%);
@@ -1894,8 +1911,9 @@ html{
   &__button--delete{
     background-color: #570004;
     color:white;
-    padding: .5rem;
+    padding: 1rem;
     font-size: 1.5rem;
+    border-radius: 1rem;
     cursor: pointer;
     animation: all .2s;
     &:hover{

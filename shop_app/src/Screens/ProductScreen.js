@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { detailsProduct, saveProductReview, deleteReview } from '../actions/productActionsCreator';
+import { detailsProduct, saveProductReview, deleteReview,detailsReview } from '../actions/productActionsCreator';
 import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
 import profile_1 from '../images/profile-1.png';
@@ -21,18 +21,21 @@ function ProductScreen (props) {
     const { product, loading, error} =   productDetails;
     const productReview = useSelector((state) => state.productReview);
     const { success: productSaveSuccess } = productReview;
-    const reviewDelete = useSelector(state => state.reviewDelete);
-    const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
+    const reviewList = useSelector(state => state.reviewList);
+    const {reviews,loading:loadingReview,error:errorReview} = reviewList;
+    // const reviewDelete = useSelector(state => state.reviewDelete);
+    // const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
     const dispatch = useDispatch();
-    
+    console.log(product);
     useEffect(() => {
         if (productSaveSuccess) {
-          alert('Review submitted successfully.');
           setRating(0);
           setComment('');
           dispatch({ type: PRODUCT_REVIEW_SUBMIT_RESET});
+          
         }
         dispatch(detailsProduct(props.match.params.id));
+        dispatch(detailsReview(props.match.params.id));
         return () => {
           //
         };
@@ -45,20 +48,13 @@ function ProductScreen (props) {
         props.history.push("/cart/" + props.match.params.id);
     }
     const deleteHandler = (reviewId) => {
-      dispatch(deleteReview(product._id, reviewId));
-      console.log("Product id:",product._id);
-      console.log("Review id:",reviewId);
+      dispatch(deleteReview(reviewId));
+      dispatch(detailsReview(props.match.params.id));
     }
     const submitHandler = (e) => {
         e.preventDefault();
         // dispatch actions
-        dispatch(
-          saveProductReview(props.match.params.id, {
-            name: userInfo.name,
-            rating: rating,
-            comment: comment,
-          })
-        );
+        dispatch(saveProductReview(props.match.params.id,userInfo.name,rating,comment));
       };
       
     const handleIncrement = (qty) =>{
@@ -141,7 +137,7 @@ function ProductScreen (props) {
             <h2 className="content-margined__reviews__header">Reviews</h2>
             <ul className="content-margined__reviews" id="reviews">
               <div className="content-margined__reviews__descriptions">
-              {product.reviews.map((review) => (
+              {reviews.map((review) => (
             
                 <li key={review._id}>
                   <div className="review">
@@ -151,21 +147,22 @@ function ProductScreen (props) {
                     <Rating value={review.rating}></Rating>
                   </div>
                   <div className="review__date">{review.createdAt.substring(0, 10)}</div>
+            
                   <div className="review__comment">{review.comment}</div>
-                  </div>
-                  
                   { userInfo ?
                   userInfo.isAdmin ?
-                  <button className="button" onClick={() => deleteHandler(review._id)}>Delete</button>
+                  <button className="review__button" onClick={() => deleteHandler(review._id)}>Delete</button>
                   :<div></div>
                   :null
                   }
+            
+                  </div>
                 </li>
               ))}
               </div>
               </ul>
-              {/* <li> */}
           </div>             
+           
           <div className="submit">
                 <h2 className="submit__header">Write a customer review</h2>
                 {userInfo ? (

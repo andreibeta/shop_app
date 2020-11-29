@@ -7,6 +7,7 @@ import { productActionsCreator } from '../actions/productActionsCreator';
 import WelcomeHome from '../components/WelcomeHome';
 import {TiShoppingCart} from 'react-icons/ti';
 
+
 function HomeScreen (props) {
     //here we want to define a hook
     const productList = useSelector(state => state.productList);
@@ -21,10 +22,7 @@ function HomeScreen (props) {
                 
             };
         },[])
-        const value = "70%";
-        const style={
-          width:value
-        }
+      
     return (
     loading ? <div> Loading...</div>: error ? <div>{error}</div> : 
     <div className="products">

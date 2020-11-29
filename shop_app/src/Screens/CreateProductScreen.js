@@ -61,7 +61,8 @@ function CreateProductScreen(props) {
   const deleteHandler = (product) =>{
     dispatch(deleteProduct(product._id));
   }
-  if(userInfo.isAdmin){
+
+  if(userInfo && userInfo.isAdmin){
   return (
   <div>
 
