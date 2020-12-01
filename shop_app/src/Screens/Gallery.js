@@ -5,9 +5,23 @@ import image2 from '../images/nike-air-720-2.png';
 import image3 from '../images/nike-air-720-3.png';
 
 
+const MyDot = ({ isActive }) => (
+  <span
+    style={{
+      marginTop:'2rem',
+      display: 'inline-block',
+      height: isActive ? '8px' : '5px',
+      width: isActive ? '8px' : '5px',
+      background: '#203040',
+      borderRadius:'50%'
+    }}
+  ></span>
+)
+
+
 const Gallery = () => {
   return (
-    <Carousel loop>
+    <Carousel dot={MyDot} showDots autoplay={3000} loop>
       <Carousel.Item>
         <img src={image2} />
       </Carousel.Item>

@@ -1,0 +1,105 @@
+//PLACE ORDER
+.placeOrder{
+    grid-row: 2 / 4;
+    max-height: 80vh;
+    display: grid;
+    padding:2rem 3rem;
+    grid-template-columns: max-content repeat(9,1fr);
+    grid-template-rows: repeat(10,1fr);
+    grid-gap: 1rem;
+    min-height: 0;
+    overflow: auto;
+    & > *{
+      box-shadow: 9px 4px 16px -6px rgba(0,0,0,0.68);
+    }
+    &__info{
+      grid-row: 1 / 3;
+      grid-column: 1 / 8;
+      border-radius: .5rem;
+      border:1px solid $color-grey-light;
+      //overflow: auto;
+      display: flex;
+      //min-height: 12rem;
+      flex-flow: wrap;
+      padding: 0 3rem;
+      h3{
+        flex:1 100%;
+        text-align: center;
+      }
+      p{
+        flex: 1 1 25%;
+      }
+      
+    }
+    &__payment{
+      grid-row: 3 / 4;
+      grid-column: 1 / 8;
+      border-radius: .5rem;
+      border:1px solid $color-grey-light;
+      padding: 0 3rem;
+      align-self: center;
+      text-align: center;
+    }
+    &__cartList{
+      grid-row: 4 / 11;
+      grid-column: 1 / 8;
+      list-style: none;
+      padding: 0 3rem;
+      border-radius: .5rem;
+      border:1px solid $color-grey-light;
+      overflow: auto;
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      h3{
+        flex: 1 100%;
+        text-align: center;
+      }
+      li{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        align-items:center;
+        border-bottom: 1;
+      }
+      
+      img{
+        max-width: 10rem;
+        max-height: 10rem;
+      }
+    }
+    &__action{
+      grid-row: 2 / 9;
+      grid-column: 8 / 11;
+      border-radius: .5rem;
+      border:1px solid $color-grey-light;
+      list-style: none;
+      padding:0 1.5rem;
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      
+      h3{
+        flex: 0 0 100%;
+        text-align: center;
+      }
+      li{
+        display: flex;
+        justify-content: space-between;
+        font-size: 2rem;
+      }
+      button{
+        margin:.5rem 4rem;
+        padding: 1rem 0;
+        align-self: center;
+        width: 70%;
+        background-color: $color-primary;
+        color: white;
+        text-transform: uppercase;
+        &:hover{
+          background-color: $color-primary-dark;
+        }
+      }
+    }
+  }

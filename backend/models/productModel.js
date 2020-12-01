@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
   category: { type: String, required: true },
   countInStock: { type: Number,default:0, required: true },
   description: { type: String, required: true },
-  rating: { type: Number,default: 0,get: v => Math.round(v * 100) / 100 ,set: v => Math.round(v * 100) / 100, required: true },
+  rating: { type: Number,default: 5,get: v => Math.round(v * 100) / 100 ,set: v => Math.round(v * 100) / 100, required: true },
   numReviews: { type: Number,default:0, required: true },
 });
 

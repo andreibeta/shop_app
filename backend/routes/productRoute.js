@@ -76,6 +76,20 @@ router.delete("/:id",isAuth, isAdmin,async(req,res) =>{
 
 
 
+//post rating
+router.post('/:id',async(req,res)=>{
+  const product = await Product.findById(req.params.id);
+  var index = 1;
+  if(product){
+    product.rating = index*(product.rating + Number(req.body.rating))/(index+1);
+    index = index + 1;
+    const updatedProduct = await product.save();
+        if(updatedProduct){
+          return res.status(200).send({message:'Product updated', data: updatedProduct});
+        }
+  }
+})
+
 // //post reviews
 // router.post('/:id/reviews', isAuth, async (req, res) => {
 //   const product = await Product.findById(req.params.id);
