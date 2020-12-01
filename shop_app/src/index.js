@@ -25,6 +25,7 @@ import productReviewReducer from './reducers/productReviewReducer'
 import reviewDeleteReducer from './reducers/reviewDeleteReducer';
 import userDeleteReducer from './reducers/userDeleteReducer';
 import reviewList from './reducers/reviewsListReducer';
+import submitRatingReducer from './reducers/submitRatingReducer';
 
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   reviewDelete: reviewDeleteReducer,
   userDelete: userDeleteReducer,
   reviewList:reviewList,
+  submitRating:submitRatingReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

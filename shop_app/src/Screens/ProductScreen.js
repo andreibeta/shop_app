@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { detailsProduct, saveProductReview, deleteReview,detailsReview } from '../actions/productActionsCreator';
+import { detailsProduct, saveProductReview, deleteReview,detailsReview,saveProduct,submitRating } from '../actions/productActionsCreator';
 import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
 import profile_1 from '../images/profile-1.png';
@@ -25,6 +25,8 @@ function ProductScreen (props) {
     const {reviews,loading:loadingReview,error:errorReview} = reviewList;
     // const reviewDelete = useSelector(state => state.reviewDelete);
     // const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
+    
+
     const dispatch = useDispatch();
     console.log(product);
     useEffect(() => {
@@ -51,10 +53,12 @@ function ProductScreen (props) {
       dispatch(deleteReview(reviewId));
       dispatch(detailsReview(props.match.params.id));
     }
+    const id = props.match.params.id;
     const submitHandler = (e) => {
         e.preventDefault();
         // dispatch actions
         dispatch(saveProductReview(props.match.params.id,userInfo.name,rating,comment));
+        dispatch(submitRating(props.match.params.id,rating));
       };
       
     const handleIncrement = (qty) =>{
@@ -133,7 +137,7 @@ function ProductScreen (props) {
             </div>
            <div className="bottom-content">
             <div className="content-margined">
-            {!product.reviews && <div>There is no review</div>}
+            {!reviews && <div>There is no review</div>}
             <h2 className="content-margined__reviews__header">Reviews</h2>
             <ul className="content-margined__reviews" id="reviews">
               <div className="content-margined__reviews__descriptions">
@@ -144,7 +148,7 @@ function ProductScreen (props) {
                   <img className="review__image" src={profile_1}></img>
                   <div className="review__name">{review.name}</div>
                   <div>
-                    <Rating value={review.rating}></Rating>
+                    <Rating value={product.rating}></Rating>
                   </div>
                   <div className="review__date">{review.createdAt.substring(0, 10)}</div>
             

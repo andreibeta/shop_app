@@ -1,0 +1,252 @@
+/*Product details*/
+  
+.details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > *{
+      margin-top: 2rem;
+    }
+    
+    &__gallery{
+      flex: 0 1 50%;
+      margin:5rem;
+      order:1;
+      justify-self: center;
+      align-self: center;
+      span{
+        align-items: center;
+      }
+      img{
+        display: block;
+        margin:auto;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+    &__action{
+      display: flex;
+      flex:0 1 40%;
+      order:2;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      ul{
+        list-style-type: none;
+        padding: 0;
+      }
+      li{
+        margin-bottom: 2rem;
+        letter-spacing: .2rem;
+        select{
+        margin-left: 1rem;
+        text-align: center;
+        padding: .5rem 4rem .5rem .5rem;
+        font-size: 16px;
+        border-radius: 1rem;
+        border:1px solid $color-grey-light;
+        height: 3rem;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(../../images/arrow.png) 80% / 15% no-repeat #EEE;
+        }
+      }
+
+      button{
+        background-color: $color-primary;
+        color: white;
+        font-size: 2rem;
+        padding:1rem 3rem;
+      }
+      button:hover{
+        background-color: $color-primary-dark;
+      }
+    }
+
+    &__info{
+        display: flex;
+        //flex-direction: column;
+        min-height: 0;
+        min-width: 0;
+        flex:1 1 100%;
+        min-height: 35vh;
+        background-color: $color-primary;
+        color: white;
+        order:3;
+        padding: 4rem;
+        align-content: center;
+        flex-wrap: wrap;
+        &__name{
+          flex: 1 100%;
+          font-size: 3rem;
+          text-align: center;
+          margin:0;
+          margin-top: 2rem;
+        }
+        &__description{
+          flex:1 100%;
+          text-align: center;
+          padding: 0 3rem;
+        }
+    }
+    .bottom-content{
+      display: flex;
+      flex: 1 1 100%;
+      min-height: 50vh;
+      flex-wrap: wrap;
+      justify-content: center;
+      order:4;
+    }
+  }
+
+
+  .content-margined{
+    display: flex;
+    flex-flow: column;
+    flex:1 60%;
+    &::-webkit-scrollbar{
+      width: 1rem;
+    }
+    
+    &__reviews{
+      display: flex;
+      flex-flow: column;
+      flex:1 1 100%;
+      overflow-y: auto;
+      max-height: 55vh;
+      
+      &__header{
+        text-align: center;
+      }
+      &__descriptions{
+        list-style: none;
+      }
+    }
+    &__reviews::-webkit-scrollbar{
+      width: .5rem;
+      margin-left: 3rem;
+    }
+    &__reviews::-webkit-scrollbar-thumb{
+      background-color:$color-grey-light;
+    }
+    
+    
+  }
+
+  //reviews section 
+  .review{
+    display: flex;
+    flex:1 100%;
+    box-shadow: 6px 6px 17px 3px rgba(0,0,0,0.75);
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    margin: 2rem;
+    justify-content: end;
+    &__image{
+      display:flex;
+      max-width: 5rem;
+      max-height: 5rem;
+      border-radius: 50%;
+      margin:2rem .5rem .5rem 2rem;
+    }
+    &__name{
+      padding: 2rem 1rem;
+      display: flex;
+      flex:1 50%;
+      align-items: center;
+      color:$color-primary;
+    }
+    &__date{
+      display: flex;
+      flex:0 10%;
+      margin-top:1rem;
+      margin-right: 1rem;
+      justify-content: end;
+      color: $color-grey-light;
+    }
+    &__comment{
+      flex:1 50%;
+      margin-left:5rem;
+      margin-bottom: 1rem;
+    }
+    &__button{
+      display: flex;
+      flex:0 30%;
+      justify-content: center;
+      justify-self: center;
+      align-self: center;
+      padding: .5rem;
+      background-color: $color-primary;
+      color:white;
+      border-color: $color-primary;
+      border-radius: 1rem;
+      max-width: 12%;
+      margin:2rem .5rem .5rem 2rem;
+    }
+  }
+
+
+//customer submit review section
+  .submit{
+    display: flex;
+    flex-flow: column;
+    flex: 1 40%;
+    min-width: 30rem;
+    flex-wrap: wrap;
+    &__header{
+      text-align: center;
+      flex:.1;
+    }
+    &__form{
+      display: flex;
+      min-height: 0;
+      align-items: center;
+      justify-content: space-around;
+      align-content: flex-start;
+      flex-wrap: wrap;
+      
+      & > *{
+        flex: 1 1 100%;
+        text-align: center;
+        margin: 2.5rem 0;
+        flex-shrink: 0; 
+        width: min-content;
+        height: min-content;
+        margin: 1rem;
+      }
+      &__rating{
+        font-size: 2rem;
+        
+      }
+      &__selector{
+        width: 50%;
+        text-align: center;
+        padding: 5px 35px 5px 5px;
+        font-size: 16px;
+        border-radius: 1rem;
+        border:1px solid $color-grey-light;
+        height: 34px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(../../images/arrow.png) 96% / 5% no-repeat #EEE;
+      }
+      
+      &__input{
+        width: 50%;
+        min-height: 10rem;
+        resize: none;
+       
+      }
+      &__button{
+        min-width: 20%;
+        max-width: 35%;
+        border-radius: 1rem;
+        padding: 1rem;
+        background-color: $color-primary;
+        color:white;
+        
+      }
+    }
+  }

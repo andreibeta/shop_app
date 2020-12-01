@@ -1,6 +1,7 @@
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAILED,PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILED,PRODUCT_SAVE_REQUEST,PRODUCT_SAVE_SUCCESS,PRODUCT_SAVE_FAILED
 ,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED,PRODUCT_REVIEW_SUBMIT_REQUEST,PRODUCT_REVIEW_SUBMIT_SUCCESS,PRODUCT_REVIEW_SUBMIT_FAILED,
-REVIEW_DELETE_REQUEST,REVIEW_DELETE_SUCCESS,REVIEW_DELETE_FAILED,REVIEW_DETAILS_REQUEST,REVIEW_DETAILS_SUCCESS,REVIEW_DETAILS_FAILED } from "../constants/productConstants";
+REVIEW_DELETE_REQUEST,REVIEW_DELETE_SUCCESS,REVIEW_DELETE_FAILED,REVIEW_DETAILS_REQUEST,REVIEW_DETAILS_SUCCESS,REVIEW_DETAILS_FAILED,
+RATING_SUBMIT_REQUEST,RATING_SUBMIT_SUCCESS,RATING_SUBMIT_FAILED} from "../constants/productConstants";
 import axios from 'axios';
 import Axios from "axios";
 import { get } from "js-cookie";
@@ -27,6 +28,16 @@ const detailsProduct = (productId) => async (dispatch) => {
         }catch(error){
         dispatch({type: PRODUCT_DETAILS_FAILED, payload: error.message})
     }
+}
+
+const submitRating = (productId,rating) => async(dispatch) => {
+  try{
+    dispatch({type:RATING_SUBMIT_REQUEST,payload: {productId,rating}});
+    const {data} = await axios.post("/api/products/"+productId,{rating});
+    dispatch({type:RATING_SUBMIT_SUCCESS,payload:data});
+  }catch(error){
+    dispatch({type:RATING_SUBMIT_FAILED,payload:error.message});
+  }
 }
 
 
@@ -70,7 +81,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
       dispatch({ type: PRODUCT_SAVE_FAILED, payload: error.message });
     }
   }
-  //to do
+
   const detailsReview = (productId) => async (dispatch) => {
     try{
         dispatch({type: REVIEW_DETAILS_REQUEST, payload: productId});
@@ -114,4 +125,4 @@ const deleteReview = (reviewId) => async(dispatch,getState) => {
   }
 }
 
-export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview, deleteReview,detailsReview}
+export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview, deleteReview,detailsReview,submitRating}

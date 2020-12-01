@@ -1,0 +1,59 @@
+//list of the products
+.productHeader{
+    text-align: center;
+    font-size: 1.7rem;
+  }
+  .productList{
+    margin:2.5rem;
+    border-radius: 1rem;
+    //padding:3rem;
+    text-align: center;
+    font-size: 1.7rem;
+    height: 60vh;
+    overflow-y: scroll;//vertical 
+    overflow-x: hidden;//horizontal
+    box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+    &__header{
+      display: grid;
+      grid-template-columns: repeat(6,minmax(10rem,1fr));
+      background-color: $color-primary;
+      color: white;
+    }
+  }
+  .productContent{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    word-wrap: break-word;
+    padding: 2rem 0;
+    border-bottom: 1px solid $color-grey-light;
+    &__id{
+      color: $color-primary;
+      word-break: break-all;
+      cursor: pointer;
+    }
+    &__button--edit{
+      background-color: $color-primary;
+      color:white;
+      padding: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 1rem;
+      &:hover{
+        background-color: $color-primary-dark;
+        transform: translateY(-5%);
+      }
+    }
+    &__button--delete{
+      background-color: #570004;
+      color:white;
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      animation: all .2s;
+      &:hover{
+        background-color: #3b0103;
+        transform: translateY(-5%);
+      }
+    }
+  }

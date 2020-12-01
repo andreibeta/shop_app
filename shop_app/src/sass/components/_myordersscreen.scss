@@ -1,0 +1,56 @@
+//container of myOrders
+.orders-content{
+    margin: 4rem;
+    h3{
+      text-align: center;
+    }
+  }
+  //header of the table
+  .orders{
+    grid-row: 2 / 4;
+    display: grid;
+    grid-template-columns: 12% repeat(4,minmax(min-content,12%)) 12% repeat(2,minmax(min-content,12%));
+    text-align: center;
+    border-bottom: 1px solid $color-grey-light;
+    padding: 2rem 3rem;
+    h3{
+      grid-row: 1 / 2;
+      grid-column: 4 / 7;
+      text-align: center;
+    }
+  }
+
+//my orders screen table
+.container-content{
+    height: 50vh;
+    overflow-y: scroll;//vertical 
+    overflow-x: hidden;//horizontal
+    box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+  
+  }
+  .content{
+   display: grid;
+   //grid-template-columns: 12% 12% repeat(3,minmax(min-content,12%)) 12% repeat(2,minmax(min-content,12%));
+   grid-template-columns: repeat(8, 12%);
+   grid-column: 1 / -1;
+   text-align: center;
+   padding: 2rem 3rem;
+   margin: 1rem;
+   border-bottom: 1px solid $color-grey-light;
+      & > *{
+        word-wrap: break-word;
+      }
+    
+      &__id{
+        color:$color-primary;
+      }
+      button{
+        background-color: $color-primary;
+        color: white;
+        transform:translate(20%, -15%);
+        &:hover{
+          background-color: $color-primary-dark;
+        }
+      }
+      
+  }
