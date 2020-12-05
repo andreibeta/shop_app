@@ -1,14 +1,31 @@
+//colors
 $color-primary:#203040;
 $color-primary-dark:#16212b;
 $color-primary-light:#7b96b0;
 $color-grey-light: #aaa;
 $color-grey-light-2:#f5f5f5;
+
+//screen dimensions
+$bp-largest:87.5em;//1400px/16px=87.5em
+$bp-large:68.75em;//1100px/16px
+$bp-medium:56.25em;//900px/16px=56.25em
+$bp-small:37.5em;//600px/16px=37.5em
+$bp-smallest:31.25em;//500px/16px=31.25em;
+
+
 html{
     font-size: 62.5%;/*default is 16px * 62.5  10px = 1 rem */
     box-sizing: border-box;
+    @media only screen and(max-width: $bp-large){
+      font-size:50%//1rem = 8px 8px/16px=50%;
+    }
+    @media only screen and(max-width: $bp-medium){
+      font-size:40%//1rem = 8px 8px/16px=50%;
+    }
+    
   }
   body{
-    font:1.6rem Helvetica;
+    font:1.6rem Arial;
     height: 100vh;
     margin:0;
   }

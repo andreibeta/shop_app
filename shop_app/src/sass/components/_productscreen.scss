@@ -14,6 +14,11 @@
       order:1;
       justify-self: center;
       align-self: center;
+      @media only screen and(max-width: $bp-medium){
+        flex: 1 1 100%;
+        max-width: 75rem;
+      }
+      
       span{
         align-items: center;
       }
@@ -42,7 +47,7 @@
         margin-left: 1rem;
         text-align: center;
         padding: .5rem 4rem .5rem .5rem;
-        font-size: 16px;
+        font-size: 1.6rem;
         border-radius: 1rem;
         border:1px solid $color-grey-light;
         height: 3rem;
@@ -105,6 +110,10 @@
     display: flex;
     flex-flow: column;
     flex:1 60%;
+    @media only screen and(max-width: $bp-medium){
+      flex: 1 100%;
+      padding: 2.5rem;
+    }
     &::-webkit-scrollbar{
       width: 1rem;
     }
@@ -115,12 +124,14 @@
       flex:1 1 100%;
       overflow-y: auto;
       max-height: 55vh;
+      padding: 0;
       
       &__header{
         text-align: center;
       }
       &__descriptions{
         list-style: none;
+        box-shadow: 6px 6px 17px 3px rgba(0,0,0,0.75);
       }
     }
     &__reviews::-webkit-scrollbar{
@@ -138,7 +149,8 @@
   .review{
     display: flex;
     flex:1 100%;
-    box-shadow: 6px 6px 17px 3px rgba(0,0,0,0.75);
+    box-shadow: 8px 7px 11px -5px rgba(0,0,0,0.75);
+    border:1px solid $color-grey-light;
     flex-wrap: wrap;
     border-radius: 1rem;
     margin: 2rem;

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cd shop_app && npm install && npm run build",
     "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
