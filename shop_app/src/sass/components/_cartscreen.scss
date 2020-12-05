@@ -5,8 +5,9 @@
     flex: 1 100%;
     flex-flow: row;
     flex-wrap: wrap;
-    justify-content: center;
     overflow-y: scroll;
+    max-width: 100vw;
+    justify-content: center;
     &__header{
       display: flex;
       flex:1 100%;
@@ -31,7 +32,6 @@
       display: flex;
       padding: 2rem 0;
       flex-direction: row;
-      flex:1 25%;
       min-height: 0;
       align-items: center;
       font-size: 1.7rem;
@@ -39,8 +39,14 @@
       margin:2rem 5rem;
       color:$color-primary;
       flex-wrap: wrap;
-      max-width: 50%;
+      max-width: 25vw;
       //overflow: hidden;
+      @media only screen and(max-width: $bp-medium){
+        max-width: 50vw;
+      }
+      @media only screen and(max-width: $bp-smallest){
+        max-width: 70vw;
+      }
       &__image{
         display: flex;
         order:1;
@@ -132,10 +138,19 @@
       align-items: center;
       flex-wrap: wrap;
       //flex:.5 50% auto;
-      flex:1 70%;
       box-shadow: 6px 6px 17px 3px rgba(0,0,0,0.75);
       margin:2rem 5rem;
-      max-width: 60%;
+      max-width: 60vw;
+      @media only screen and(max-width: $bp-largest){
+        max-width: 55vw;
+      }
+      @media only screen and(max-width: $bp-medium){
+        max-width: 80vw;
+      }
+      @media only screen and(max-width: $bp-smallest){
+        max-width: 70vw;
+      }
+      
       &__header{
         flex: 1 100%;
         text-align: center;
@@ -146,6 +161,9 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        @media only screen and(max-width: $bp-smallest){
+          flex:1 100%;
+        }
         p{
           display: flex;
           flex:1 100%;

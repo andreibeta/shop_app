@@ -82,6 +82,7 @@ router.post('/:id',async(req,res)=>{
   var index = 1;
   if(product){
     product.rating = index*(product.rating + Number(req.body.rating))/(index+1);
+    product.numReviews = product.numReviews + 1;
     index = index + 1;
     const updatedProduct = await product.save();
         if(updatedProduct){

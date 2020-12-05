@@ -5,25 +5,32 @@
     height: 75vh;
     overflow-y: scroll;//vertical 
     overflow-x: hidden;//horizontal
-    box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
     &__header{
       display: grid;
-      grid-template-columns:repeat(5,minmax(10rem,1fr));
+      grid-template-columns:repeat(5,minmax(5rem,1fr));
       text-align: center;
       padding: 1rem 2rem;
       background-color: $color-primary;
       color: white;
+      @media only screen and(max-width: $bp-small){
+        visibility: hidden;
+      }
     }
   }
   .usersContent{
     display: grid;
-    grid-template-columns: repeat(5,minmax(10rem,1fr));
+    grid-template-columns: repeat(5,minmax(5rem,1fr));
     padding: 1rem 2rem;
     border-bottom: 1px solid $color-grey-light;
     word-wrap: break-word;
     text-align: center;
     font-size: 1.7rem;
     margin-top:2rem;
+    @media only screen and(max-width: $bp-small){
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     &__email{
       color: $color-primary;
     }
@@ -32,6 +39,11 @@
       padding: .5rem 2rem;
       background-color: $color-primary;
       color:white;
+      border-color: $color-primary;
+      border-radius: 1rem;
+      @media only screen and(max-width: $bp-small){
+        width: 30%;
+      }
     }
   }
   

@@ -27,6 +27,16 @@
         opacity: 0;
         transform:translate(-50%, -50%) scale(.2);
         transition: all .5s .2s;//.4s=the running time .2s=the delay time
+        @media only screen and(max-width: $bp-largest){
+          width: 40%;
+        }
+        @media only screen and(max-width: $bp-large){
+          width: 50%;
+        }
+        @media only screen and(max-width: $bp-smallest){
+          width: 70%;
+          height: 45%;
+        }
         input{
           text-align: center;
         }
@@ -38,6 +48,9 @@
           color:$color-primary;
           text-transform: uppercase;
           z-index:1;
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
+          }
         }
         &__labelEmail{
           grid-row: 2 / 3;
@@ -47,6 +60,9 @@
           font-size: 1.5rem;
           text-transform: uppercase;
           z-index:1;
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
+          }
         }
         &__email{
           grid-row: 2 / 3;
@@ -56,6 +72,9 @@
           border:1px solid #16212b;
           padding: 1rem;
           z-index:1;
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
+          }
           &::placeholder{
             text-align: center;
           }
@@ -68,6 +87,9 @@
           font-size: 1.5rem;
           text-transform: uppercase;
           z-index:1;
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
+          }
         }
       
         &__password{
@@ -80,6 +102,9 @@
           z-index:1;
           &::placeholder{
             text-align: center;
+          }
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
           }
         }
         &__submit{
@@ -95,6 +120,9 @@
           text-transform: uppercase;
           
           z-index:1;
+          @media only screen and(max-width: $bp-medium){
+            grid-column: 1 / -1;
+          }
           &:hover{
             background-color: $color-primary-dark;
           }
@@ -114,6 +142,9 @@
           border-radius: .3rem;
           z-index:1;
           border-left: 1px solid $color-grey-light;
+          @media only screen and(max-width: $bp-medium){
+            visibility: hidden;
+          }
         }
         &__question{
           grid-row: 3 / 4;
@@ -126,6 +157,9 @@
           align-self: center;
           text-align: center;
           z-index: 1;
+          @media only screen and(max-width: $bp-medium){
+            visibility: hidden;
+          }
         }
         
     }

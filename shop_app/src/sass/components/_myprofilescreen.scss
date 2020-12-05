@@ -30,6 +30,18 @@
           flex-direction: column;
           align-content: center;
           justify-content: space-between;
+          @media only screen and(max-width: $bp-largest){
+            width: 35%;
+          }
+          @media only screen and(max-width: $bp-medium){
+            width: 40%;
+          }
+          @media only screen and(max-width: $bp-small){
+            width: 50%;
+          }
+          @media only screen and(max-width: $bp-smallest){
+            width: 70%;
+          }
           input{
             border:1px solid $color-grey-light;
             width: 70%;

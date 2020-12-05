@@ -3,7 +3,7 @@ import Review from '../models/reviewModel';
 import { getToken, isAuth, isAdmin } from '../util';
 
 const router = express.Router();
-
+//    const numReviews = await Review.find({productId:req.params.id}).count();
 
 router.get("/:id",async(req,res)=> {
     const reviews = await Review.find({productId:req.params.id});
