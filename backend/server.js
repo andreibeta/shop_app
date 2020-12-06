@@ -1,24 +1,21 @@
-import express from 'express';
-import data from './data';
+import userRoute from './routes/userRoute.js';
+import productRoute from './routes/productRoute.js';
+import orderRoute from './routes/orderRoute.js';
+import reviewRoute from './routes/reviewRoute.js';
 import dotenv from 'dotenv';
-import config from './config';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import userRoute from './routes/userRoute';
-import productRoute from './routes/productRoute';
-import orderRoute from './routes/orderRoute';
-import reviewRoute from './routes/reviewRoute';
 import path from 'path';
-
+import express from 'express';
 
 dotenv.config();
 
-const mongodbUrl = config.MONGODB_URL;
-mongoose.connect(mongodbUrl, {
+
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/shop_app', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
 }).catch(error => console.log(error.reason));
+
 
 
 const app = express();
@@ -43,9 +40,9 @@ app.use("/api/logout",userRoute);
 //   res.send(data.products);
 // });
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.use(express.static(path.join(__dirname, '/shop_app/build')));
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+  res.sendFile(path.join(__dirname, '/shop_app/build/index.html'))
 );
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

@@ -1,7 +1,7 @@
 import express from 'express';
-import Product from '../models/productModel';
-import Review from '../models/reviewModel';
-import { getToken, isAuth, isAdmin } from '../util';
+import Product from '../models/productModel.js';
+import Review from '../models/reviewModel.js';
+import { getToken, isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 
