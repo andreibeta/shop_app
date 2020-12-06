@@ -1,6 +1,6 @@
 import express from 'express';
-import Order from '../models/orderModel';
-import { isAuth } from '../util';
+import Order from '../models/orderModel.js';
+import { isAuth } from '../util.js';
 const router = express.Router();
 
 // addressOrder: { type: String, required: true },

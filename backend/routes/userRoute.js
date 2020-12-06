@@ -1,8 +1,8 @@
 import express from 'express';
-import User from '../models/userModel';
-import { getToken, isAdmin } from '../util';
-import Order from '../models/orderModel';
-import { isAuth } from '../util';
+import User from '../models/userModel.js';
+import { getToken, isAdmin } from '../util.js';
+import Order from '../models/orderModel.js';
+import { isAuth } from '../util.js';
 
 const router = express.Router();
 

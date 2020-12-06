@@ -1,6 +1,6 @@
 import express from 'express';
-import Review from '../models/reviewModel';
-import { getToken, isAuth, isAdmin } from '../util';
+import Review from '../models/reviewModel.js';
+import { getToken, isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 //    const numReviews = await Review.find({productId:req.params.id}).count();
