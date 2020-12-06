@@ -8,6 +8,8 @@ import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
 import orderRoute from './routes/orderRoute';
 import reviewRoute from './routes/reviewRoute';
+import path from 'path';
+
 
 dotenv.config();
 
@@ -20,7 +22,9 @@ mongoose.connect(mongodbUrl, {
 
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/reviews",reviewRoute);
@@ -38,5 +42,12 @@ app.use("/api/logout",userRoute);
 // app.get("/api/products", (req, res) => {
 //   res.send(data.products);
 // });
-
-app.listen(5000, () => { console.log("Server started at http://localhost:5000") });
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Serve at http://localhost:${port}`);
+});
