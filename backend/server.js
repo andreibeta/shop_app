@@ -10,7 +10,7 @@ import express from 'express';
 dotenv.config();
 
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/shop_app', {
+mongoose.connect('mongodb+srv://andreibeta:347120@cluster0.qanre.mongodb.net/shop_app?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
