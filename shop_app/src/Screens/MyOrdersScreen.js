@@ -20,10 +20,9 @@ function MyOrdersScreen(props) {
     //this stuff will run only when the componentDidMount
     useEffect(() => {
             //this will list the products
+            if(userInfo){
             dispatch(myOrders());
-            return () => {
-                // console.log(userInfo.email)
-            };
+            }
         },[successDelete,userInfo])
     const deleteHandler = (order) =>{
           dispatch(deleteOrder(order._id));

@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { productActionsCreator } from '../actions/productActionsCreator';
+import { productActionsCreator,productListSort } from '../actions/productActionsCreator';
 import WelcomeHome from '../components/WelcomeHome';
 import {TiShoppingCart} from 'react-icons/ti';
 
@@ -11,23 +11,39 @@ import {TiShoppingCart} from 'react-icons/ti';
 function HomeScreen (props) {
     //here we want to define a hook
     const productList = useSelector(state => state.productList);
-    const {products, loading, error} = productList;
+    const {products, loading, error,sort} = productList;
     const dispatch = useDispatch();
-   
+
     //this stuff will run only when the componentDidMount
+  
     useEffect(() => {
             //this will list the products
             dispatch(productActionsCreator());
             return () => {
-                
+             
             };
-        },[])
-      
+        },[]);
+      const onSortingChange = (sort) =>{
+        dispatch(productListSort(sort));   
+      }
     return (
     loading ? <div> Loading...</div>: error ? <div>{error}</div> : 
+    <div>
+    <div className="box">
+    <p>Sort by</p>
+    <select
+          onChange={e => onSortingChange(e.target.value)}
+        >
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+          <option value="ascending">Low-High(Price)</option>
+          <option value="descending">High-Low(Price)</option>
+        </select>
+    </div>
     <div className="products">
     {
-      products.map(product =>
+      // products.sort((a,b) => a.price < b.price ? 1: -1).map(product =>
+        products.map(product =>
         <div key={product._id}>
           <div className="product">
               <img src={product.image} className="product__image"/>
@@ -49,6 +65,7 @@ function HomeScreen (props) {
       )
     }
       
+  </div>
   </div>
     )
 }

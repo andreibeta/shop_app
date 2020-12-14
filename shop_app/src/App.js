@@ -69,7 +69,7 @@ function App(props) {
                                :<li> <a href="#changepassword">Change Password</a></li>
                                
                                 }
-                               <li> <a href="/myorders">My orders</a> </li>
+                               <li> <Link to="/myorders">My orders</Link> </li>
                             </ul> 
                             </div>
                         </div> 
