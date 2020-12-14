@@ -1,4 +1,8 @@
 //list of the products
+.contentCreate{
+  width: 100vw;
+}
+
 .productHeader{
     text-align: center;
     font-size: 1.7rem;
@@ -9,16 +13,35 @@
     //padding:3rem;
     text-align: center;
     font-size: 1.7rem;
-    height: 60vh;
+    height: 75vh;
     overflow-y: scroll;//vertical 
     overflow-x: hidden;//horizontal
     box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+    span{
+      display: none;
+      @media only screen and(max-width: $bp-small){
+        display: inline;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+    }
+    }
     &__header{
       display: grid;
       grid-template-columns: repeat(6,minmax(10rem,1fr));
       background-color: $color-primary;
       color: white;
+      @media only screen and(max-width: $bp-small){
+          display: none;
+      }
     }
+  }
+  .productList::-webkit-scrollbar{
+    width: .5rem;
+    margin-left: 3rem;
+  }
+  .productList::-webkit-scrollbar-thumb{
+    background-color:$color-grey-light;
   }
   .productContent{
     display: grid;
@@ -26,10 +49,17 @@
     word-wrap: break-word;
     padding: 2rem 0;
     border-bottom: 1px solid $color-grey-light;
+    & > * {
+      padding: .5rem;
+    }
     &__id{
       color: $color-primary;
       word-break: break-all;
       cursor: pointer;
+    }
+    @media only screen and(max-width: $bp-small){
+      display: flex;
+      flex-direction: column;
     }
     &__button--edit{
       background-color: $color-primary;

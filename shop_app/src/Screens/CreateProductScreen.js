@@ -64,7 +64,7 @@ function CreateProductScreen(props) {
 
   if(userInfo && userInfo.isAdmin){
   return (
-  <div>
+  <div className="contentCreate">
 
     <div className="productHeader">
       <h3>Products</h3>
@@ -143,10 +143,15 @@ function CreateProductScreen(props) {
        
           {products.map(product => (
           <div className="productContent" key={product._id}>
+            <span>Product id</span>
             <div className="productContent__id">{product._id}</div>
+            <span>Product name</span>
             <div>{product.name}</div>
-            <div>{product.price}</div>
+            <span>Product price</span>
+            <div>{product.price}$</div>
+            <span>Product category</span>
             <div>{product.category}</div>
+            <span>Product brand</span>
             <div>{product.brand}</div>
             <div>
               <a href="#createproduct" className="productContent__button--edit" onClick={() => openModal(product)} >Edit</a>

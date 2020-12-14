@@ -1,10 +1,11 @@
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAILED,PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILED,PRODUCT_SAVE_REQUEST,PRODUCT_SAVE_SUCCESS,PRODUCT_SAVE_FAILED
 ,PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,PRODUCT_DELETE_FAILED,PRODUCT_REVIEW_SUBMIT_REQUEST,PRODUCT_REVIEW_SUBMIT_SUCCESS,PRODUCT_REVIEW_SUBMIT_FAILED,
 REVIEW_DELETE_REQUEST,REVIEW_DELETE_SUCCESS,REVIEW_DELETE_FAILED,REVIEW_DETAILS_REQUEST,REVIEW_DETAILS_SUCCESS,REVIEW_DETAILS_FAILED,
-RATING_SUBMIT_REQUEST,RATING_SUBMIT_SUCCESS,RATING_SUBMIT_FAILED} from "../constants/productConstants";
+RATING_SUBMIT_REQUEST,RATING_SUBMIT_SUCCESS,RATING_SUBMIT_FAILED,SORT_COLLECTION_PRICE_ASC,SORT_COLLECTION_PRICE_DESC, 
+SORT_COLLECTION_ALPHABETICAL_ASC,SORT_COLLECTION_ALPHABETICAL_DESC} from "../constants/productConstants";
 import axios from 'axios';
 import Axios from "axios";
-import { get } from "js-cookie";
+import Cookie from 'js-cookie';
 
 const productActionsCreator = () => async(dispatch) => {
     try{
@@ -17,6 +18,24 @@ const productActionsCreator = () => async(dispatch) => {
         dispatch({type:PRODUCT_LIST_FAILED, payload:error.message});
     }
     
+}
+
+const productListSort = (sort) => async(dispatch,getState) => {
+      try{
+        const { data } = await axios.get("/api/products");
+        if(sort === "A-Z"){
+          dispatch({type:SORT_COLLECTION_ALPHABETICAL_ASC,payload:data,sort})
+        }else if(sort ==="Z-A"){
+          dispatch({type:SORT_COLLECTION_ALPHABETICAL_DESC,payload:data,sort})
+        }else if(sort === "ascending"){
+          dispatch({type:SORT_COLLECTION_PRICE_ASC,payload:data,sort})
+        }else if(sort === "descending"){
+          dispatch({type:SORT_COLLECTION_PRICE_DESC,payload:data,sort})
+        }
+     }
+    catch(error){
+        dispatch({type:PRODUCT_LIST_FAILED, payload:error.message});
+    }
 }
   
 
@@ -125,4 +144,5 @@ const deleteReview = (reviewId) => async(dispatch,getState) => {
   }
 }
 
-export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview, deleteReview,detailsReview,submitRating}
+export {productActionsCreator, detailsProduct, saveProduct, deleteProduct, saveProductReview, 
+  productListSort,deleteReview,detailsReview,submitRating}
