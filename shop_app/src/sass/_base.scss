@@ -59,6 +59,9 @@ html{
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    @media only screen and(max-width: $bp-small){
+      min-height: 3vh;
+    }
   }
   .logo{
     grid-area: logo;
@@ -66,7 +69,10 @@ html{
     background-size: cover;
     background-position: center;
     height: 60vh;
-
+    @media only screen and(max-width: $bp-small){
+      height: 30vh;
+      min-height: 25rem;
+    }
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6,1fr);

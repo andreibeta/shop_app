@@ -7,7 +7,7 @@ import { PRODUCT_REVIEW_SUBMIT_RESET }from '../constants/productConstants';
 import profile_1 from '../images/profile-1.png';
 import Gallery from './Gallery';
 import {AiOutlinePlusSquare,AiOutlineMinusSquare} from 'react-icons/ai';
-
+import profile_2 from '../images/profile-2.png';
 
 function ProductScreen (props) {
     const qty = props.qty;
@@ -145,7 +145,7 @@ function ProductScreen (props) {
             
                 <li key={review._id}>
                   <div className="review">
-                  <img className="review__image" src={profile_1}></img>
+                  <img className="review__image" src={profile_2}></img>
                   <div className="review__name">{review.name}</div>
                   <div>
                     <Rating value={product.rating}></Rating>

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cd shop_app && npm install && npm run build",
-    "start":"node --experimental-modules backend/server.js",
+    "start": "node --experimental-modules backend/server.js",
     "dev": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "author": "",
@@ -16,7 +16,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.18"
+    "mongoose": "^5.9.18",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -25,5 +26,8 @@
     "@babel/preset-env": "^7.10.2",
     "nodemon": "^2.0.4"
   },
-  "engines": {"node":"12.4.0", "npm": "6.9.0"}
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
+  }
 }

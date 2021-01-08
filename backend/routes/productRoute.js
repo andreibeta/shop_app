@@ -2,8 +2,35 @@ import express from 'express';
 import Product from '../models/productModel.js';
 import Review from '../models/reviewModel.js';
 import { getToken, isAuth, isAdmin } from '../util.js';
+import multer from 'multer';
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination:function(req, file,callback){
+    callback(null, './uploads');
+  },
+  filename:function(req,file,callback){
+    callback(null,new Date().toISOString() + file.originalname);
+  }
+});
+
+const fileFilter = (req,file, callback) => {
+  //rejet a file
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    callback(null,true);
+  }else{
+    callback(null,false);
+  } 
+}
+
+const upload = multer({storage:storage, 
+  limits:{
+  fileSize:1024 * 1024 * 7
+  },
+  fileFilter: fileFilter
+  
+});
 
 router.get("/", async(req,res)=> {
   const products = await Product.find({});
@@ -21,7 +48,9 @@ router.get("/:id", async(req,res)=> {
 });
 
 //create new product
-router.post("/", async(req, res) => {
+//upload.single()->it will try to parse only one file
+router.post("/",upload.single('productImage'), async(req, res) => {
+  console.log(req.file);
   const product = new Product({
     name: req.body.name,
     price:req.body.price,
@@ -42,13 +71,13 @@ router.post("/", async(req, res) => {
 })
 
 //update product
-router.put("/:id", async(req, res) => {
+router.put("/:id",upload.single('productImage'), async(req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if(product && isAdmin){
       product.name = req.body.name,
       product.price = req.body.price;
-      product.image = req.body.image;
+      product.image = req.file.path;
       product.brand = req.body.brand;
       product.category = req.body.category;
       product.countInStock = req.body.countInStock;
