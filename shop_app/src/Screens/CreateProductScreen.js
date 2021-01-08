@@ -75,7 +75,7 @@ function CreateProductScreen(props) {
           
           <div className="createproduct__content">
             <a onClick={() => setModalVisible(false)} className="close">&times;</a>
-              <h2>Create Product</h2>
+              <h2>{id ? "Update Product" : "Create New Product"}</h2>
               {loadingSave && <div>Loading...</div>}
               {errorSave && <div>{errorSave}</div>}
               
@@ -94,10 +94,7 @@ function CreateProductScreen(props) {
           <p>
                 Image
           </p>
-               <input type="file" id="img" name="img" accept="image/*"/>
-              <input type="text" name="image" value={image} id="image" onChange={(e) => setImage(e.target.value)}>
-              </input>
-         
+               <input type="file" name="image" id="file" onChange={(e) => setImage(e.target.value)}/>
           <p>
                 Brand
           </p>
@@ -133,26 +130,21 @@ function CreateProductScreen(props) {
     <div className="productList">
 
         <div className="productList__header">
-            <h3>ID</h3>
+            <h3 className="productList__header__hide">ID</h3>
             <h3>Name</h3>
             <h3>Price</h3>
-            <h3>Category</h3>
-            <h3>Brand</h3>
+            <h3 className="productList__header__hide">Category</h3>
+            <h3 className="productList__header__hide">Brand</h3>
             <h3>Action</h3>
         </div>
        
           {products.map(product => (
           <div className="productContent" key={product._id}>
-            <span>Product id</span>
             <div className="productContent__id">{product._id}</div>
-            <span>Product name</span>
-            <div>{product.name}</div>
-            <span>Product price</span>
-            <div>{product.price}$</div>
-            <span>Product category</span>
-            <div>{product.category}</div>
-            <span>Product brand</span>
-            <div>{product.brand}</div>
+            <div className="productContent__name">{product.name}</div>
+            <div className="productContent__price">{product.price}$</div>
+            <div className="productContent__category">{product.category}</div>
+            <div className="productContent__brand">{product.brand}</div>
             <div>
               <a href="#createproduct" className="productContent__button--edit" onClick={() => openModal(product)} >Edit</a>
               {' '}

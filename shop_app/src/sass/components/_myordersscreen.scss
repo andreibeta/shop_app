@@ -1,8 +1,10 @@
 //container of myOrders
 .orders-content{
-    margin: 4rem;
+    margin: 2rem;
     h3{
       text-align: center;
+      padding:.5rem;
+      margin:0;
     }
   }
   //header of the table
@@ -18,11 +20,21 @@
       grid-column: 4 / 7;
       text-align: center;
     }
+    @media only screen and(max-width: $bp-small){
+      &__hide{
+        display: none;
+      }
+      display: flex;
+      & > * {
+        flex-grow: 1;
+        width: 25%;
+      }
+    }
   }
 
 //my orders screen table
 .container-content{
-    height: 70vh;
+    height: 60vh;
     overflow-y: scroll;//vertical 
     overflow-x: hidden;//horizontal
     box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
@@ -45,8 +57,15 @@
    border-bottom: 1px solid $color-grey-light;
    @media only screen and(max-width: $bp-small){
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    &__cityOrder,
+    &__countryOrder,
+    &__name{
+      display: none;
+    }
+    & > *{
+      flex-grow: 1;
+      width: 25%;
+    }
   }
       & > *{
         word-wrap: break-word;

@@ -10,29 +10,25 @@
   .productList{
     margin:2.5rem;
     border-radius: 1rem;
-    //padding:3rem;
     text-align: center;
     font-size: 1.7rem;
     height: 75vh;
     overflow-y: scroll;//vertical 
     overflow-x: hidden;//horizontal
     box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
-    span{
-      display: none;
-      @media only screen and(max-width: $bp-small){
-        display: inline;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 1.3rem;
-    }
-    }
     &__header{
       display: grid;
       grid-template-columns: repeat(6,minmax(10rem,1fr));
       background-color: $color-primary;
       color: white;
       @media only screen and(max-width: $bp-small){
-          display: none;
+          display: flex;
+          & > *{
+            width: 33%;
+          }
+          &__hide{
+            display: none;
+          }
       }
     }
   }
@@ -57,9 +53,19 @@
       word-break: break-all;
       cursor: pointer;
     }
+    &__id,
+    &__category,
+    &__brand{
+      @media only screen and(max-width: $bp-small){
+        display: none;
+      }
+    }
     @media only screen and(max-width: $bp-small){
       display: flex;
-      flex-direction: column;
+      flex-grow: 1;
+      & > * {
+        width: 33%;
+      }
     }
     &__button--edit{
       background-color: $color-primary;

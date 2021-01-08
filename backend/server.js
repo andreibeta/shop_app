@@ -41,6 +41,7 @@ app.use("/api/logout",userRoute);
 // });
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/shop_app/build')));
+app.use('/uploads',express.static('uploads'));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/shop_app/build/index.html'))
 );

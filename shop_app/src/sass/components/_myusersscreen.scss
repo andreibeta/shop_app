@@ -13,8 +13,15 @@
       padding: 1rem 2rem;
       background-color: $color-primary;
       color: white;
+      &__hide{
+        @media only screen and(max-width: $bp-small){
+          display: none;
+        }
+      }
       @media only screen and(max-width: $bp-small){
-        display: none;
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
       }
     }
     h2{
@@ -28,6 +35,7 @@
   .usersContainer::-webkit-scrollbar-thumb{
     background-color:$color-grey-light;
   }
+
   .usersContent{
     display: grid;
     grid-template-columns: repeat(5,minmax(5rem,1fr));
@@ -37,36 +45,129 @@
     text-align: center;
     font-size: 1.7rem;
     margin-top:2rem;
-    @media only screen and(max-width: $bp-small){
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    // @media only screen and(max-width: $bp-small){
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: center;
+    // }
+      @media only screen and(max-width:$bp-small){
+        display: flex;
+        &__phone,
+        &__country,
+        &__name{
+          display: none;
+        }
+        & > * {
+          flex-grow: 1;
+        }
+      }
     & > * {
       padding: .2rem;
     }
-    span{
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 1.3rem;
-      display: none;
-      @media only screen and(max-width: $bp-small){
-        display: inline;
-      }
-    }
+    // span{
+    //   font-weight: bold;
+    //   text-transform: uppercase;
+    //   font-size: 1.3rem;
+    //   display: none;
+    //   @media only screen and(max-width: $bp-small){
+    //     display: inline;
+    //   }
+    // }
     &__email{
       color: $color-primary;
     }
     &__delete{
       justify-self: center;
-      padding: .5rem 2rem;
+      padding: 1rem;
       background-color: $color-primary;
       color:white;
       border-color: $color-primary;
       border-radius: 1rem;
       @media only screen and(max-width: $bp-small){
-        width: 30%;
+        width: 20%;
+        font-size: 1.3rem;
+        margin-left: .5rem;
       }
     }
+    &__more{
+      display: none;
+      @media only screen and(max-width:$bp-small){
+        padding: 1rem;
+        display: inline;
+        background-color: $color-primary;
+        color:white;
+        border-color: $color-primary;
+        border-radius: 1rem;
+        width: 20%;
+        font-size: 1.3rem;
+      }
+    }
+
   }
+
+//phone Version
+  .seeMore{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:100;
+    background-color: rgba(black,.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    &__content{
+      position: absolute;
+      top: 50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      width: 50%;
+      height: 50%;
+      background-color: white;
+      box-shadow: 0 2rem 4rem rgba(black, .2);
+      border-radius: .5rem;
+      padding: 3rem 1rem;
+      border: 1px solid $color-grey-light;
+      opacity: 0;
+      transform:translate(-50%, -50%) scale(.2);
+      transition: all .5s .2s;//.4s=the running time .2s=the delay time
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: space-between;
+      .close{
+            color:black;
+            position: absolute;
+            top:1rem;
+            right:2rem;
+            font-size: 3rem;
+            cursor: pointer;
+        &:link,
+        &:visited{
+            display: none;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+            line-height: 1;
+        }
+        &:hover{
+            color:$color-primary;
+        }
+      }
+      h4,p{
+        text-align: center;
+        margin:0;
+      }
+   }
+   &:target{
+    opacity: 1;
+    visibility: visible;
+  }
+  &:target &__content{
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(1);
+  }
+}
   

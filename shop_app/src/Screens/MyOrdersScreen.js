@@ -44,17 +44,17 @@ function MyOrdersScreen(props) {
                       Address
                   </strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       City
                   </strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       Country
                   </strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       Full Name
                   </strong>
@@ -81,11 +81,11 @@ function MyOrdersScreen(props) {
         <div className="content">
               <div className="content__id">{order._id}</div>
               <div className="content__address">{order.addressOrder}</div>
-              <div>{order.cityOrder}</div>
-              <div>{order.countryOrder}</div>
-              <div>{order.name}</div>
+              <div className="content__cityOrder">{order.cityOrder}</div>
+              <div className="content__countryOrder">{order.countryOrder}</div>
+              <div className="content__name">{order.name}</div>
               <div className="content__email">{order.email}</div>
-              <div>{order.totalPrice}</div>
+              <div className="content__totalPrice">{order.totalPrice}</div>
               <button onClick={() => deleteHandler(order)}>Delete</button>
         </div>
        )
