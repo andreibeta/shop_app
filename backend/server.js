@@ -2,6 +2,7 @@ import userRoute from './routes/userRoute.js';
 import productRoute from './routes/productRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import reviewRoute from './routes/reviewRoute.js';
+import uploadRoute from './routes/uploadRoute.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import path from 'path';
@@ -27,6 +28,7 @@ app.use("/api/products", productRoute);
 app.use("/api/reviews",reviewRoute);
 app.use("/api/orders",orderRoute);
 app.use("/api/logout",userRoute);
+app.use('/api/uploads', uploadRoute);
 // app.get("/api/products/:id", (req, res) => {
 //   const productId = req.params.id;
 //   const product = data.products.find(x => x._id === productId);
@@ -41,7 +43,8 @@ app.use("/api/logout",userRoute);
 // });
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/shop_app/build')));
-app.use('/uploads',express.static('uploads'));
+//app.use('/uploads',express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/shop_app/build/index.html'))
 );

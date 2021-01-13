@@ -6,31 +6,7 @@ import multer from 'multer';
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination:function(req, file,callback){
-    callback(null, './uploads');
-  },
-  filename:function(req,file,callback){
-    callback(null,new Date().toISOString() + file.originalname);
-  }
-});
 
-const fileFilter = (req,file, callback) => {
-  //rejet a file
-  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-    callback(null,true);
-  }else{
-    callback(null,false);
-  } 
-}
-
-const upload = multer({storage:storage, 
-  limits:{
-  fileSize:1024 * 1024 * 7
-  },
-  fileFilter: fileFilter
-  
-});
 
 router.get("/", async(req,res)=> {
   const products = await Product.find({});
@@ -49,8 +25,8 @@ router.get("/:id", async(req,res)=> {
 
 //create new product
 //upload.single()->it will try to parse only one file
-router.post("/",upload.single('productImage'), async(req, res) => {
-  console.log(req.file);
+// router.post("/",upload.single('productImage'), async(req, res) => {
+router.post("/", async(req, res) => {
   const product = new Product({
     name: req.body.name,
     price:req.body.price,
@@ -71,21 +47,30 @@ router.post("/",upload.single('productImage'), async(req, res) => {
 })
 
 //update product
-router.put("/:id",upload.single('productImage'), async(req, res) => {
+router.put("/:id", async(req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
-  if(product && isAdmin){
-      product.name = req.body.name,
-      product.price = req.body.price;
-      product.image = req.file.path;
-      product.brand = req.body.brand;
-      product.category = req.body.category;
-      product.countInStock = req.body.countInStock;
-      product.description = req.body.description;
+  if(product){
+      product.name = req.body.name || product.name;
+      product.price = req.body.price || product.price;
+      product.image = req.body.image || product.image;
+      product.brand = req.body.brand || product.brand;
+      product.category = req.body.category || product.category;
+      product.countInStock = req.body.countInStock || product.countInStock;
+      product.description = req.body.description || product.description;
 
         const updatedProduct = await product.save();
         if(updatedProduct){
-          return res.status(200).send({message:'Product updated', data: updatedProduct});
+          res.status(200).send({
+            name: updatedProduct.name,
+            price:updatedProduct.price,
+            image:updatedProduct.image,
+            brand:updatedProduct.brand,
+            category:updatedProduct.category,
+            countInStock:updatedProduct.countInStock,
+            description:updatedProduct.description,
+          })
+          
         }
     }
     return res.status(500).send({message:"Error in Updating Product"});

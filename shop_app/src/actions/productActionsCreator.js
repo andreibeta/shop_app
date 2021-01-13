@@ -91,7 +91,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
         //     'Authorization': 'Bearer ' + userInfo.token
         //   }
         // });
-        const { data } = await Axios.put('/api/products/' + product._id);
+        const { data } = await Axios.put('/api/products/' + product._id, product);
         dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
       }
   

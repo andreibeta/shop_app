@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveProduct, productActionsCreator, deleteProduct } from '../actions/productActionsCreator';
-
+import Axios from 'axios';
 
 function CreateProductScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,7 +16,8 @@ function CreateProductScreen(props) {
   const [description, setDescription] = useState('');
   const productList = useSelector(state => state.productList);
   const { loading, products, error } = productList;
-
+  const [loadingUpload, setLoadingUpload] = useState(false);
+  const [errorUpload, setErrorUpload] = useState('');
   const productSave = useSelector(state => state.productSave);
   const { loading: loadingSave, success: successSave, error: errorSave } = productSave;
 
@@ -62,6 +63,41 @@ function CreateProductScreen(props) {
     dispatch(deleteProduct(product._id));
   }
 
+  function getMeta (url, callback) {
+    var img = new Image();
+    img.src = url;
+    img.onload = function() {
+      callback(this.width, this.height);
+    }
+  }
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setLoadingUpload(true);
+    try {
+      const { data } = await Axios.post('/api/uploads', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setImage(data);
+      getMeta(data, function(width,height) { if( width > 380 && height > 480){
+        alert("Okay");
+        return true;
+      }else{
+        alert("Not okay");
+      }
+    });
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+  };
+
   if(userInfo && userInfo.isAdmin){
   return (
   <div className="contentCreate">
@@ -93,8 +129,17 @@ function CreateProductScreen(props) {
              
           <p>
                 Image
+          {/* </p>
+               <input type="text" name="image" id="file" value={image} onChange={(e) => setImage(e.target.value)}/>
+          <p> */}
+            Upload
           </p>
-               <input type="file" name="image" id="file" onChange={(e) => setImage(e.target.value)}/>
+          <input
+                type="file"
+                id="imageFile"
+                label="Choose Image"
+                onChange={uploadFileHandler}
+              ></input>
           <p>
                 Brand
           </p>

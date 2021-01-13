@@ -25,9 +25,11 @@
         display: none;
       }
       display: flex;
+      flex-grow: 1;
+      justify-content: space-around;
       & > * {
         flex-grow: 1;
-        width: 25%;
+        
       }
     }
   }
@@ -38,6 +40,9 @@
     overflow-y: scroll;//vertical 
     overflow-x: hidden;//horizontal
     box-shadow: 1.8rem 1.3rem 3.1rem 0rem rgba(0,0,0,0.75);
+    @media only screen and(max-width: $bp-small){
+      height: 80vh;
+    }
   }
   .container_content::-webkit-scrollbar{
     width: .5rem;
@@ -55,11 +60,27 @@
    padding: 2rem 3rem;
    margin: 1rem;
    border-bottom: 1px solid $color-grey-light;
+   &__seeMore{
+     display: none;
+   }
    @media only screen and(max-width: $bp-small){
     display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+    margin:0.5rem;
+    &__id{
+      min-width: 50%;
+    }
+    &__seeMore{
+      display: inline;
+    }
     &__cityOrder,
+    &__address,
+    &__email,
     &__countryOrder,
-    &__name{
+    &__name,
+    &__totalPrice{
       display: none;
     }
     & > *{
@@ -74,19 +95,21 @@
       &__id{
         color:$color-primary;
       }
-      button{
+      a{
         background-color: $color-primary;
         color: white;
         border-color: $color-primary;
         border-radius: 1rem;
-        transform:translate(20%, -15%);
+        //transform:translate(20%, -15%);
         &:hover{
           background-color: $color-primary-dark;
         }
         @media only screen and(max-width: $bp-small){
-          width: 30%;
-          font-size: 1.4rem;
+          max-width:15rem;
+          font-size: 1.3rem;
           transform: none;
+          align-items: flex-end;
+          margin-left: 1rem;
         }
       }
       

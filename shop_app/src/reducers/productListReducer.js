@@ -9,7 +9,7 @@ const reducer = (state = {products:[]},action) => {
             return {loading:false, products: action.payload};
         case SORT_COLLECTION_ALPHABETICAL_ASC:
                 return {loading:false,products: action.payload.sort(function(a, b) {
-                  var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+                  var nameA = a.name, nameB = b.name;
                   if (nameA < nameB) {
                     return -1;
                   }
@@ -21,7 +21,7 @@ const reducer = (state = {products:[]},action) => {
             }
         case SORT_COLLECTION_ALPHABETICAL_DESC:
                 return {loading:false,products: action.payload.sort(function(a, b) {
-                  var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+                  var nameA = a.name, nameB = b.name;
                   if (nameA > nameB) {
                     return -1;
                   }

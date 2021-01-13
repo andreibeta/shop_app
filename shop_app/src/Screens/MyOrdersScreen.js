@@ -16,6 +16,15 @@ function MyOrdersScreen(props) {
     const orderDelete = useSelector(state => state.orderDelete);
     const { loading: loadingDelete, success: successDelete, error: errorDelete } = orderDelete;
 
+    const [addressOrder,setAdressOrder] = useState('');
+    const [cityOrder,setCityOrder] = useState('');
+    const [countryOrder,setCountryOrder] = useState('');
+    const [name,setName] = useState(''); 
+    const [email, setEmail] = useState('');
+    const [totalPrice,setTotalPrice] = useState('');
+
+     //view more for phone version
+     const [modalVisible, setModalVisible] = useState(false);
     
     //this stuff will run only when the componentDidMount
     useEffect(() => {
@@ -28,7 +37,15 @@ function MyOrdersScreen(props) {
           dispatch(deleteOrder(order._id));
         }
 
-   
+    const openModal = (order) =>{
+            setModalVisible(true);
+            setAdressOrder(order.addressOrder);
+            setCityOrder(order.cityOrder);
+            setCountryOrder(order.countryOrder);
+            setName(order.name);
+            setEmail(order.email);
+            setTotalPrice(order.totalPrice);
+          } 
     return (
     loading 
     ? <div> Loading...</div>
@@ -39,7 +56,7 @@ function MyOrdersScreen(props) {
             <div>
                   <strong>Order id</strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       Address
                   </strong>
@@ -59,12 +76,12 @@ function MyOrdersScreen(props) {
                       Full Name
                   </strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       Email
                   </strong>
               </div>
-              <div>
+              <div className="orders__hide">
                   <strong>
                       Total Price
                   </strong>
@@ -86,10 +103,32 @@ function MyOrdersScreen(props) {
               <div className="content__name">{order.name}</div>
               <div className="content__email">{order.email}</div>
               <div className="content__totalPrice">{order.totalPrice}</div>
-              <button onClick={() => deleteHandler(order)}>Delete</button>
+              <a href="#seeMore" className="content__seeMore" onClick={() => openModal(order)}>View more</a>
+              <a onClick={() => deleteHandler(order)}>Delete</a>
         </div>
        )
     }
+    {
+        modalVisible && 
+        <form id="seeMore" className="seeMore">
+          <div className="seeMore__content">
+          <h2>User details</h2>
+          <a onClick={() => setModalVisible(false)} className="close">&times;</a>
+          <h4>Address</h4>
+          <p>{addressOrder}</p>
+          <h4>City</h4>
+          <p>{cityOrder}</p>
+          <h4>Country</h4>
+          <p>{countryOrder}</p>
+          <h4>Name</h4>
+          <p>{name}</p>
+          <h4>email</h4>
+          <p>{email}</p>
+          <h4>Total Price</h4>
+          <p>{totalPrice}</p>
+          </div>
+        </form>
+      } 
      </div>
     </div> 
     )
