@@ -6,12 +6,12 @@ import { isAuth } from '../util.js';
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
 import mailgun from 'mailgun-js';
-
+import dotenv from 'dotenv';
 //const mailgun = require("mailgun-js");
 
-
+dotenv.config();
 const DOMAIN = 'sandbox30e8f2def45f4f72864ce688443b18d8.mailgun.org';
-const mg = mailgun({apiKey: config.MAILGUN_APIKEY, domain: DOMAIN});
+const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN});
 
 const router = express.Router();
 
