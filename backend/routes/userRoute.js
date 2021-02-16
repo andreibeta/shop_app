@@ -3,6 +3,16 @@ import User from '../models/userModel.js';
 import { getToken, isAdmin } from '../util.js';
 import Order from '../models/orderModel.js';
 import { isAuth } from '../util.js';
+import jwt from 'jsonwebtoken';
+import config from '../config.js';
+import mailgun from 'mailgun-js';
+
+//const mailgun = require("mailgun-js");
+
+
+const DOMAIN = 'sandbox30e8f2def45f4f72864ce688443b18d8.mailgun.org';
+const mg = mailgun({apiKey: config.MAILGUN_APIKEY, domain: DOMAIN});
+
 
 const router = express.Router();
 
@@ -16,6 +26,8 @@ const router = express.Router();
 //   res.send(users);
 
 // });
+
+
 
 
 router.get("/:id",isAuth, async(req,res)=> {
@@ -40,6 +52,8 @@ router.delete("/:id",isAuth,isAdmin,async(req,res) => {
     res.send("Error in deletion");
   }
 });
+
+//reset password when the user is connected to the account
 router.put("/", isAuth, async(req,res) => {
   const userId = req.user._id;
   const changePass = await User.findById(userId);
@@ -72,7 +86,7 @@ router.put("/:id", isAuth, async(req,res)=>{
     res.send({
       name: updatedUser.name,
       phoneNumber:updatedUser.phoneNumber,
-      country:updatedUser.country,
+      country:updatedUser.country, 
       token: getToken(updatedUser),
     });
   } else {
@@ -128,7 +142,7 @@ router.post('/register', async (req, res) => {
 
 })
 router.get("/createadmin", async (req, res) => {
-  try {
+  try { 
     const user = new User({
       name: 'Beta',
       email: 'test@test.com',
@@ -141,5 +155,8 @@ router.get("/createadmin", async (req, res) => {
     res.send({ msg: error.message });
   }
 });
+
+
+
 
 export default router;

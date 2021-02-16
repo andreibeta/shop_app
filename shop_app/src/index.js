@@ -26,6 +26,9 @@ import reviewDeleteReducer from './reducers/reviewDeleteReducer';
 import userDeleteReducer from './reducers/userDeleteReducer';
 import reviewList from './reducers/reviewsListReducer';
 import submitRatingReducer from './reducers/submitRatingReducer';
+import forgotPasswordReducer from './reducers/forgotPasswordReducer';
+import changePasswordEmailReducer from './reducers/changePasswordEmailReducer';
+
 
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
@@ -51,6 +54,8 @@ const rootReducer = combineReducers({
   userDelete: userDeleteReducer,
   reviewList:reviewList,
   submitRating:submitRatingReducer,
+  forgotPassword:forgotPasswordReducer,
+  resetPasswordEmail:changePasswordEmailReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

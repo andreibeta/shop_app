@@ -7,6 +7,9 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import path from 'path';
 import express from 'express';
+import forgotPasswordRoute from './routes/forgotPasswordRoute.js';
+import resetPasswordRoute from './routes/resetPasswordRoute.js';
+
 
 dotenv.config();
 
@@ -29,6 +32,8 @@ app.use("/api/reviews",reviewRoute);
 app.use("/api/orders",orderRoute);
 app.use("/api/logout",userRoute);
 app.use('/api/uploads', uploadRoute);
+app.use('/api/forgot-password',forgotPasswordRoute);
+app.use('/api/resetpassword',resetPasswordRoute);
 // app.get("/api/products/:id", (req, res) => {
 //   const productId = req.params.id;
 //   const product = data.products.find(x => x._id === productId);
@@ -39,7 +44,7 @@ app.use('/api/uploads', uploadRoute);
 // });
 
 // app.get("/api/products", (req, res) => {
-//   res.send(data.products);
+//   res.send(data.products); 
 // });
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/shop_app/build')));

@@ -112,7 +112,7 @@ function MyOrdersScreen(props) {
         modalVisible && 
         <form id="seeMore" className="seeMore">
           <div className="seeMore__content">
-          <h2>User details</h2>
+          <h2 style={{textAlign:'center'}}>User details</h2>
           <a onClick={() => setModalVisible(false)} className="close">&times;</a>
           <h4>Address</h4>
           <p>{addressOrder}</p>

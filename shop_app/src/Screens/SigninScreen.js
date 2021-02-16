@@ -70,9 +70,9 @@ function SigninScreen(props) {
         <div className="signin__content__background"></div>
          <p className="signin__content__question">Don't have an account?</p>
          <a href="#" class="signin__close">&times;</a>
-        {/* <Link className="signin__registerPath" to={redirect === '/' ? "register" : "register?redirect="+redirect}>
-            Register here
-        </Link> */}
+        <a className="signin__content__forgot" href="/forgot-password">
+            Forgot password?
+        </a>
       </div>
   </form>
   )
