@@ -83,14 +83,15 @@ function CreateProductScreen(props) {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setImage(data);
       getMeta(data, function(width,height) { if( width > 380 && height > 480){
         alert("Okay");
-        return true;
+        setImage(data);
       }else{
         alert("Not okay");
+        return false;
       }
     });
+    
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);

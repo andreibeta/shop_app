@@ -8,7 +8,9 @@ import {USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAILED,
   EDIT_PROFILE_REQUEST,EDIT_PROFILE_SUCCESS,EDIT_PROFILE_FAILED,
   CHANGE_PASSWORD_REQUEST,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILED,
   USERS_LIST_REQUEST,USERS_LIST_SUCCESS,USERS_LIST_FAILED,
-  USER_DELETE_REQUEST,USER_DELETE_SUCCESS,USER_DELETE_FAILED} from '../constants/userConstants';
+  USER_DELETE_REQUEST,USER_DELETE_SUCCESS,USER_DELETE_FAILED,
+  USER_FORGOT_REQUEST,USER_FORGOT_SUCCESS,USER_FORGOT_FAILED,
+  USER_RESET_PASSWORD_REQUEST,USER_RESET_PASSWORD_SUCCESS,USER_RESET_PASSWORD_FAILED} from '../constants/userConstants';
 
 const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
@@ -31,6 +33,7 @@ const registerUser = (name, email, password, phoneNumber, country) => async (dis
       dispatch({ type: USER_REGISTER_FAILED, payload: error.message });
     }
   }
+
   const logout = () => (dispatch) => {
     Cookie.remove("userInfo");
     dispatch({ type: USER_LOGOUT })
@@ -68,6 +71,7 @@ const editProfile = ({userId ,name , phoneNumber ,country}) => async (dispatch,g
   }
 }
 
+//change password via a connected user 
 const changePassword = (password) => async (dispatch,getState) => {
   try{
     const { userSignin: {userInfo}} = getState();
@@ -136,6 +140,28 @@ const deleteUser = (userId) => async(dispatch,getState) => {
   }
 }
 
+//SEND EMAIL WITH A RESET PASSWORD LINK TO THE USER
+const forgotPassword = (email) => async(dispatch) => {
+  dispatch({type:USER_FORGOT_REQUEST, payload:{email}});
+  try{
+    const {data} = await axios.put("/api/forgot-password",{email});
+    dispatch({type:USER_FORGOT_SUCCESS,payload:data.message});
+  }catch(error){
+    dispatch({ type: USER_FORGOT_FAILED, payload: error.response.data.error});
+  }
+}
+
+//RESET PASSWORD VIA EMAIL LINK
+const resetPassword = (resetLink, newPassword) => async(dispatch) => {
+  dispatch({type:USER_RESET_PASSWORD_REQUEST, payload:{resetLink,newPassword}});
+  try{
+    const {data} = await axios.put("/api/resetpassword",{resetLink,newPassword});
+    dispatch({type:USER_RESET_PASSWORD_SUCCESS,payload:data.message});
+  }catch(error){
+    dispatch({type: USER_RESET_PASSWORD_FAILED,payload:error.response.data.error});
+  }
+}
 
 
-export { signin, registerUser,logout,deleteOrder, myProfile,editProfile, changePassword, myListOfUsers, deleteUser}
+
+export { signin, registerUser,logout,deleteOrder, myProfile,editProfile, changePassword, myListOfUsers, deleteUser,forgotPassword,resetPassword}
