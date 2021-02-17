@@ -21,6 +21,9 @@ import WelcomeHome from './components/WelcomeHome';
 import { Router, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './Screens/NotFound';
 import profile_2 from './images/profile-2.png';
+import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
+import ResetPasswordviaEmailScreen from './Screens/ResetPasswordviaEmailScreen';
+
 
 function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
@@ -134,6 +137,8 @@ function App(props) {
                 <Route path="/placeorder" component={PlaceOrderScreen} />
                 {/* <Route path="/signin" component={SigninScreen} /> */}
                 <Route path="/register" component={RegisterScreen} />
+                <Route path="/forgot-password" component={ForgotPasswordScreen}/>
+                <Route path="/resetpassword/:id" component={ResetPasswordviaEmailScreen} />
                 <Route path="/product/:id" render={(props) => <ProductScreen qty={qty} setQty={setQty} {...props}/>} />
                 <Route path="/cart/:id?" exact={true} render={(props) => <CartScreen qty={qty} {...props}/>}/>  
                 <Route path="/" exact={true} component={HomeScreen} />  
