@@ -3,6 +3,7 @@ import {myOrders} from '../actions/cartActionsCreator';
 import {useSelector, useDispatch} from 'react-redux';
 import {deleteOrder} from '../actions/userActionsCreator';
 import { Redirect } from 'react-router-dom';
+import {RiDeleteBin7Fill} from 'react-icons/ri';
 
 function MyOrdersScreen(props) {
     const orderDetails = useSelector(state => state.orderDetails);
@@ -52,60 +53,35 @@ function MyOrdersScreen(props) {
     : error ? <div>{error}</div> 
     :<div className="orders-content">
         <h3>My Orders</h3> 
-    <div className="orders">
-            <div>
-                  <strong>Order id</strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      Address
-                  </strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      City
-                  </strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      Country
-                  </strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      Full Name
-                  </strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      Email
-                  </strong>
-              </div>
-              <div className="orders__hide">
-                  <strong>
-                      Total Price
-                  </strong>
-              </div>
-              <div>
-                  <strong>
-                      Action
-                  </strong>
-              </div>
-            </div>
-<div className="container-content"> 
+<table className="container-content">
+   <thead className="theader">
+       <tr>
+        <th>Order id</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Total price</th>
+        <th>Action</th>
+       </tr>
+   </thead>
     { orders.map(order =>
        
-        <div className="content">
-              <div className="content__id">{order._id}</div>
-              <div className="content__address">{order.addressOrder}</div>
-              <div className="content__cityOrder">{order.cityOrder}</div>
-              <div className="content__countryOrder">{order.countryOrder}</div>
-              <div className="content__name">{order.name}</div>
-              <div className="content__email">{order.email}</div>
-              <div className="content__totalPrice">{order.totalPrice}</div>
+        <tbody className="content">
+              <tr>
+              <td className="content__id">{order._id}</td>
+              <td className="content__address">{order.addressOrder}</td>
+              <td className="content__cityOrder">{order.cityOrder}</td>
+              <td className="content__countryOrder">{order.countryOrder}</td>
+              <td className="content__name">{order.name}</td>
+              <td className="content__email">{order.email}</td>
+              <td className="content__totalPrice">{order.totalPrice}</td>
               <a href="#seeMore" className="content__seeMore" onClick={() => openModal(order)}>View more</a>
-              <a onClick={() => deleteHandler(order)}>Delete</a>
-        </div>
+              {/* <td><a onClick={() => deleteHandler(order)}>Delete</a></td> */}
+              <td> <RiDeleteBin7Fill className="content__deleteOrder" onClick={()=>deleteHandler(order)}></RiDeleteBin7Fill></td>
+              </tr>
+        </tbody>
        )
     }
     {
@@ -129,7 +105,7 @@ function MyOrdersScreen(props) {
           </div>
         </form>
       } 
-     </div>
+     </table>
     </div> 
     )
 

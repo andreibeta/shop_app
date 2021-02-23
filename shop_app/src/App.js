@@ -23,7 +23,7 @@ import NotFound from './Screens/NotFound';
 import profile_2 from './images/profile-2.png';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import ResetPasswordviaEmailScreen from './Screens/ResetPasswordviaEmailScreen';
-
+import AboutUs from './Screens/AboutUs';
 
 function App(props) {
   const userSignin = useSelector(state=> state.userSignin);
@@ -31,6 +31,8 @@ function App(props) {
   const dispatch = useDispatch();
   const [qty,setQty] = useState(localStorage.getItem('myvalue') || '');
   const [modalVisible, setModalVisible] = useState(false);
+
+
   useEffect(() => {
     localStorage.setItem('myvalue', qty);
   }, [userInfo,qty]);
@@ -43,7 +45,8 @@ function App(props) {
   }
   const handleLogout = () => {
     dispatch(logout());
-  }  
+  }
+  //console.log("PATH",userInfo.image); 
   return (
     <BrowserRouter>
     <div className="grid-container">
@@ -54,12 +57,17 @@ function App(props) {
                 </button>
                 <Link to="/">Shop </Link>
             </div>
+            <div className="navigator">
+                <a>Home</a>
+                <a>Products</a>
+                <Link to="/aboutUs">About Us</Link>
+            </div>
             <div className="header-links">
                 {
                     userInfo 
                     ?   <div class="dropdown">
                             <div className="userNav">
-                            <img src={profile_2} className="image"></img>
+                            <img src={userInfo.image} className="image"></img>
                             <a class="dropbtn">{userInfo.name}</a>
                             </div>
                             <div class="dropdown-content">
@@ -110,6 +118,7 @@ function App(props) {
                
             </div>
         </header>
+       
         <Route path="/" exact={true} component={WelcomeHome} />   
         <aside className="sidebar">
             <h3>Shopping Categories</h3>
@@ -142,6 +151,7 @@ function App(props) {
                 <Route path="/product/:id" render={(props) => <ProductScreen qty={qty} setQty={setQty} {...props}/>} />
                 <Route path="/cart/:id?" exact={true} render={(props) => <CartScreen qty={qty} {...props}/>}/>  
                 <Route path="/" exact={true} component={HomeScreen} />  
+                <Route path ="/aboutUs" component={AboutUs} />
                 <Route component={NotFound} />             
             </Switch> 
         <footer className="footer">

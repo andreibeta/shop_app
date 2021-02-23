@@ -67,12 +67,14 @@ router.put("/:id", isAuth, async(req,res)=>{
     userProfile.name = req.body.name || userProfile.name;
     userProfile.phoneNumber = req.body.phoneNumber || userProfile.phoneNumber;
     userProfile.country = req.body.country || userProfile.country;
+    userProfile.image = req.body.image || userProfile.image;
     
     const updatedUser = await userProfile.save();
     res.send({
       name: updatedUser.name,
       phoneNumber:updatedUser.phoneNumber,
       country:updatedUser.country,
+      image:updatedUser.image,
       token: getToken(updatedUser),
     });
   } else {
@@ -94,6 +96,7 @@ router.post('/signin', async (req, res) => {
       name: signinUser.name,
       email: signinUser.email,
       isAdmin: signinUser.isAdmin,
+      image:signinUser.image,
       token: getToken(signinUser)
     })
 

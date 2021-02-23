@@ -1,75 +1,116 @@
 /*Product details*/
-  
+
+// .product-screen{
+//   display: grid;
+//   grid-template-columns: repeat(10,1fr);
+//   grid-template-rows: 5rem repeat(4,1fr);
+// }
+// .product-screen{
+//   width: 100vw;
+// }
+// .back-to-results{
+//   grid-column: 1 / -1;
+//   grid-row: 1 / 2;
+// }
 .details{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10,1fr);
+  grid-template-rows:repeat(3,min-content);
+  
+  &__gallery{
+    grid-column: 2 / 6;
+    grid-row: 1 / 2;
+    img{
+      width: 100%;
+      min-height: 35rem;
+      object-fit: cover;//for this propriety work you should set both the width and the height
+      display: block;
+    }
+  }
+  &__action{
+    grid-column: 6 / 11;
+    grid-row: 1 / 2;
+    width: 90%;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    & > *{
-      margin-top: 2rem;
-    }
-    
-    &__gallery{
-      flex: 0 1 50%;
-      margin:5rem;
-      order:1;
-      justify-self: center;
-      align-self: center;
-      @media only screen and(max-width: $bp-medium){
-        flex: 1 1 100%;
-        max-width: 75rem;
+    flex-wrap: wrap;
+      & > *{
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
       }
-      
-      span{
-        align-items: center;
+      &__name{
+        text-align: center;
+        flex:1 100%;
       }
-      img{
-        display: block;
-        margin:auto;
-        max-width: 100%;
-        object-fit: cover;
+      &__price,
+      &__status,
+      &__addCart{
+        flex:1 100%;
       }
-    }
-    &__action{
-      display: flex;
-      flex:0 1 40%;
-      order:2;
-      justify-content: center;
-      align-items: center;
-      font-size: 2rem;
+      &__label.form-label{
+        font-size: 1.4rem;
+      }
+      &__select.form-control{
+        width: 50%;
+        font-weight: 600;
+      }
+      &__size{
+        flex:1 50%;
+      }
+      &__quantity{
+        font-size: 1.5rem;
+        flex:1 50%;
+        a{
+          margin-left:1rem;
+          margin-right: 1rem;
+        }
+      }
       ul{
         list-style-type: none;
         padding: 0;
+        width: 60%;
+        display: flex;
+        flex-wrap: wrap;
       }
       li{
         margin-bottom: 2rem;
         letter-spacing: .2rem;
-        select{
-        margin-left: 1rem;
-        text-align: center;
-        padding: .5rem 4rem .5rem .5rem;
-        font-size: 1.6rem;
-        border-radius: 1rem;
-        border:1px solid $color-grey-light;
-        height: 3rem;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background: url(../../images/arrow.png) 80% / 15% no-repeat #EEE;
+        // select{
+        // margin-left: 1rem;
+        // text-align: center;
+        // padding: .5rem 4rem .5rem .5rem;
+        // font-size: 1.6rem;
+        // border-radius: 1rem;
+        // border:1px solid $color-grey-light;
+        // height: 3rem;
+        // -webkit-appearance: none;
+        // -moz-appearance: none;
+        // appearance: none;
+        // background: url(../../images/arrow.png) 80% / 15% no-repeat #EEE;
+        // }
+      }
+      &__button{
+        flex:1 100%;
+        width: 100%;
+        background-color: transparent;
+        border-radius: .5rem;
+        padding: 1rem;
+        font-weight: 600;
+        border:.1rem solid $color-primary;
+        color:$color-primary;
+        letter-spacing: .1rem;
+        text-transform: uppercase;
+        &:hover{
+          background-color:$color-primary;
+          color:white;
         }
       }
-
-      button{
-        background-color: $color-primary;
-        color: white;
-        font-size: 2rem;
-        padding:1rem 3rem;
-      }
-      button:hover{
-        background-color: $color-primary-dark;
-      }
-    }
-
-    &__info{
+  }
+  &__info{
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    margin-top:7rem;
         display: flex;
         //flex-direction: column;
         min-height: 0;
@@ -93,23 +134,170 @@
           flex:1 100%;
           text-align: center;
           padding: 0 3rem;
+          font-size: 1.5rem;
         }
-    }
-    .bottom-content{
-      display: flex;
-      flex: 1 1 100%;
-      min-height: 50vh;
-      flex-wrap: wrap;
-      justify-content: center;
-      order:4;
-    }
+
   }
+  .bottom-content{
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+  }
+  
+}
+
+//set the image of the gallery to fit in grid columns
+.gallery-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;//for this propriety work you should set both the width and the height
+  display: block;
+}
+.imgContainer{
+  width: 100%;
+  height: 50%;
+}
+.carousel{
+  width: 100%;
+  height: 100%;
+  
+}
+.slider{
+  //box-sizing: border-box;
+  width: 100%;
+  max-height: 100%;
+  
+}
+.slide{
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;//for this propriety work you should set both the width and the height
+  display: block;
+  position: relative;
+}
+.containerImage{
+  width:100%;
+  height: 100%;
+}
+
+// .details{
+//   display: grid;
+//   width: 100vw;
+//   grid-template-columns: 40% repeat(10,1fr);
+//   grid-template-rows: repeat(5,1fr);
+// }
+// .details{
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: center;
+//     & > *{
+//       margin-top: 2rem;
+//     }
+    
+//     &__gallery{
+//       flex: 0 1 50%;
+//       margin:5rem;
+//       order:1;
+//       justify-self: center;
+//       align-self: center;
+//       @media only screen and(max-width: $bp-medium){
+//         flex: 1 1 100%;
+//         max-width: 75rem;
+//       }
+      
+//       span{
+//         align-items: center;
+//       }
+//       img{
+//         display: block;
+//         margin:auto;
+//         max-width: 100%;
+//         object-fit: cover;
+//       }
+//     }
+//     &__action{
+//       display: flex;
+//       flex:0 1 40%;
+//       order:2;
+//       justify-content: center;
+//       align-items: center;
+//       font-size: 2rem;
+//       ul{
+//         list-style-type: none;
+//         padding: 0;
+//       }
+//       li{
+//         margin-bottom: 2rem;
+//         letter-spacing: .2rem;
+//         select{
+//         margin-left: 1rem;
+//         text-align: center;
+//         padding: .5rem 4rem .5rem .5rem;
+//         font-size: 1.6rem;
+//         border-radius: 1rem;
+//         border:1px solid $color-grey-light;
+//         height: 3rem;
+//         -webkit-appearance: none;
+//         -moz-appearance: none;
+//         appearance: none;
+//         background: url(../../images/arrow.png) 80% / 15% no-repeat #EEE;
+//         }
+//       }
+
+//       button{
+//         background-color: $color-primary;
+//         color: white;
+//         font-size: 2rem;
+//         padding:1rem 3rem;
+//       }
+//       button:hover{
+//         background-color: $color-primary-dark;
+//       }
+//     }
+
+//     &__info{
+//         display: flex;
+//         //flex-direction: column;
+//         min-height: 0;
+//         min-width: 0;
+//         flex:1 1 100%;
+//         min-height: 35vh;
+//         background-color: $color-primary;
+//         color: white;
+//         order:3;
+//         padding: 4rem;
+//         align-content: center;
+//         flex-wrap: wrap;
+//         &__name{
+//           flex: 1 100%;
+//           font-size: 3rem;
+//           text-align: center;
+//           margin:0;
+//           margin-top: 2rem;
+//         }
+//         &__description{
+//           flex:1 100%;
+//           text-align: center;
+//           padding: 0 3rem;
+//         }
+//     }
+//     .bottom-content{
+//       display: flex;
+//       flex: 1 1 100%;
+//       min-height: 50vh;
+//       flex-wrap: wrap;
+//       justify-content: center;
+//       order:4;
+//     }
+//   }
 
 
   .content-margined{
     display: flex;
     flex-flow: column;
-    flex:1 60%;
+    margin-top: 2rem;
+    //width: 60%;
+    //flex:1 60%;
     @media only screen and(max-width: $bp-medium){
       flex: 1 100%;
       padding: 2.5rem;
@@ -121,14 +309,21 @@
     &__reviews{
       display: flex;
       flex-flow: column;
-      flex:1 1 100%;
-      overflow-y: auto;
-      max-height: 55vh;
+      flex-wrap: wrap;
+      //flex:1 1 100%;
+      // overflow-y: auto;
+      // max-height: 55vh;
       padding: 0;
       
-      &__header{
-        text-align: center;
-      }
+      // &__header{
+      //   text-align: center;
+      //   width: 50%;
+      //   flex: 1 50%;
+      // }
+      // &__writeReview{
+      //   width: 50%;
+      //   flex:1 50%;
+      // }
       &__descriptions{
         list-style: none;
       }
@@ -139,21 +334,50 @@
     }
     &__reviews::-webkit-scrollbar-thumb{
       background-color:$color-grey-light;
+    }  
+  }
+  .container-top{
+    display: flex;
+    flex-wrap: wrap;
+    &__header{
+      flex: 1 100%;
+      text-align: center;
     }
-    
-    
+    &__writeReview{
+      display: flex;
+      flex:1 100%;
+      justify-content: flex-end;
+      &__button{
+        
+        background-color: transparent;
+        width: 20%;
+        padding: 1rem;
+        margin-right: 2.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        border-radius: .5rem;
+        color:$color-primary;
+        border:1px solid $color-primary;
+        &:hover{
+          background-color: $color-primary;
+          color: white;
+        }
+      }
+    }
   }
 
-  //reviews section 
   .review{
+    
     display: flex;
-    flex:1 100%;
+    //flex:1 100%;
     box-shadow: 8px 7px 11px -5px rgba(0,0,0,0.75);
     border:1px solid $color-grey-light;
     flex-wrap: wrap;
     border-radius: 1rem;
     margin: 2rem;
-    justify-content: end;
+    justify-content: space-between;
+    
     &__image{
       display:flex;
       max-width: 5rem;
@@ -162,22 +386,45 @@
       margin:2rem .5rem .5rem 2rem;
     }
     &__name{
+      color:$color-primary;
+      flex:1 70%;
+      padding: 2rem 1rem;
+    }
+    &__iconDelete{
+      flex:1 10%;
+      padding: 1rem;
+      cursor:pointer;
+    }
+    &__comment{
+      display: flex;
+      flex-direction: column;
+      word-wrap: break-word;
+      flex:1 75%;
+      //max-width: 60rem;
+      margin-left: 5rem;
+      margin-bottom: 1rem;
+    }
+    &__date{
+      flex:1 1 15%;
+    }
+    &__name{
       padding: 2rem 1rem;
       display: flex;
-      flex:1 50%;
+      flex:1 45%;
       align-items: center;
       color:$color-primary;
     }
     &__date{
       display: flex;
-      flex:0 10%;
-      margin-top:1rem;
+      flex:0 15%;
+      margin-bottom:1rem;
       margin-right: 1rem;
-      justify-content: end;
+      justify-content: center;
       color: $color-grey-light;
     }
     &__comment{
-      flex:1 50%;
+      display: flex;
+      flex:1 70%;
       margin-left:5rem;
       margin-bottom: 1rem;
     }
@@ -195,69 +442,101 @@
       max-width: 12%;
       margin:2rem .5rem .5rem 2rem;
     }
+    &__iconDelete{
+      display: flex;
+      flex:1 10%;
+      margin-top:1rem;
+      padding: 2rem 1rem;
+      justify-self: end;
+      align-self: end;
+    }
+  }
+  .seeMore-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    &__view{
+      width: 20%;
+      padding: 1rem;
+      background-color: transparent;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: .2rem;
+      border-radius: .5rem;
+      border:1px solid $color-primary;
+      color:$color-primary;
+      &:hover{
+        background-color: $color-primary;
+        color:white;
+        transform: translateY(-5%);
+        -webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,0.75);
+        box-shadow: 4px 4px 10px -2px rgba(0,0,0,0.75);
+      }
+    }
   }
 
 
 //customer submit review section
-  .submit{
-    display: flex;
-    flex-flow: column;
-    flex: 1 40%;
-    min-width: 30rem;
-    flex-wrap: wrap;
-    &__header{
-      text-align: center;
-      flex:.1;
-    }
-    &__form{
-      display: flex;
-      min-height: 0;
-      align-items: center;
-      justify-content: space-around;
-      align-content: flex-start;
-      flex-wrap: wrap;
+  // .submit{
+  //   display: flex;
+  //   flex-flow: column;
+  //   flex: 1 40%;
+  //   min-width: 30rem;
+  //   flex-wrap: wrap;
+  //   &__header{
+  //     text-align: center;
+  //     flex:.1;
+  //   }
+  //   &__form{
+  //     display: flex;
+  //     min-height: 0;
+  //     align-items: center;
+  //     justify-content: space-around;
+  //     align-content: flex-start;
+  //     flex-wrap: wrap;
       
-      & > *{
-        flex: 1 1 100%;
-        text-align: center;
-        margin: 2.5rem 0;
-        flex-shrink: 0; 
-        width: min-content;
-        height: min-content;
-        margin: 1rem;
-      }
-      &__rating{
-        font-size: 2rem;
+  //     & > *{
+  //       flex: 1 1 100%;
+  //       text-align: center;
+  //       margin: 2.5rem 0;
+  //       flex-shrink: 0; 
+  //       width: min-content;
+  //       height: min-content;
+  //       margin: 1rem;
+  //     }
+  //     &__rating{
+  //       font-size: 2rem;
         
-      }
-      &__selector{
-        width: 50%;
-        text-align: center;
-        padding: 5px 35px 5px 5px;
-        font-size: 16px;
-        border-radius: 1rem;
-        border:1px solid $color-grey-light;
-        height: 34px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background: url(../../images/arrow.png) 96% / 5% no-repeat #EEE;
-      }
+  //     }
+  //     &__selector{
+  //       width: 50%;
+  //       text-align: center;
+  //       padding: 5px 35px 5px 5px;
+  //       font-size: 16px;
+  //       border-radius: 1rem;
+  //       border:1px solid $color-grey-light;
+  //       height: 34px;
+  //       -webkit-appearance: none;
+  //       -moz-appearance: none;
+  //       appearance: none;
+  //       background: url(../../images/arrow.png) 96% / 5% no-repeat #EEE;
+  //     }
       
-      &__input{
-        width: 50%;
-        min-height: 10rem;
-        resize: none;
+  //     &__input{
+  //       width: 50%;
+  //       min-height: 10rem;
+  //       resize: none;
        
-      }
-      &__button{
-        min-width: 20%;
-        max-width: 35%;
-        border-radius: 1rem;
-        padding: 1rem;
-        background-color: $color-primary;
-        color:white;
+  //     }
+  //     &__button{
+  //       min-width: 20%;
+  //       max-width: 35%;
+  //       border-radius: 1rem;
+  //       padding: 1rem;
+  //       background-color: $color-primary;
+  //       color:white;
         
-      }
-    }
-  }
+  //     }
+  //   }
+  // }

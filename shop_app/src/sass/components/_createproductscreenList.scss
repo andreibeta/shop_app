@@ -92,4 +92,31 @@
         transform: translateY(-5%);
       }
     }
+    &__iconDelete{
+      width: 2.5rem;
+      height: 2.5rem;
+      color:#870305;
+      cursor: pointer;
+      &:hover{
+        color: #610001;
+        transform: translateY(-3%);
+        -webkit-box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+        box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+      }
+    }
+    &__iconEdit{
+      width: 2.5rem;
+      height: 2.5rem;
+      color:$color-primary;
+      margin-right: 1rem;
+      cursor:pointer;
+      &:hover{
+        color: $color-primary-dark;
+        transform: translateY(-3%);
+        -webkit-box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+        box-shadow: 4px 10px 15px -6px rgba(0,0,0,0.75);
+      }
+    }
   }

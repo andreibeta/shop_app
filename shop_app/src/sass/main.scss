@@ -1,3 +1,4 @@
+@import "~bootstrap/scss/bootstrap";
 @import "base";
 @import "./components/homescreen";
 @import "./components/productscreen";
@@ -11,3 +12,8 @@
 @import "./components/createproductscreenList";
 @import "./components/signinscreen";
 @import "./components/registerscreen";
+@import "./components/forgotPasswordScreen";
+@import "./components/resetPasswordViaEmailScreen";
+@import "./components/writeReviewModal";
+@import "./components/reviewsModal";
+@import "./components/aboutus";

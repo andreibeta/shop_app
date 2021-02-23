@@ -8,6 +8,13 @@ import profile_1 from '../images/profile-1.png';
 import Gallery from './Gallery';
 import {AiOutlinePlusSquare,AiOutlineMinusSquare} from 'react-icons/ai';
 import profile_2 from '../images/profile-2.png';
+import {RiDeleteBin6Fill} from 'react-icons/ri';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import Form from 'react-bootstrap/Form';
+import MyVerticallyCenteredModal from '../components/MyVerticallyCenteredModal';
+import ReviewsModal from '../components/ReviewsModal';
+
 
 function ProductScreen (props) {
     const qty = props.qty;
@@ -26,6 +33,8 @@ function ProductScreen (props) {
     // const reviewDelete = useSelector(state => state.reviewDelete);
     // const { loading: loadingDelete, success: successDelete, error: errorDelete } = reviewDelete;
     
+    const [modalShow, setModalShow] = useState(false);
+    const [modalReviewsShow,setModalReviewsShow] = useState(false);
 
     const dispatch = useDispatch();
     console.log(product);
@@ -90,7 +99,7 @@ function ProductScreen (props) {
             <Gallery/>
             </div>
             <div className="details__info">
-                <h4 className="details__info__name">{product.name}</h4>
+                
                 <h5 className="details__info__description-title"></h5>
                 <p className="details__info__description">
                 <h3>Description</h3>
@@ -101,35 +110,39 @@ function ProductScreen (props) {
             </div>
             <div className="details__action">
                 <ul>
-                    <li>
+                    <h2 className="details__action__name">
+                        {product.name} 
+                    </h2>
+                    <h3 className="details__action__price">
                         Price: {product.price} $
-                    </li>
-                    <li>
-                        Status: {product.countInStock > 0 ? "In Stock" : "Out of stock"}
-                    </li>
-                    <li>
-                      Size:
-                      <select>
+                    </h3>
+                    <li className="details__action__status">
+                     
+                      Status: {product.countInStock > 0 ? "In Stock" : "Out of stock"}
+                      
+                     </li>
+                    
+                    <li className="details__action__size">
+                     <Form.Label className="details__action__label">Pick size</Form.Label>
+                     <br/>
+                  <Form.Control size="lg" className="details__action__select" as="select">
                         <option>37</option>
                         <option>40</option>
                         <option>42</option>
-                      </select>
+                 </Form.Control>
+                 </li>
+                    <li className="details__action__quantity">
+                      
+                        <Form.Label>Quantity: </Form.Label>
+                            <br/>
+                            <AiOutlineMinusSquare style={{width:'1.5em', height:'1.5em'}}onClick={()=>handleDecrement(qty)}/>
+                            <a style={{width:'2em', height:'2em'}}>{qty}</a>
+                            <AiOutlinePlusSquare style={{width:'1.5em', height:'1.5em'}} onClick={()=>handleIncrement(qty)}/>
+                             
                     </li>
-                    <li>
-                        Quantity: 
-                            {/* <select value={qty} onChange={(event)=>{setQty(event.target.value)}}>
-                                {[...Array(product.countInStock).keys()].map(x=>
-                                    <option key={x+1} value={x+1}>{x+1}</option>
-                                )}
-                            </select> */}
-                            <AiOutlineMinusSquare onClick={()=>handleDecrement(qty)}/>
-                            <a>{qty}</a>
-                            <AiOutlinePlusSquare onClick={()=>handleIncrement(qty)}/>
-                                 
-                    </li>
-                    <li>
+                    <li className="details__action__addCart">
                         {product.countInStock > 0 ?
-                        <button onClick ={handleAddToCart} className="button">Add to Cart</button>
+                        <button onClick ={handleAddToCart} className="details__action__button">Buy Now</button>
                         :
                         null}
                     </li>
@@ -138,83 +151,58 @@ function ProductScreen (props) {
            <div className="bottom-content">
             <div className="content-margined">
             {!reviews && <div>There is no review</div>}
-            <h2 className="content-margined__reviews__header">Reviews</h2>
+            <div className="container-top"> 
+            <div className="container-top__writeReview" >
+            <button className="container-top__writeReview__button" onClick={() => setModalShow(true)}>Write a review</button>
+            </div>
+            <h2 className="container-top__header">Review section</h2>
+            
+            </div>
+            
+            <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={()=>setModalShow(false)}
+                userInfo={userInfo}
+                id={product._id}
+                />
+            <ReviewsModal
+              show={modalReviewsShow}
+              onHide={()=>setModalReviewsShow(false)}
+              reviews={reviews}
+            />
             <ul className="content-margined__reviews" id="reviews">
               <div className="content-margined__reviews__descriptions">
-              {reviews.map((review) => (
+              {reviews.slice(0,2).map((review) => (
             
                 <li key={review._id}>
                   <div className="review">
                   <img className="review__image" src={profile_2}></img>
                   <div className="review__name">{review.name}</div>
-                  <div>
+                  {/* <div>
                     <Rating value={product.rating}></Rating>
-                  </div>
-                  <div className="review__date">{review.createdAt.substring(0, 10)}</div>
-            
-                  <div className="review__comment">{review.comment}</div>
+                  </div> */}
                   { userInfo ?
                   userInfo.isAdmin ?
-                  <button className="review__button" onClick={() => deleteHandler(review._id)}>Delete</button>
+                  // <button className="review__button" onClick={() => deleteHandler(review._id)}>Delete</button>
+                  <RiDeleteBin6Fill className="review__iconDelete" onClick={() => deleteHandler(review._id)}></RiDeleteBin6Fill>
                   :<div></div>
                   :null
                   }
+                  
             
+                  <div className="review__comment">{review.comment}</div>
+                  
+                  <div className="review__date">{review.createdAt.substring(0, 10)}</div>
                   </div>
                 </li>
               ))}
+              <div className="seeMore-container">
+                <button className="seeMore-container__view" onClick={() => setModalReviewsShow(true)}>View all reviews </button>
+              </div>
               </div>
               </ul>
+             
           </div>             
-           
-          <div className="submit">
-                <h2 className="submit__header">Write a customer review</h2>
-                {userInfo ? (
-                  <form className="submit__form" onSubmit={submitHandler}>
-                    {/* <ul className="form-container">
-                      <li> */}
-                      <div>
-                        <p className="submit__form__rating" htmlFor="rating">Rating</p>
-                        <select
-                          className="submit__form__selector"
-                          name="rating"
-                          id="rating"
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        >
-                          <option value="1">1- Poor</option>
-                          <option value="2">2- Fair</option>
-                          <option value="3">3- Good</option>
-                          <option value="4">4- Very Good</option>
-                          <option value="5">5- Excelent</option>
-                        </select>
-                      </div>
-                      {/* </li>
-                      <li> */}
-                      <div>
-                        <p className="submit__form__comment" htmlFor="comment">Comment</p>
-                        <textarea
-                          className="submit__form__input"
-                          name="comment"
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                        ></textarea>
-                      </div>
-                      {/* </li>
-                      <li> */}
-                        <button type="submit" className="submit__form__button">
-                          Submit
-                        </button>
-                      {/* </li>
-                    </ul> */}
-                  </form>
-                ) : (
-                  <div>
-                    Please <a href="#signin">Sign-in</a> to write a review.
-                  </div>
-                )}
-              {/* </li> */}
-              </div>
             </div>
         </div>
             

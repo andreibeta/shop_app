@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 //const mailgun = require("mailgun-js");
 
 dotenv.config();
-const DOMAIN = 'sandbox30e8f2def45f4f72864ce688443b18d8.mailgun.org';
+const DOMAIN = 'sandbox904fb5c289d74638b174af2cc72e0219.mailgun.org';
 const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN});
 
 const router = express.Router();

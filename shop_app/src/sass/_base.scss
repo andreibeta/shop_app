@@ -12,7 +12,9 @@ $bp-medium:56.25em;//900px/16px=56.25em
 $bp-small:37.5em;//600px/16px=37.5em
 $bp-smallest:31.25em;//500px/16px=31.25em;
 
-
+html,body {
+  height:100%;
+}
 html{
     font-size: 62.5%;/*default is 16px * 62.5  10px = 1 rem */
     box-sizing: border-box;
@@ -26,7 +28,7 @@ html{
   }
   body{
     font:1.6rem Arial;
-    height: 100vh;
+    //height: 100vh;
     margin:0;
   }
   button{
@@ -60,9 +62,10 @@ html{
     align-items: center;
     padding: 1rem;
     @media only screen and(max-width: $bp-small){
-      min-height: 3vh;
+      min-height: 4vh;
     }
   }
+  
   .logo{
     grid-area: logo;
     background-image: linear-gradient(rgba($color-primary,.9),rgba($color-primary,.9)),url(../images/header.png);
@@ -125,7 +128,22 @@ html{
     background-color: $color-primary-dark;
     }
   }
- 
+ .navigator{
+   width: 20%;
+   height: 100%;
+   display: flex;
+   transform: translateX(15%);
+   justify-content: space-around;
+   align-items: center;
+   a{
+     text-decoration: none;
+     padding: .5rem 1.5rem;
+     border-radius: .5rem;
+     &:hover{
+       background-color: $color-primary-dark;
+     }
+   }
+ }
 
   .footer{
     grid-area: footer;
@@ -207,6 +225,7 @@ html{
   background-color: #203040;
   margin: 0;
   text-align: center;
+  width:100%;
   box-shadow: 10px 10px 12px -5px rgba(0,0,0,0.75);
   ul{
     margin:0;
