@@ -3,6 +3,9 @@ import productRoute from './routes/productRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import reviewRoute from './routes/reviewRoute.js';
 import uploadRoute from './routes/uploadRoute.js';
+import forgotPasswordRoute from './routes/forgotPasswordRoute.js';
+import resetPasswordRoute from './routes/resetPasswordRoute.js';
+import uploadProfileImagesRoute from './routes/uploadProfileImageRoute.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import path from 'path';
@@ -29,6 +32,9 @@ app.use("/api/reviews",reviewRoute);
 app.use("/api/orders",orderRoute);
 app.use("/api/logout",userRoute);
 app.use('/api/uploads', uploadRoute);
+app.use('/api/forgot-password',forgotPasswordRoute);
+app.use('/api/resetpassword',resetPasswordRoute);
+app.use('/api/uploads-profile',uploadProfileImagesRoute);
 // app.get("/api/products/:id", (req, res) => {
 //   const productId = req.params.id;
 //   const product = data.products.find(x => x._id === productId);
@@ -45,6 +51,7 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/shop_app/build')));
 //app.use('/uploads',express.static('uploads'));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile')));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/shop_app/build/index.html'))
 );

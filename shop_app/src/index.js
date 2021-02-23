@@ -28,7 +28,7 @@ import reviewList from './reducers/reviewsListReducer';
 import submitRatingReducer from './reducers/submitRatingReducer';
 import forgotPasswordReducer from './reducers/forgotPasswordReducer';
 import changePasswordEmailReducer from './reducers/changePasswordEmailReducer';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
 const initialState ={cart:{cartItems, shipping:{}, payment:{}}, userSignin:{userInfo}};

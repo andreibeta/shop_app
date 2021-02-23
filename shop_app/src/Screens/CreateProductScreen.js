@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveProduct, productActionsCreator, deleteProduct } from '../actions/productActionsCreator';
 import Axios from 'axios';
-
+import {RiDeleteBin7Fill} from 'react-icons/ri';
+import {FaRegEdit} from 'react-icons/fa';
 function CreateProductScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
@@ -84,11 +85,11 @@ function CreateProductScreen(props) {
         },
       });
       setImage(data);
-      getMeta(data, function(width,height) { if( width > 380 && height > 480){
+      getMeta(data, function(width,height) { if( width > 388 && height > 249){
         alert("Okay");
         return true;
       }else{
-        alert("Not okay");
+        alert("Not okay minimum width:388 and height 249");
       }
     });
       setLoadingUpload(false);
@@ -191,9 +192,13 @@ function CreateProductScreen(props) {
             <div className="productContent__category">{product.category}</div>
             <div className="productContent__brand">{product.brand}</div>
             <div>
-              <a href="#createproduct" className="productContent__button--edit" onClick={() => openModal(product)} >Edit</a>
+              {/* <a href="#createproduct" className="productContent__button--edit" onClick={() => openModal(product)} >Edit</a> */}
               {' '}
-              <a className="productContent__button--delete" onClick={() => deleteHandler(product)}>Delete</a>
+              {/* <a className="productContent__button--delete" onClick={() => deleteHandler(product)}>Delete</a> */}
+              <a href="#createproduct">
+              <FaRegEdit  className="productContent__iconEdit" onClick={() => openModal(product)}></FaRegEdit>
+              </a>
+              <RiDeleteBin7Fill className="productContent__iconDelete"></RiDeleteBin7Fill>
             </div>
           </div>))}
     </div>

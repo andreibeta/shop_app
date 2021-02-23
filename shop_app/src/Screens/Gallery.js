@@ -21,15 +21,15 @@ const MyDot = ({ isActive }) => (
 
 const Gallery = () => {
   return (
-    <Carousel dot={MyDot} showDots autoplay={3000} loop>
+    <Carousel width="100%" dot={MyDot} showDots autoplay={5000} loop>
       <Carousel.Item>
-        <img src={image2} />
+        <img width="100%" min-height="25rem" src={image2} />
       </Carousel.Item>
       <Carousel.Item>
-        <img  src={image2} />
+        <img width="100%" src={image2} />
       </Carousel.Item>
       <Carousel.Item>
-        <img src={image3} />
+        <img width="100%" src={image3} />
       </Carousel.Item>
     </Carousel>
   )

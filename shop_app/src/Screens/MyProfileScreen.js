@@ -4,11 +4,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {FaUserCircle} from 'react-icons/fa';
 import {AiOutlineUser,AiTwotonePhone} from 'react-icons/ai';
 import {MdLocationOn,MdEmail} from 'react-icons/md';
+import {BsCardImage} from 'react-icons/bs';
 import { useForm } from "react-hook-form";
+import Axios from 'axios';
 
 function MyProfileScreen(props) {
     const { register, handleSubmit, errors, formState } = useForm({
-        mode: "onBlur",
+        mode: "onChange",
       });
 
     const userSignin = useSelector(state => state.userSignin);
@@ -23,6 +25,8 @@ function MyProfileScreen(props) {
     const [name, updateName] = useState('');
     const [phoneNumber, updatePhoneNumber] = useState('');
     const [country, updateCountry] = useState('');
+    const [image,setImage] = useState('');
+
 
     const dispatch = useDispatch();
 
@@ -34,6 +38,7 @@ function MyProfileScreen(props) {
             updateName(userInfo.name);
             updatePhoneNumber(userInfo.phoneNumber);
             updateCountry(userInfo.country);
+            //setImage(userInfo.image);
             }else{
               props.history.push('/signin');
             }
@@ -42,10 +47,27 @@ function MyProfileScreen(props) {
 
     const editHandler = (e) => {
         //e.preventDefault();
-        dispatch(editProfile({ userId: userInfo._id , name, phoneNumber, country}));
+        dispatch(editProfile({ userId: userInfo._id , name, phoneNumber, country,image}));
         setTimeout(function() {
           window.location.href="#";
       }, 1000);
+    }
+
+    const uploadFileHandler = async(e) =>{
+      const file = e.target.files[0];
+      const bodyFormData = new FormData();
+      bodyFormData.append('image',file);
+      try{
+        const {data } = await Axios.post('/api/uploads-profile', bodyFormData,{
+          headers: {
+            'Content-Type' : 'multipart/form-data',
+            Authorization:`Bearer ${userInfo.token}`,
+          },
+        });
+        setImage(data);
+      }catch(error){
+          alert(error.message);
+      }
     }
 
     return (
@@ -59,7 +81,13 @@ function MyProfileScreen(props) {
                     <p><MdEmail className="labelIcon"/>Email</p>
                     <input type="name" name="email" id="email" placeholder={userInfo.email} disabled>
                     </input>
-
+                    <p><BsCardImage className="labelIcon"/>Upload image</p>
+                    <input
+                      id="file"
+                      type="file"
+                      id="imageFile"
+                      onChange={uploadFileHandler}
+                      ></input>
 
                     {errors.name && <p style={{color:"red"}}><AiOutlineUser className="labelIcon"/>{errors.name.message}</p>}
                     {!errors.name && <p><AiOutlineUser className="labelIcon"/>Name</p>}
@@ -71,7 +99,7 @@ function MyProfileScreen(props) {
                     placeholder={user.name}
                     onChange={(event)=>updateName(event.target.value)}
                     ref={register({
-                        required:"You must specify a name",
+                        
                         minLength:{
                             value:6,
                             message:"Name must have at least 6 characters"
@@ -96,7 +124,7 @@ function MyProfileScreen(props) {
                     onChange={(event)=>updatePhoneNumber(event.target.value)}
                     pattern="[0-9]*"
                     ref={register({
-                        required: "You must specify a phone number",
+                        
                         minLength:{
                         value:6,
                         message:"Phone number must have minimum 6 digits"
@@ -121,7 +149,7 @@ function MyProfileScreen(props) {
                     placeholder={user.country} 
                     onChange={(event)=>updateCountry(event.target.value)}
                     ref={register({
-                        required: "You must specify a Country",
+                      
                         minLength:{
                           value:4,
                           message:"Minimum length is 4"

@@ -53,18 +53,18 @@ const myProfile = (email) => async (dispatch, getState) => {
   }
 }
 
-const editProfile = ({userId ,name , phoneNumber ,country}) => async (dispatch,getState) => {
+const editProfile = ({userId ,name , phoneNumber ,country, image}) => async (dispatch,getState) => {
   try{
     const { userSignin: { userInfo } } = getState();
-    dispatch({ type:EDIT_PROFILE_REQUEST, payload:{userId, name, phoneNumber, country} });
+    dispatch({ type:EDIT_PROFILE_REQUEST, payload:{userId, name, phoneNumber, country, image} });
     const { data } = await axios.put("/api/users/" + userId,
-    {name, phoneNumber, country},{
+    {name, phoneNumber, country, image},{
       headers:{
         Authorization: 'Bearer ' + userInfo.token
       }
     });
     dispatch({type:EDIT_PROFILE_SUCCESS, payload: data});
-    alert("Success");
+    alert("Please log out and signin to see the updates!");
   }catch(error){
     dispatch({type:EDIT_PROFILE_FAILED, payload: error.message})
   }
