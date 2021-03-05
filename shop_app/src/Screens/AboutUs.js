@@ -29,7 +29,19 @@ function AboutUs(props) {
             <figure className="aboutUs__item"><img className="aboutUs__img" src={image1}/></figure>
             <figure className="aboutUs__item2"><img className="aboutUs__img" src={image2}/></figure>
             <figure className="aboutUs__item3"><img className="aboutUs__img" src={image3}/></figure>
+        <div className="aboutUs__bottomContent">
+            <h3>
+                Making History
+            </h3>
+            <p>
+            His eu magna viris quidam, est modo postea ex. Vim no dicat apeirian salutandi, eum sanctus facilis id. Tota mucius disputationi vix ut, vero soluta expetenda eum id, usu ea inermis omittam deserunt. Ut pro audiam tamquam postulant. Oratio tantas postulant no pri, solet propriae dignissim no est. Et indoctum deterruisset has, usu ei doming imperdiet dissentias.
+            </p>
+            <p>
+            Pro te labores appellantur. Et vel singulis eleifend definitionem. Vel veri utinam bonorum ad. Nec fuisset appellantur eu, ipsum nonumes eloquentiam duo no. At eos nobis platonem. Et cum similique adolescens interpretaris, et legere meliore instructior qui.
+            </p>
+            </div>
         </div>
+        
     );
 }
 
