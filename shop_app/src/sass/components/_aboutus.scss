@@ -2,12 +2,15 @@
     //grid-row: 2 / 4;
     display: grid;
     grid-template-columns: repeat(10,1fr);
-    grid-template-rows: 5vw repeat(9,10vw);
+    grid-template-rows: max-content repeat(9,10vw) 5vw;
     margin-top: 3rem;
     grid-gap: 1.5rem;
     
     @media only screen and(min-width: $bp-largest){
-        grid-template-rows: 5vw repeat(9,8vw);
+        grid-template-rows: max-content repeat(9,8vw);
+      }
+    @media only screen and(max-width: $bp-medium){
+        grid-template-rows: min-content repeat(3,10vw) repeat(6,min-content);
       }
     &__title{
         grid-row: 1 / 2;
@@ -43,6 +46,7 @@
         }
     }
 
+
     &__img{
         width: 100%;
         height: 100%;
@@ -50,12 +54,25 @@
         display: block;
     }
     &__content{
-        grid-row: 5 / span 3;
+        grid-row: 5 / 8;
         grid-column: 3 / span 6;
         @media only screen and(min-width: $bp-largest){
-            grid-row: 5 / span 2 ;
+            grid-row: 5 / 7;
         }
         
+        h3{
+            font-weight: 600;
+        }
+        p{
+            font-size: 1.3rem;
+        }
+    }
+    &__bottomContent{
+        grid-row: 10 / 11;
+        grid-column: 3 / span 6;
+        @media only screen and(min-width: $bp-largest){
+            grid-row: 9 / 10;
+        }
         h3{
             font-weight: 600;
         }
