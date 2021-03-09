@@ -63,16 +63,16 @@ function SigninScreen(props) {
         <p className="signin__content__labelPassword">Password</p>
         <input className="signin__content__password" type="password" id="password" placeholder="password" name="password" onChange={(e) => setPassword(e.target.value)}>
         </input>
-        <button type="submit" className="signin__content__submit">Signin</button>
+        <button type="submit" className="signin__content__submit">Sign in</button>
         <div class="signin__content__item signin__content__item--1">
                 <img src={signinPhoto} alt="Gallery image 1" class="signin__content__image"></img>
         </div>
         <div className="signin__content__background"></div>
-         <p className="signin__content__question">Don't have an account?</p>
          <a href="#" class="signin__close">&times;</a>
         {/* <Link className="signin__registerPath" to={redirect === '/' ? "register" : "register?redirect="+redirect}>
             Register here
         </Link> */}
+        <a className="signin__content__forgotPassword" href="/forgot-password">Forgot Password?</a>
       </div>
   </form>
   )

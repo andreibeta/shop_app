@@ -14,7 +14,7 @@ function HomeScreen(props) {
     return(
         <div className="homepage">
             <h1 className="homepage__title">Cool sneakers reimagined for modern life</h1>
-            <a className="homepage__button">SHOP NOW</a>
+            <a className="homepage__button" href="/products">SHOP NOW</a>
             <figure className="homepage__item"><img src={image1} className="homepage__img" /></figure>
             <figure className="homepage__item2"><img src={image2} className="homepage__img2" /></figure>
             <h1 className="homepage__titleContent">Designed for fashion. Crafted for sport.</h1>

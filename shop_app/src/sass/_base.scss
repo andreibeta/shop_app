@@ -123,6 +123,7 @@ html{
     font-size: 2.5rem;
     font-weight: bold;
     text-decoration: none;
+    margin-left: 2rem;
   }
   .header-links{
     height: 100%;
@@ -149,6 +150,9 @@ html{
    transform: translateX(15%);
    justify-content: space-around;
    align-items: center;
+   @media only screen and(max-width: $bp-smallest){
+    display: none;
+  }  
    a{
      text-decoration: none;
      padding: .5rem 1.5rem;
@@ -177,24 +181,60 @@ html{
   }
   /*Sidebar */
   .brand button {
+    display: none;
+    @media only screen and(max-width: $bp-smallest){
     font-size: 3rem;
     padding: 0.5rem;
     background: none;
     border: none;
     color:white;
+    display: inline-block;
+    }
   }
   .sidebar{
+    display: none;
+    @media only screen and(max-width: $bp-smallest){
     position: fixed;
     transition: all 0.5s;
     transform: translateX(-30rem);
-    width: 30rem;
-    background-color:#f0f0f0;
-    height: 100%;
+    width: 45%;
+    background-color:$color-primary;
+    opacity: .9;
+    height: 100vh;
+    z-index: 2;
+    padding-top: 5%;
+    color:white;
+    }
+    a{
+      color: white;
+
+    }
   }
   .sidebar.open{
-    transform: translateX(0);
+    @media only screen and(max-width: $bp-smallest){
+      transform: translateX(0);
+      display: inline-block;
+      display: flex;
+      flex-direction: column;
+      a{
+        width: 100%;
+        text-align: center;
+        padding: 1.5rem;
+        letter-spacing: .2rem;
+        &:hover{
+          background-color:$color-primary-dark;
+          text-decoration: none;
+          color:white;
+          transform: scaleX(1.05);
+        }
+      }
+      h3{
+        text-align: center;
+      }
+    }  
   }
   .sidebar-close-button{
+    
     border-radius: 50%;
     border:0.1rem #000000 solid;
     width: 3rem;
@@ -223,7 +263,11 @@ html{
  .dropdown {
   display: inline-block;
   position: relative;
+  .dropbtn{
+    height: 100%;
+  }
   .userNav{
+    height: 100%;
     display: flex;
     align-items: center;
     .image{
@@ -236,6 +280,7 @@ html{
       border-radius: .5rem;
       background-color: $color-primary-dark;
     }
+    
 
   }  
 }
@@ -243,7 +288,7 @@ html{
   position: absolute;
   display: none;
   list-style-type: none;
-  z-index: 1;
+  z-index: 2;
   background-color: #203040;
   margin: 0;
   text-align: center;
