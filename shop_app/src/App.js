@@ -121,17 +121,15 @@ function App(props) {
         </header>
        
         {/* <Route path="/" exact={true} component={WelcomeHome} />    */}
-        <aside className="sidebar">
-            <h3>Shopping Categories</h3>
-            <button className="sidebar-close-button" onClick={closeMenu}>x</button>
-            <ul>
-                <li>
-                    <a href="index.html">Pants</a>
-                </li>
-                <li>
-                    <a href="index.html">Shirts</a>
-                </li>
-            </ul>
+        <aside class="sidebar">
+            <h3>Navigator</h3>
+            <button class="sidebar-close-button" onClick={closeMenu}>x</button>
+                
+                    <a href="/">Home</a>
+                
+                    <a href="/products">Products</a>
+              
+                    <a href="/aboutUs">About Us</a>
         </aside>
             {/*////popup///// */}
             {userInfo ? <ChangePasswordScreen></ChangePasswordScreen> : null }
@@ -152,7 +150,8 @@ function App(props) {
                 <Route path="/product/:id" render={(props) => <ProductScreen qty={qty} setQty={setQty} {...props}/>} />
                 <Route path="/cart/:id?" exact={true} render={(props) => <CartScreen qty={qty} {...props}/>}/> 
                 <Route path="/products" component={ProductsScreen} /> 
-                <Route path="/" exact={true} component={HomeScreen} />  
+                <Route path="/" exact={true} component={HomeScreen} />
+                <Route path="/index.html" component={HomeScreen} />    
                 <Route path ="/aboutUs" component={AboutUs} />
                 <Route component={NotFound} />             
             </Switch> 
