@@ -18,10 +18,10 @@ import { useDispatch } from 'react-redux';
 import MyProfileScreen from './Screens/MyProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 import MyUsersScreen from './Screens/MyUsersScreen';
-import WelcomeHome from './components/WelcomeHome';
+
 import { Router, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './Screens/NotFound';
-import profile_2 from './images/profile-2.png';
+
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import ResetPasswordviaEmailScreen from './Screens/ResetPasswordviaEmailScreen';
 import AboutUs from './Screens/AboutUs';
@@ -125,11 +125,11 @@ function App(props) {
             <h3>Navigator</h3>
             <button class="sidebar-close-button" onClick={closeMenu}>x</button>
                 
-                    <a href="/">Home</a>
+                    <Link to="/">Home</Link>
                 
-                    <a href="/products">Products</a>
+                    <Link to="/products">Products</Link>
               
-                    <a href="/aboutUs">About Us</a>
+                    <Link to="/aboutUs">About Us</Link>
         </aside>
             {/*////popup///// */}
             {userInfo ? <ChangePasswordScreen></ChangePasswordScreen> : null }

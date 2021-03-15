@@ -52,9 +52,12 @@ app.use(express.static(path.join(__dirname, '/shop_app/build')));
 //app.use('/uploads',express.static('uploads'));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile')));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
+
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
