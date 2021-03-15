@@ -40,7 +40,8 @@ function RegisterScreen(props) {
     }
   }
   return (
-    <form className="register" onSubmit={handleSubmit(submitHandler)}>
+    <div className="register">
+    <form className="registerContainer" onSubmit={handleSubmit(submitHandler)}>
       <h2 className="register__header">Create an account</h2>
        {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
@@ -173,14 +174,17 @@ function RegisterScreen(props) {
       })}
       style={{borderColor:errors.rePassword && "red"}}
       />
-      <button type="submit" className="register__button" disabled={formState.isSubmiting}>Register</button>
-      <div className="register__background"></div>
-      <div class="register__item register__item--1">
+      <a type="submit" className="registerContainer__button" disabled={formState.isSubmiting}>Register</a>
+      {/* <div class="register__item register__item--1">
                 <img src={registerPhoto} alt="Gallery image 1" class="register__image"></img>
-        </div>
+        </div> */}
       {/* <p>Already have an account?</p>
       <Link to="/signin">Sign-in</Link>   */}
     </form>
+    
+                {/* <img src={registerPhoto} alt="Gallery image 1" class="register__image"></img> */}
+    
+    </div>
   )
 }
 export default RegisterScreen;

@@ -29,13 +29,15 @@ function MyVerticallyCenteredModal(props) {
         centered
         contentClassName="writeReviewModal"
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Header  closeButton>
+          <Modal.Title className="writeReviewTitle" id="contained-modal-title-vcenter">
              Write your review
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="modalBody">
+        
         <Form className="modalForm" onSubmit={submitHandler}>
+        <Form.Label className="modalForm__label">Rating</Form.Label>
             <Form.Control 
                 as="select"
                 className="modalForm__selector"
@@ -50,15 +52,17 @@ function MyVerticallyCenteredModal(props) {
                           <option value="4">4- Very Good</option>
                           <option value="5">5- Excelent</option>
               </Form.Control>
+              <Form.Label className="modalForm__label">Comment</Form.Label>
                 <Form.Control
                     as="textarea"
                     className="modalForm__comment"
                     rows={3}
                     name="comment"
+                    placeholder="Your comment"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                         />
-                  <Button className="modalForm__submit" type="submit" onClick={props.onHide}>Submit</Button>
+                  <a className="modalForm__submit" type="submit" onClick={props.onHide}>Submit</a>
                 </Form>
         </Modal.Body>
       </Modal>

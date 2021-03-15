@@ -105,7 +105,7 @@ function CreateProductScreen(props) {
 
     <div className="productHeader">
       <h3>Products</h3>
-      <a href="#createproduct" className="productContent__button" onClick={() => openModal({})}>Create New Product</a>
+      <a href="#createproduct" className="productHeader__button" onClick={() => openModal({})}>Create New Product</a>
     </div>
     {modalVisible &&
         <form id="createproduct" className="createproduct" onSubmit={submitHandler} >
@@ -198,7 +198,7 @@ function CreateProductScreen(props) {
               <a href="#createproduct">
               <FaRegEdit  className="productContent__iconEdit" onClick={() => openModal(product)}></FaRegEdit>
               </a>
-              <RiDeleteBin7Fill className="productContent__iconDelete"></RiDeleteBin7Fill>
+              <RiDeleteBin7Fill className="productContent__iconDelete" onClick = {() => deleteHandler(product)}></RiDeleteBin7Fill>
             </div>
           </div>))}
     </div>
