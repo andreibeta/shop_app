@@ -106,8 +106,8 @@ function App(props) {
                             <a class="dropbtn">Admin Panel</a>
                             <div class="dropdown-content">
                         <ul>
-                            <li> <a href="/mylistofusers">My Users</a> </li>
-                            <li> <a href="/createProduct">Create Product</a></li>
+                            <li> <Link to="/mylistofusers">My Users</Link> </li>
+                            <li> <Link to="/createProduct">Create Product</Link></li>
                         </ul>
                             </div>
                          </div> 
