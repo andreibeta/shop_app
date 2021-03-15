@@ -56,7 +56,8 @@ app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile'
 //   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 // });
 app.get('*', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/../shop_app/build/index.html`));
+  //res.sendFile(path.join(`${__dirname}+/shop_app/shop_app/build/index.html`));
+  res.sendFile(path.resolve(__dirname + '/shop_app/shop_app/build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
