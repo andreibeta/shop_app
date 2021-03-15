@@ -47,7 +47,7 @@ app.use('/api/uploads-profile',uploadProfileImagesRoute);
 // app.get("/api/products", (req, res) => {
 //   res.send(data.products);
 // });
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/shop_app/build')));
 //app.use('/uploads',express.static('uploads'));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
