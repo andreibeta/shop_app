@@ -40,6 +40,9 @@ html{
         text-transform: none;
     //height: 100vh;
     margin:0;
+    a{
+      text-decoration: none !important;
+    }
   }
   button{
     font-weight: 1.6rem;
