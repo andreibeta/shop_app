@@ -19,13 +19,13 @@
     align-content: space-around;
 }
 .modalForm{
-    width: 80%;
     height: 100%;
     display: flex;
     // flex-direction: column;
     // justify-content: space-around;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: space-around;
     padding: 1rem;
     & > * {
         margin-bottom: .5rem;
@@ -66,5 +66,6 @@ box-shadow: 2px 11px 10px -6px rgba(0,0,0,0.75);
         text-transform: uppercase;
         font-weight: 500;
         letter-spacing: .2rem;
+        width: 100%;
     }
 }
