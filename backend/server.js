@@ -48,16 +48,16 @@ app.use('/api/uploads-profile',uploadProfileImagesRoute);
 //   res.send(data.products);
 // });
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/shop_app/build')));
+app.use(express.static(path.join(__dirname, '/shop_app/shop_app/build')));
 //app.use('/uploads',express.static('uploads'));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile')));
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 // });
-app.get('*', (req, res) => {
-  //res.sendFile(path.join(`${__dirname}+/shop_app/shop_app/build/index.html`));
-  res.sendFile(path.resolve(__dirname + '/shop_app/shop_app/build/index.html'));
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'build', 'index.html');
+  res.sendFile(index);
 });
 
 const port = process.env.PORT || 5000;
