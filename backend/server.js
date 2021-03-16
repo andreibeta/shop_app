@@ -56,7 +56,7 @@ app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile'
 //   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 // });
 app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'build', 'index.html');
+  const index = path.join(__dirname,'shop_app', 'build', 'index.html');
   res.sendFile(index);
 });
 
