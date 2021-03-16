@@ -48,7 +48,7 @@ app.use('/api/uploads-profile',uploadProfileImagesRoute);
 //   res.send(data.products);
 // });
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/shop_app/shop_app/build')));
+app.use(express.static(path.join(__dirname, '/shop_app/build')));
 //app.use('/uploads',express.static('uploads'));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/uploads-profile',express.static(path.join(__dirname,'/uploads-profile')));
