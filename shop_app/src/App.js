@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import MyProfileScreen from './Screens/MyProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 import MyUsersScreen from './Screens/MyUsersScreen';
+import ActivateAccount from './Screens/ActivateAccount';
 
 import { Router, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import NotFound from './Screens/NotFound';
@@ -147,6 +148,7 @@ function App(props) {
                 <Route path="/register" component={RegisterScreen} />
                 <Route path="/forgot-password" component={ForgotPasswordScreen}/>
                 <Route path="/resetpassword/:id" component={ResetPasswordviaEmailScreen} />
+                <Route path="/activate-account/:id" component={ActivateAccount}/>
                 <Route path="/product/:id" render={(props) => <ProductScreen qty={qty} setQty={setQty} {...props}/>} />
                 <Route path="/cart/:id?" exact={true} render={(props) => <CartScreen qty={qty} {...props}/>}/> 
                 <Route path="/products" component={ProductsScreen} /> 

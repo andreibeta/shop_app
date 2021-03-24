@@ -3,6 +3,14 @@ import User from '../models/userModel.js';
 import { getToken, isAdmin } from '../util.js';
 import Order from '../models/orderModel.js';
 import { isAuth } from '../util.js';
+import mailgun from 'mailgun-js';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
+const DOMAIN = 'sandbox904fb5c289d74638b174af2cc72e0219.mailgun.org';
+const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN});
+
 
 const router = express.Router();
 
@@ -107,29 +115,69 @@ router.post('/signin', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    email:req.body.email,
-    password:req.body.password,
-    phoneNumber:req.body.phoneNumber,
-    country:req.body.country,
-  });
-  const newUser = await user.save();
-  if(newUser){
-    res.send({
-      _id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      isAdmin: newUser.isAdmin,
-      token: getToken(newUser),
-      phoneNumber:req.body.phoneNumber,
-      country:req.body.country,
-    })
-  } else {
-    res.status(401).send({ msg: 'Invalid User Data.' });
-  }
-
+  const {name,email,password,phoneNumber,country} = req.body;
+  User.findOne({email}).exec((err,user) => {
+    if(user){
+      return res.status(400).send("User with this mail already exists");
+    }
+    const token = jwt.sign({name,email,password,phoneNumber,country},process.env.JWT_ACC_ACTIVATE,{expiresIn:'20m'});
+    const data = {
+      from:'shopApp@shopApp.com',
+      to:email,
+      subject:'Account Activation Link SHOP APP',
+      html:`
+        <h2>Please click on given link to activate your account password</h2>
+        <a href="http://localhost:3000/activate-account/${token}">Click here</a>
+      `
+    };
+    mg.messages().send(data, function (error, body) {
+      if(error){
+        return res.json({
+          message:err.message
+        })
+      }
+      return res.json({message: 'Email has been sent, kindly activate your account!'})
+      console.log(body);
+    });
+    // let newUser = new User({name,email,password,phoneNumber,country});
+    // newUser.save((err,success) => {
+    //   if(err){
+    //     return res.status(400).json({message:err});
+    //   }
+    //   res.json({
+    //     message:"Register was successfull"
+    //   })
+    // })
+  })
 })
+
+router.post('/activate-account',async(req,res)=> {
+  const {token} = req.body;
+  if(token){
+    jwt.verify(token,process.env.JWT_ACC_ACTIVATE, function(err, decodedToken) {
+      if(err){
+        return res.status(400).json({error:'Incorrect or expired link!'});
+      }
+      const {name,email,password,phoneNumber,country} = decodedToken;
+      User.findOne({email}).exec((err,user) => {
+          if(user){
+              return res.status(400).send("User with this mail already exists");
+            }
+          let newUser = new User({name,email,password,phoneNumber,country});
+          newUser.save((err,success) => {
+          if(err){
+            return res.status(400).send("Error in signup while in account activation");
+          }
+          res.json({
+            message:"Register was successfull"
+            })
+          })
+    })
+    })
+  }else{
+    return res.json({error:"Something went wrong!"});
+  }
+} )
 router.get("/createadmin", async (req, res) => {
   try {
     const user = new User({

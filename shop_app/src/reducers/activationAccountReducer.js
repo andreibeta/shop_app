@@ -1,12 +1,12 @@
-import {USER_REGISTER_REQUEST,USER_REGISTER_SUCCESS,USER_REGISTER_FAILED} from '../constants/userConstants';
+import {USER_ACTIVATION_REQUEST, USER_ACTIVATION_SUCCESS, USER_ACTIVATION_FAILED} from '../constants/userConstants';
 
 const reducer = (state = {},action) => {
     switch(action.type){
-        case USER_REGISTER_REQUEST:
+        case USER_ACTIVATION_REQUEST:
             return {loading: true};
-        case USER_REGISTER_SUCCESS:
+        case USER_ACTIVATION_SUCCESS:
             return {loading:false, response: action.payload,success:true};
-        case USER_REGISTER_FAILED:
+        case USER_ACTIVATION_FAILED:
             return {loading: false, error: action.payload};
         default:
             return state;
