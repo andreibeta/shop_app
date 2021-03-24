@@ -10,7 +10,8 @@ import {USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAILED,
   USERS_LIST_REQUEST,USERS_LIST_SUCCESS,USERS_LIST_FAILED,
   USER_DELETE_REQUEST,USER_DELETE_SUCCESS,USER_DELETE_FAILED,
   USER_FORGOT_REQUEST,USER_FORGOT_SUCCESS,USER_FORGOT_FAILED,
-  USER_RESET_PASSWORD_REQUEST,USER_RESET_PASSWORD_SUCCESS,USER_RESET_PASSWORD_FAILED} from '../constants/userConstants';
+  USER_RESET_PASSWORD_REQUEST,USER_RESET_PASSWORD_SUCCESS,USER_RESET_PASSWORD_FAILED,
+  USER_ACTIVATION_REQUEST,USER_ACTIVATION_SUCCESS,USER_ACTIVATION_FAILED} from '../constants/userConstants';
 
 const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
@@ -27,12 +28,21 @@ const registerUser = (name, email, password, phoneNumber, country) => async (dis
     dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password, phoneNumber, country } });
     try {
       const { data } = await axios.post("/api/users/register", {name, email, password, phoneNumber, country });
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: data.message });
       //Cookie.set('userInfo', JSON.stringify(data));
     } catch (error) {
-      dispatch({ type: USER_REGISTER_FAILED, payload: error.message });
+      dispatch({ type: USER_REGISTER_FAILED, payload: error.response.data });
     }
+}
+const activateUser = (token) => async(dispatch) => {
+  dispatch({type:USER_ACTIVATION_REQUEST,payload:token});
+  try{  
+    const {data} = await axios.post("/api/users/activate-account/",{token});
+    dispatch({type:USER_ACTIVATION_SUCCESS,payload:data.message});
+  }catch(error){
+    dispatch({type:USER_ACTIVATION_FAILED,payload:error.response.data});
   }
+}
   const logout = () => (dispatch) => {
     Cookie.remove("userInfo");
     dispatch({ type: USER_LOGOUT })
@@ -162,4 +172,4 @@ const resetPassword = (resetLink, newPassword) => async(dispatch) => {
 
 
 
-export { signin, registerUser,logout,deleteOrder, myProfile,editProfile, changePassword, myListOfUsers, deleteUser,forgotPassword,resetPassword}
+export { signin, registerUser,activateUser,logout,deleteOrder, myProfile,editProfile, changePassword, myListOfUsers, deleteUser,forgotPassword,resetPassword}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../actions/userActionsCreator';
-import registerPhoto from '../images/register.png';
 import { useForm } from "react-hook-form";
 
 
@@ -17,27 +16,33 @@ function RegisterScreen(props) {
   const [phoneNumber,setPhoneNumber] = useState('');
   const [country,setCountry] = useState('');
   const userRegister = useSelector(state => state.userRegister);
-  const { loading, userInfo, error } = userRegister;
+  const { loading, success,response, error } = userRegister;
   const dispatch = useDispatch();
   const redirect = props.location.search ? props.location.search.split("=")[1]:'/';
 
   useEffect(() => {
-     
+    if(response){
+      console.log("RESPONSE:",response);
+      alert(response);
+      if(success){
+        setTimeout(()=>{
+          props.history.push('/');
+        },500) 
+      } 
+    }
     
     return () => {
       //
     };
-  }, []);
+  }, [response]);
 
   const submitHandler = (e) => {
     //e.preventDefault();
-    if(password === rePassword){
+    
     dispatch(registerUser(name,email, password, phoneNumber, country));
-    props.history.push(redirect);
-    alert("Account created");
-    }else{
-      alert("Passwords are not completed the same");
-    }
+    //props.history.push(redirect);
+    //alert("Account created");
+    
   }
   return (
     <div className="register">
@@ -174,7 +179,8 @@ function RegisterScreen(props) {
       })}
       style={{borderColor:errors.rePassword && "red"}}
       />
-      <a type="submit" className="registerContainer__button" disabled={formState.isSubmiting}>Register</a>
+      {/* <a type="submit" className="registerContainer__button" disabled={formState.isSubmiting}>Register</a> */}
+      <button type="submit" className="registerContainer__button">Register</button>
       {/* <div class="register__item register__item--1">
                 <img src={registerPhoto} alt="Gallery image 1" class="register__image"></img>
         </div> */}
