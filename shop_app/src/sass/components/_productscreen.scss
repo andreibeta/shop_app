@@ -12,6 +12,11 @@
 //   grid-column: 1 / -1;
 //   grid-row: 1 / 2;
 // }
+.back{
+  color:$color-primary;
+  letter-spacing: .1rem;
+  margin-left: 1%;
+}
 .details{
   width: 100%;
   display: grid;

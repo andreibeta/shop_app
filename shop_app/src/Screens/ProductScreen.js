@@ -14,7 +14,7 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import Form from 'react-bootstrap/Form';
 import MyVerticallyCenteredModal from '../components/MyVerticallyCenteredModal';
 import ReviewsModal from '../components/ReviewsModal';
-
+import {TiArrowBack} from 'react-icons/ti';
 
 function ProductScreen (props) {
     const qty = props.qty;
@@ -87,7 +87,7 @@ function ProductScreen (props) {
     return (
         <div className="product-screen">
             <div className="back-to-results">
-                <Link to="/products">Back to results</Link>
+                <Link to="/products" className="back"><TiArrowBack style={{width:'2rem', height:'2rem'}}></TiArrowBack>Back </Link>
             </div>
             {loading ? <div>Loading..</div>:
             error ? <div>{error}</div> :
