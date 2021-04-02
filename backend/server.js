@@ -14,7 +14,7 @@ import express from 'express';
 dotenv.config();
 
 
-mongoose.connect('mongodb+srv://andreibeta:347120@cluster0.qanre.mongodb.net/shop_app?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
